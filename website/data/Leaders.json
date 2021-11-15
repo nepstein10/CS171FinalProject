@@ -1,0 +1,602 @@
+[
+ {
+   "Player": "Paul Millsap\\millspa01",
+   "Pos": "PF",
+   "Tm": "ATL",
+   "MP": 2343,
+   "TS%": 0.542,
+   "AST%": 17.9,
+   "TOV%": 12.1,
+   "USG%": 24.4
+ },
+ {
+   "Player": "Dennis Schroder\\schrode01",
+   "Pos": "PG",
+   "Tm": "ATL",
+   "MP": 2485,
+   "TS%": 0.533,
+   "AST%": 35.5,
+   "TOV%": 16.3,
+   "USG%": 27.8
+ },
+ {
+   "Player": "Avery Bradley\\bradlav01",
+   "Pos": "SG",
+   "Tm": "BOS",
+   "MP": 1835,
+   "TS%": 0.548,
+   "AST%": 10.9,
+   "TOV%": 9.7,
+   "USG%": 21.9
+ },
+ {
+   "Player": "Isaiah Thomas\\thomais02",
+   "Pos": "PG",
+   "Tm": "BOS",
+   "MP": 2569,
+   "TS%": 0.625,
+   "AST%": 32.6,
+   "TOV%": 10.7,
+   "USG%": 34
+ },
+ {
+   "Player": "Jeremy Lin\\linje01",
+   "Pos": "PG",
+   "Tm": "BRK",
+   "MP": 883,
+   "TS%": 0.566,
+   "AST%": 35.5,
+   "TOV%": 15.7,
+   "USG%": 26.6
+ },
+ {
+   "Player": "Brook Lopez\\lopezbr01",
+   "Pos": "C",
+   "Tm": "BRK",
+   "MP": 2222,
+   "TS%": 0.578,
+   "AST%": 14.8,
+   "TOV%": 12.1,
+   "USG%": 29.2
+ },
+ {
+   "Player": "Jimmy Butler\\butleji01",
+   "Pos": "SF",
+   "Tm": "CHI",
+   "MP": 2809,
+   "TS%": 0.586,
+   "AST%": 24.8,
+   "TOV%": 9.3,
+   "USG%": 26.5
+ },
+ {
+   "Player": "Dwyane Wade\\wadedw01",
+   "Pos": "SG",
+   "Tm": "CHI",
+   "MP": 1792,
+   "TS%": 0.508,
+   "AST%": 22.4,
+   "TOV%": 11.3,
+   "USG%": 29.6
+ },
+ {
+   "Player": "Jeremy Lamb\\lambje01",
+   "Pos": "SG",
+   "Tm": "CHO",
+   "MP": 1143,
+   "TS%": 0.55,
+   "AST%": 11.3,
+   "TOV%": 6.8,
+   "USG%": 23.2
+ },
+ {
+   "Player": "Kemba Walker\\walkeke02",
+   "Pos": "PG",
+   "Tm": "CHO",
+   "MP": 2739,
+   "TS%": 0.569,
+   "AST%": 29.1,
+   "TOV%": 9.5,
+   "USG%": 29.2
+ },
+ {
+   "Player": "LeBron James\\jamesle01",
+   "Pos": "SF",
+   "Tm": "CLE",
+   "MP": 2794,
+   "TS%": 0.619,
+   "AST%": 41.3,
+   "TOV%": 16.1,
+   "USG%": 30
+ },
+ {
+   "Player": "Kyrie Irving\\irvinky01",
+   "Pos": "PG",
+   "Tm": "CLE",
+   "MP": 2525,
+   "TS%": 0.58,
+   "AST%": 29.7,
+   "TOV%": 10.3,
+   "USG%": 30.8
+ },
+ {
+   "Player": "Dirk Nowitzki\\nowitdi01",
+   "Pos": "PF",
+   "Tm": "DAL",
+   "MP": 1424,
+   "TS%": 0.529,
+   "AST%": 10.6,
+   "TOV%": 6.6,
+   "USG%": 25.8
+ },
+ {
+   "Player": "J.J. Barea\\bareajo01",
+   "Pos": "PG",
+   "Tm": "DAL",
+   "MP": 771,
+   "TS%": 0.521,
+   "AST%": 44.2,
+   "TOV%": 14.7,
+   "USG%": 26.2
+ },
+ {
+   "Player": "Emmanuel Mudiay\\mudiaem01",
+   "Pos": "PG",
+   "Tm": "DEN",
+   "MP": 1406,
+   "TS%": 0.483,
+   "AST%": 21.8,
+   "TOV%": 16.5,
+   "USG%": 22.6
+ },
+ {
+   "Player": "Nikola Jokic\\jokicni01",
+   "Pos": "C",
+   "Tm": "DEN",
+   "MP": 2038,
+   "TS%": 0.64,
+   "AST%": 28.8,
+   "TOV%": 15.2,
+   "USG%": 23.5
+ },
+ {
+   "Player": "Andre Drummond\\drumman01",
+   "Pos": "C",
+   "Tm": "DET",
+   "MP": 2409,
+   "TS%": 0.518,
+   "AST%": 5.9,
+   "TOV%": 12.5,
+   "USG%": 22.4
+ },
+ {
+   "Player": "Reggie Jackson\\jacksre01",
+   "Pos": "PG",
+   "Tm": "DET",
+   "MP": 1424,
+   "TS%": 0.51,
+   "AST%": 30.3,
+   "TOV%": 13.4,
+   "USG%": 26.4
+ },
+ {
+   "Player": "Kevin Durant\\duranke01",
+   "Pos": "SF",
+   "Tm": "GSW",
+   "MP": 2070,
+   "TS%": 0.651,
+   "AST%": 23.1,
+   "TOV%": 10.4,
+   "USG%": 27.8
+ },
+ {
+   "Player": "Stephen Curry\\curryst01",
+   "Pos": "PG",
+   "Tm": "GSW",
+   "MP": 2638,
+   "TS%": 0.624,
+   "AST%": 31.1,
+   "TOV%": 13,
+   "USG%": 30.1
+ },
+ {
+   "Player": "Eric Gordon\\gordoer01",
+   "Pos": "SG",
+   "Tm": "HOU",
+   "MP": 2323,
+   "TS%": 0.557,
+   "AST%": 12.3,
+   "TOV%": 10,
+   "USG%": 22.1
+ },
+ {
+   "Player": "James Harden\\hardeja01",
+   "Pos": "PG",
+   "Tm": "HOU",
+   "MP": 2947,
+   "TS%": 0.613,
+   "AST%": 50.7,
+   "TOV%": 19.5,
+   "USG%": 34.2
+ },
+ {
+   "Player": "Al Jefferson\\jeffeal01",
+   "Pos": "C",
+   "Tm": "IND",
+   "MP": 931,
+   "TS%": 0.526,
+   "AST%": 11,
+   "TOV%": 6.1,
+   "USG%": 26.1
+ },
+ {
+   "Player": "Paul George\\georgpa01",
+   "Pos": "SF",
+   "Tm": "IND",
+   "MP": 2689,
+   "TS%": 0.586,
+   "AST%": 16.1,
+   "TOV%": 12.6,
+   "USG%": 28.9
+ },
+ {
+   "Player": "Chris Paul\\paulch01",
+   "Pos": "PG",
+   "Tm": "LAC",
+   "MP": 1921,
+   "TS%": 0.614,
+   "AST%": 46.8,
+   "TOV%": 14,
+   "USG%": 24.4
+ },
+ {
+   "Player": "Blake Griffin\\griffbl01",
+   "Pos": "PF",
+   "Tm": "LAC",
+   "MP": 2076,
+   "TS%": 0.569,
+   "AST%": 24.5,
+   "TOV%": 10.9,
+   "USG%": 28
+ },
+ {
+   "Player": "Lou Williams\\willilo02",
+   "Pos": "SG",
+   "Tm": "LAL",
+   "MP": 1403,
+   "TS%": 0.609,
+   "AST%": 22.3,
+   "TOV%": 11.9,
+   "USG%": 30.6
+ },
+ {
+   "Player": "D'Angelo Russell\\russeda01",
+   "Pos": "PG",
+   "Tm": "LAL",
+   "MP": 1811,
+   "TS%": 0.518,
+   "AST%": 26.8,
+   "TOV%": 15.6,
+   "USG%": 26.6
+ },
+ {
+   "Player": "Marc Gasol\\gasolma01",
+   "Pos": "C",
+   "Tm": "MEM",
+   "MP": 2531,
+   "TS%": 0.554,
+   "AST%": 24.8,
+   "TOV%": 11.3,
+   "USG%": 26.4
+ },
+ {
+   "Player": "Zach Randolph\\randoza01",
+   "Pos": "PF",
+   "Tm": "MEM",
+   "MP": 1786,
+   "TS%": 0.49,
+   "AST%": 13.5,
+   "TOV%": 8.6,
+   "USG%": 29.2
+ },
+ {
+   "Player": "Dion Waiters\\waitedi01",
+   "Pos": "SG",
+   "Tm": "MIA",
+   "MP": 1384,
+   "TS%": 0.507,
+   "AST%": 23.8,
+   "TOV%": 12.5,
+   "USG%": 26.3
+ },
+ {
+   "Player": "Goran Dragic\\dragigo01",
+   "Pos": "PG",
+   "Tm": "MIA",
+   "MP": 2459,
+   "TS%": 0.575,
+   "AST%": 29,
+   "TOV%": 14.1,
+   "USG%": 27.1
+ },
+ {
+   "Player": "Jabari Parker\\parkeja01",
+   "Pos": "PF",
+   "Tm": "MIL",
+   "MP": 1728,
+   "TS%": 0.563,
+   "AST%": 14.3,
+   "TOV%": 9.2,
+   "USG%": 26.5
+ },
+ {
+   "Player": "Giannis Antetokounmpo\\antetgi01",
+   "Pos": "SF",
+   "Tm": "MIL",
+   "MP": 2845,
+   "TS%": 0.599,
+   "AST%": 26.6,
+   "TOV%": 13.3,
+   "USG%": 28.3
+ },
+ {
+   "Player": "Karl-Anthony Towns\\townska01",
+   "Pos": "C",
+   "Tm": "MIN",
+   "MP": 3030,
+   "TS%": 0.618,
+   "AST%": 13.2,
+   "TOV%": 11.3,
+   "USG%": 27.5
+ },
+ {
+   "Player": "Andrew Wiggins\\wiggian01",
+   "Pos": "SF",
+   "Tm": "MIN",
+   "MP": 3048,
+   "TS%": 0.534,
+   "AST%": 10.6,
+   "TOV%": 9.4,
+   "USG%": 29
+ },
+ {
+   "Player": "Jrue Holiday\\holidjr01",
+   "Pos": "PG",
+   "Tm": "NOP",
+   "MP": 2190,
+   "TS%": 0.532,
+   "AST%": 35.9,
+   "TOV%": 16.7,
+   "USG%": 23.5
+ },
+ {
+   "Player": "Anthony Davis\\davisan02",
+   "Pos": "C",
+   "Tm": "NOP",
+   "MP": 2708,
+   "TS%": 0.579,
+   "AST%": 11.1,
+   "TOV%": 9.1,
+   "USG%": 32.6
+ },
+ {
+   "Player": "Derrick Rose\\rosede01",
+   "Pos": "PG",
+   "Tm": "NYK",
+   "MP": 2082,
+   "TS%": 0.53,
+   "AST%": 22.8,
+   "TOV%": 11.9,
+   "USG%": 25.7
+ },
+ {
+   "Player": "Carmelo Anthony\\anthoca01",
+   "Pos": "SF",
+   "Tm": "NYK",
+   "MP": 2538,
+   "TS%": 0.535,
+   "AST%": 14.5,
+   "TOV%": 9,
+   "USG%": 29.1
+ },
+ {
+   "Player": "Enes Kanter\\kanteen01",
+   "Pos": "C",
+   "Tm": "OKC",
+   "MP": 1533,
+   "TS%": 0.599,
+   "AST%": 7.9,
+   "TOV%": 12.5,
+   "USG%": 27.3
+ },
+ {
+   "Player": "Russell Westbrook\\westbru01",
+   "Pos": "PG",
+   "Tm": "OKC",
+   "MP": 2802,
+   "TS%": 0.554,
+   "AST%": 57.3,
+   "TOV%": 15.9,
+   "USG%": 41.7
+ },
+ {
+   "Player": "Evan Fournier\\fournev01",
+   "Pos": "SG",
+   "Tm": "ORL",
+   "MP": 2234,
+   "TS%": 0.555,
+   "AST%": 14.8,
+   "TOV%": 11.8,
+   "USG%": 23.5
+ },
+ {
+   "Player": "Nikola Vucevic\\vucevni01",
+   "Pos": "C",
+   "Tm": "ORL",
+   "MP": 2163,
+   "TS%": 0.498,
+   "AST%": 16.9,
+   "TOV%": 9.6,
+   "USG%": 24.8
+ },
+ {
+   "Player": "Dario Saric\\saricda01",
+   "Pos": "PF",
+   "Tm": "PHI",
+   "MP": 2129,
+   "TS%": 0.508,
+   "AST%": 14.3,
+   "TOV%": 15.2,
+   "USG%": 24.6
+ },
+ {
+   "Player": "Joel Embiid\\embiijo01",
+   "Pos": "C",
+   "Tm": "PHI",
+   "MP": 786,
+   "TS%": 0.584,
+   "AST%": 16,
+   "TOV%": 17.9,
+   "USG%": 36
+ },
+ {
+   "Player": "Eric Bledsoe\\bledser01",
+   "Pos": "PG",
+   "Tm": "PHO",
+   "MP": 2176,
+   "TS%": 0.563,
+   "AST%": 31.1,
+   "TOV%": 15.3,
+   "USG%": 28.1
+ },
+ {
+   "Player": "Devin Booker\\bookede01",
+   "Pos": "SG",
+   "Tm": "PHO",
+   "MP": 2730,
+   "TS%": 0.531,
+   "AST%": 16.3,
+   "TOV%": 12.9,
+   "USG%": 28.6
+ },
+ {
+   "Player": "C.J. McCollum\\mccolcj01",
+   "Pos": "SG",
+   "Tm": "POR",
+   "MP": 2796,
+   "TS%": 0.585,
+   "AST%": 18,
+   "TOV%": 9.9,
+   "USG%": 27.5
+ },
+ {
+   "Player": "Damian Lillard\\lillada01",
+   "Pos": "PG",
+   "Tm": "POR",
+   "MP": 2694,
+   "TS%": 0.586,
+   "AST%": 28.7,
+   "TOV%": 10.2,
+   "USG%": 31.5
+ },
+ {
+   "Player": "DeMarcus Cousins\\couside01",
+   "Pos": "C",
+   "Tm": "SAC",
+   "MP": 1891,
+   "TS%": 0.562,
+   "AST%": 27.4,
+   "TOV%": 13.2,
+   "USG%": 37.5
+ },
+ {
+   "Player": "Rudy Gay\\gayru01",
+   "Pos": "SF",
+   "Tm": "SAC",
+   "MP": 1013,
+   "TS%": 0.559,
+   "AST%": 13.9,
+   "TOV%": 12.8,
+   "USG%": 25.8
+ },
+ {
+   "Player": "LaMarcus Aldridge\\aldrila01",
+   "Pos": "PF",
+   "Tm": "SAS",
+   "MP": 2335,
+   "TS%": 0.532,
+   "AST%": 9.9,
+   "TOV%": 7.7,
+   "USG%": 24.5
+ },
+ {
+   "Player": "Kawhi Leonard\\leonaka01",
+   "Pos": "SF",
+   "Tm": "SAS",
+   "MP": 2474,
+   "TS%": 0.611,
+   "AST%": 18.9,
+   "TOV%": 9.1,
+   "USG%": 31.1
+ },
+ {
+   "Player": "Kyle Lowry\\lowryky01",
+   "Pos": "PG",
+   "Tm": "TOR",
+   "MP": 2244,
+   "TS%": 0.623,
+   "AST%": 29.9,
+   "TOV%": 13.8,
+   "USG%": 24.9
+ },
+ {
+   "Player": "DeMar DeRozan\\derozde01",
+   "Pos": "SG",
+   "Tm": "TOR",
+   "MP": 2620,
+   "TS%": 0.552,
+   "AST%": 20.6,
+   "TOV%": 9,
+   "USG%": 34.3
+ },
+ {
+   "Player": "George Hill\\hillge01",
+   "Pos": "PG",
+   "Tm": "UTA",
+   "MP": 1544,
+   "TS%": 0.599,
+   "AST%": 22.6,
+   "TOV%": 10.9,
+   "USG%": 23.5
+ },
+ {
+   "Player": "Gordon Hayward\\haywago01",
+   "Pos": "SF",
+   "Tm": "UTA",
+   "MP": 2516,
+   "TS%": 0.595,
+   "AST%": 18.2,
+   "TOV%": 9.4,
+   "USG%": 27.6
+ },
+ {
+   "Player": "Bradley Beal\\bealbr01",
+   "Pos": "SG",
+   "Tm": "WAS",
+   "MP": 2684,
+   "TS%": 0.604,
+   "AST%": 16.2,
+   "TOV%": 9.6,
+   "USG%": 26.5
+ },
+ {
+   "Player": "John Wall\\walljo01",
+   "Pos": "PG",
+   "Tm": "WAS",
+   "MP": 2836,
+   "TS%": 0.541,
+   "AST%": 46.9,
+   "TOV%": 16.2,
+   "USG%": 30.6
+ }
+]
