@@ -2,6 +2,7 @@
 //
 //
 function runAll (graph) {
+  console.log(graph)
   d3.select('.svg-container')
     .selectAll('svg')
     .remove()
@@ -23,12 +24,16 @@ function runAll (graph) {
     .append('button')
     .classed('graph-select', true)
     .text(d => d)
-    .on('click', d => runAll(d))
+    .on('click', (event, d) => runAll(d))
 
   if (graph === '3 Pointers') {
-    d3.json('./data/per36.json', threeGraph)
+    console.log("3s")
+    d3.json('./data/per36.json', data => {
+      threeGraph()
+    })
   }
   else if (graph === 'Top Players') {
+    console.log("usg")
     d3.json('./data/Leaders.json', usgGraph)
   }
  
@@ -38,6 +43,7 @@ runAll();
 
 
 function threeGraph (error, per36) {
+  console.log("three")
   let paddingLeft = 80;
   let paddingBottom = 80;
   let height = 700;
