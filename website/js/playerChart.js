@@ -8,7 +8,7 @@ class PlayerChart {
 
     initVis() {
         let vis = this;
-
+        console.log("hello1")
         vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -56,6 +56,28 @@ class PlayerChart {
             .attr("id", "ylabel")
             .text("Cumulative Career 3PA")
 
+        // Initialize buttons
+        d3.select("#playerSelectButtons").html(
+            `<select id='playerSelector1' className="custom-select align-self-center" style="width: 50%"
+                    onChange="playerChange()">
+                <option value="NA" selected>Player 1</option>
+                <option value="LebronJames">Lebron James</option>
+                <option value="StephCurry">Steph Curry</option>
+                <option value="MichaelJordan">Michael Jordan</option>
+                <option value="ReggieMiller">Reggie Miller</option>
+                <option value="RayAllen">Ray Allen</option>
+            </select>
+            <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
+                onChange="playerChange()">
+                <option value="NA" selected>Player 2</option>
+                <option value="LebronJames">Lebron James</option>
+                <option value="StephCurry">Steph Curry</option>
+                <option value="MichaelJordan">Michael Jordan</option>
+                <option value="ReggieMiller">Reggie Miller</option>
+                <option value="RayAllen">Ray Allen</option>
+            </select>`
+        )
+
         vis.wrangleData()
 
     }
@@ -100,7 +122,6 @@ class PlayerChart {
 
         vis.colorscale.domain(d3.extent(vis.data, d=>+d['3PA']))
 
-        //use .nest()function to group data so the line can be computed for each group
         vis.sumstat = d3.group(vis.data, d=>d.Player)
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
@@ -108,8 +129,11 @@ class PlayerChart {
         // Draw the line
         vis.path.enter().append('path')
             .attr("class", "playerlines")
+            .attr("id", function(d) {
+                return d[0].replace(/\s+/g, '')
+            })
             .attr("fill", "none")
-            .attr("stroke-width", 2)
+            .attr("stroke-width", 3)
             .attr("stroke", function(d) {
                 return vis.colorscale(d[1][d[1].length-1]['3PA'])
             })
@@ -137,8 +161,11 @@ class PlayerChart {
     }
 
     playerSelect() {
+        console.log(selectedPlayer1, selectedPlayer2)
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".playerlines").style('stroke', 'lightgrey')
+            d3.select("#"+selectedPlayer1).style('stroke', 'crimson')
+            d3.select("#"+selectedPlayer2).style('stroke', 'crimson')
         }
     }
 

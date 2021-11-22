@@ -2,6 +2,7 @@
 // Variables for the visualization instances
 let areachart, timeline, playerChart;;
 
+let selectedPlayer1, selectedPlayer2;
 
 // Start application by loading the data
 loadData();
@@ -25,6 +26,9 @@ function loadData() {
 	d3.csv("data/playerData.csv"). then(playerData=>{
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
+
+		selectedPlayer1 = document.getElementById("playerSelector1").value;
+		selectedPlayer2 = document.getElementById("playerSelector2").value;
 	});
 }
 
@@ -44,9 +48,6 @@ function brushed() {
 	areachart.wrangleData();
 
 }
-
-let selectedPlayer1 = document.getElementById("playerSelector1").value;
-let selectedPlayer2 = document.getElementById("playerSelector2").value;
 
 function playerChange() {
 	selectedPlayer1 = document.getElementById("playerSelector1").value;
