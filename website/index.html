@@ -48,7 +48,7 @@
     <p>We can explore the change in different shot types here and see that it is
         primarily long-range 2-point shots (from outside 16 feet) that are being
         replaced by the more-valuable 3-pointer</p>
-    <div class="row" style="height: 100vh">
+    <div class="row" style="height: 200vh">
         <div class="col-md-8 offset-2">
 
             <!-- header -->
@@ -67,6 +67,16 @@
             <!-- brush -->
             <div class="row justify-content-center" style="height: 15vh">
                 <div class="align-self-center" id="timeline"></div>
+            </div>
+
+            <div class="row col-8">
+                <div id="playerSelectButtons">
+
+                </div>
+            </div>
+
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
             </div>
         </div>
     </div>
@@ -166,6 +176,7 @@
 <script src="js/timeline.js"></script>
 <script src="js/shotchart.js"/>
 <script src="js/draft.js"></script>
+<script src="js/playerChart.js"></script>
 
 <!-- Load data, create visualizations -->
 <script src="js/main.js"></script>
