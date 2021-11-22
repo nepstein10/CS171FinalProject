@@ -7,6 +7,7 @@ class ShotChart {
 
     initVis() {
         let vis = this
+        console.log(vis.data)
 
         vis.margin = {top: 10, right: 10, bottom: 10, left: 10}
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;

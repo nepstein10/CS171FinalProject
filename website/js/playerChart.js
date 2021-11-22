@@ -8,7 +8,6 @@ class PlayerChart {
 
     initVis() {
         let vis = this;
-        console.log("hello1")
         vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -161,7 +160,6 @@ class PlayerChart {
     }
 
     playerSelect() {
-        console.log(selectedPlayer1, selectedPlayer2)
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".playerlines").style('stroke', 'lightgrey')
             d3.select("#"+selectedPlayer1).style('stroke', 'crimson')

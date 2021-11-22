@@ -1,6 +1,6 @@
 
 // Variables for the visualization instances
-let areachart, timeline, playerChart;;
+let areachart, timeline, shotchart, playerChart;;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -23,9 +23,11 @@ function loadData() {
 
 	});
 
-
-	shotchart = new ShotChart("shotChart", [])
-	shotchart.initVis()
+	d3.csv("data/shotLocations.csv").then(shotData => {
+		console.log(shotData)
+		shotchart = new ShotChart("shotChart", shotData)
+		shotchart.initVis()
+	})
 
 	d3.csv("data/playerData.csv"). then(playerData=>{
 		playerChart = new PlayerChart('player-chart', playerData)
