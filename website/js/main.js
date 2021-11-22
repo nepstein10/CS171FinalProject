@@ -22,7 +22,7 @@ function loadData() {
 
 	});
 
-	d3.csv("nbadata/playerData.csv"). then(playerData=>{
+	d3.csv("data/playerData.csv"). then(playerData=>{
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
 	});
