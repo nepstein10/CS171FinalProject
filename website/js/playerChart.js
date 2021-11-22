@@ -45,16 +45,15 @@ class PlayerChart {
         vis.svg.append("g")
             .attr("class", "y-axis axis");
 
-        //Add Tooltip placeholder
-        vis.svg.append("text")
-            .attr("transform", "translate(" + vis.width / 1.15 + ",20)")
-            .attr("id", "player")
-            .text("Player")
-
         vis.svg.append("text")
             .attr("transform", "translate(5, 20)")
             .attr("id", "ylabel")
             .text("Cumulative Career 3PA")
+
+        //Set up tooltip
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'playerChartToolTip')
 
         // Initialize buttons
         d3.select("#playerSelectButtons").html(
@@ -144,28 +143,50 @@ class PlayerChart {
                     (d[1])
             })
             .on("mouseover", function(event, d) {
-                document.getElementById("player").innerHTML = d[0]
                 d3.selectAll(".playerlines").style('stroke', 'lightgrey')
                 d3.select(this).style('stroke', 'crimson')
+                d3.select(this).raise()
+                vis.svg.select(".x-axis").raise()
+
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + 20 + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                         <div style="border: thin solid grey; background: none; padding: 5px;">
+                             <p>${d[0]}<p>
+                         </div>`);
             })
             .on("mouseout", function(event, d) {
                 d3.selectAll(".playerlines").style('stroke', function(d) {
                     return vis.colorscale(d[1][d[1].length-1]['3PA'])
                 });
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
             })
 
         // Call axis functions with the new domain
-        vis.svg.select(".x-axis").call(vis.xAxis);
+        vis.svg.select(".x-axis")
+            .call(vis.xAxis)
+            .raise();
         vis.svg.select(".y-axis").call(vis.yAxis);
 
     }
 
     playerSelect() {
+        let vis = this;
         console.log(selectedPlayer1, selectedPlayer2)
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".playerlines").style('stroke', 'lightgrey')
             d3.select("#"+selectedPlayer1).style('stroke', 'crimson')
             d3.select("#"+selectedPlayer2).style('stroke', 'crimson')
+            d3.select("#"+selectedPlayer1).raise()
+            d3.select("#"+selectedPlayer2).raise()
+            console.log(d3.select("#"+selectedPlayer1).attr("d"))
         }
     }
 
