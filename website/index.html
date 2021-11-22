@@ -68,6 +68,29 @@
             <div class="row justify-content-center" style="height: 15vh">
                 <div class="align-self-center" id="timeline"></div>
             </div>
+
+            <div class="col-8">
+                <select id='playerSelector1' class="custom-select align-self-center" style="width: 50%" onchange="playerChange()">
+                    <option value="NA" selected>Player 1</option>
+                    <option value="Lebron James">Lebron James</option>
+                    <option value="Steph Curry">Steph Curry</option>
+                    <option value="Michael Jordan">Michael Jordan</option>
+                    <option value="Reggie Miller">Reggie Miller</option>
+                    <option value="Ray Allen">Ray Allen</option>
+                </select>
+                <select id='playerSelector2' class="custom-select align-self-center" style="width: 50%" onchange="playerChange()">
+                    <option value="NA" selected>Player 2</option>
+                    <option value="Lebron James">Lebron James</option>
+                    <option value="Steph Curry">Steph Curry</option>
+                    <option value="Michael Jordan">Michael Jordan</option>
+                    <option value="Reggie Miller">Reggie Miller</option>
+                    <option value="Ray Allen">Ray Allen</option>
+                </select>
+            </div>
+
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
+            </div>
         </div>
     </div>
 
@@ -164,6 +187,7 @@
 <script src="js/stackedAreaChart.js"></script>
 <script src="js/timeline.js"></script>
 <script src="js/draft.js"></script>
+<script src="js/playerChart.js"></script>
 
 <!-- Load data, create visualizations -->
 <script src="js/main.js"></script>
