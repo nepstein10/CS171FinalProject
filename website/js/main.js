@@ -21,6 +21,9 @@ function loadData() {
 		timeline.initVis();
 
 	});
+
+	shotchart = new ShotChart("shotChart", [])
+	shotchart.initVis()
 }
 
 
