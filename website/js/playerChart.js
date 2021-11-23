@@ -119,8 +119,6 @@ class PlayerChart {
 
         vis.y.domain(d3.extent(vis.data, d=> +d["3PA"]));
 
-        //vis.colorscale.domain(d3.extent(vis.data, d=>+d['3PA']))
-
         vis.sumstat = d3.group(vis.data, d=>d.Player)
 
         vis.colorscale.domain(d3.extent(vis.sumstat, d=>
@@ -191,23 +189,31 @@ class PlayerChart {
         let vis = this;
         console.log(selectedPlayer1, selectedPlayer2)
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
-            d3.selectAll(".playerlines").style('stroke', 'lightgrey')
-            d3.select("#"+selectedPlayer1).style('stroke', 'crimson')
-            d3.select("#"+selectedPlayer2).style('stroke', 'crimson')
+            d3.selectAll(".selectedPlayerLabel").remove()
 
-            d3.select("#"+selectedPlayer1).raise()
-            d3.select("#"+selectedPlayer2).raise()
+            d3.selectAll(".playerlines").style('stroke', 'lightgrey')
 
             vis.selectedPlayers = [selectedPlayer1, selectedPlayer2]
 
+            vis.index = 1
+
             vis.selectedPlayers.forEach(player=> {
+                d3.select("#"+player).style('stroke', 'crimson')
+                d3.select("#"+player).raise()
+
                 vis.distance = d3.select("#"+player)._groups[0][0].getTotalLength()
                 vis.xcoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).x
                 vis.ycoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).y
+
+                vis.selector = document.getElementById("playerSelector"+vis.index)
+                vis.playerText = vis.selector.options[vis.selector.selectedIndex].text
+
                 vis.svg.append("text")
                     .attr("transform", "translate(" + vis.xcoord + "," + vis.ycoord + ")")
                     .attr("class", "selectedPlayerLabel")
-                    .text(player)
+                    .text(vis.playerText)
+
+                vis.index = vis.index + 1
             })
         }
     }

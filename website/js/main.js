@@ -1,6 +1,6 @@
 
 // Variables for the visualization instances
-let areachart, timeline, playerChart;;
+let areachart, timeline, playerChart;
 
 let selectedPlayer1, selectedPlayer2;
 
