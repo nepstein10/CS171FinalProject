@@ -160,6 +160,11 @@ class PlayerChart {
                          <div style="border: thin solid grey; background: none; padding: 5px;">
                              <p>${d[0]}<p>
                          </div>`);
+
+                d3.selectAll(".selectedPlayerLabel").remove()
+
+                document.getElementById("playerSelector1").value = "NA"
+                document.getElementById("playerSelector2").value = "NA"
             })
             .on("mouseout", function(event, d) {
                 d3.selectAll(".playerlines").style('stroke', function(d) {
@@ -183,13 +188,27 @@ class PlayerChart {
     }
 
     playerSelect() {
+        let vis = this;
         console.log(selectedPlayer1, selectedPlayer2)
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".playerlines").style('stroke', 'lightgrey')
             d3.select("#"+selectedPlayer1).style('stroke', 'crimson')
             d3.select("#"+selectedPlayer2).style('stroke', 'crimson')
+
             d3.select("#"+selectedPlayer1).raise()
             d3.select("#"+selectedPlayer2).raise()
+
+            vis.selectedPlayers = [selectedPlayer1, selectedPlayer2]
+
+            vis.selectedPlayers.forEach(player=> {
+                vis.distance = d3.select("#"+player)._groups[0][0].getTotalLength()
+                vis.xcoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).x
+                vis.ycoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).y
+                vis.svg.append("text")
+                    .attr("transform", "translate(" + vis.xcoord + "," + vis.ycoord + ")")
+                    .attr("class", "selectedPlayerLabel")
+                    .text(player)
+            })
         }
     }
 
