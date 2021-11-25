@@ -59,18 +59,20 @@ constructor(parentElement, data) {
 			.attr("height", vis.height);
 
 		// Scales and axes
-		vis.x = d3.scaleTime()
+		vis.x = d3.scaleLinear()
 			.range([0, vis.width])
 			.domain(d3.extent(vis.data, d=> d.Year));
 
 		vis.y = d3.scaleLinear()
-			.range([vis.height, 0]);
+			.range([vis.height, 0])
 
 		vis.xAxis = d3.axisBottom()
-			.scale(vis.x);
+			.scale(vis.x)
+			.tickFormat(d=>d);
 
 		vis.yAxis = d3.axisLeft()
-			.scale(vis.y);
+			.scale(vis.y)
+			.tickFormat(d=>d*100+"%");
 
 		vis.svg.append("g")
 			.attr("class", "x-axis axis")
@@ -79,16 +81,13 @@ constructor(parentElement, data) {
 		vis.svg.append("g")
 			.attr("class", "y-axis axis");
 
-		// TO-DO (Activity II): Initialize stack layout
 		let stack = d3.stack()
 			.keys(vis.dataCategories);
 
-		// TO-DO (Activity II) Stack data
 		vis.stackedData = stack(vis.data);
 
 		console.log(vis.stackedData)
 
-		// TO-DO (Activity II) Stacked area layout
 		vis.area = d3.area()
 			.curve(d3.curveCardinal)
 			.x(d=> vis.x(d.data.Year))
@@ -100,7 +99,22 @@ constructor(parentElement, data) {
 			.attr("id", "label")
 			.text("Category")
 
-		// TO-DO: (Filter, aggregate, modify data)
+
+
+
+		// Tooltip
+		vis.focus = vis.svg.append("g")
+			.attr("class", "focus")
+			.style("display", "none");
+
+		vis.focus.append("circle")
+			.attr("r", 5);
+
+		vis.focus.append("text")
+			.attr("x", 9)
+			.attr("dy", ".35em")
+			.style("font-size",15);
+
 		vis.wrangleData();
 
 	}
@@ -152,5 +166,48 @@ constructor(parentElement, data) {
 		// Call axis functions with the new domain
 		vis.svg.select(".x-axis").call(vis.xAxis);
 		vis.svg.select(".y-axis").call(vis.yAxis);
+
+
+		vis.svg.append("rect")
+			.attr("class", "overlay")
+			.attr("opacity", 0)
+			.attr("width", vis.width)
+			.attr("height", vis.height)
+			.on("mouseover", function() {
+				vis.focus.style("display", null);
+			})
+			.on("mouseout", function() {
+				vis.focus.style("display", "none");
+			})
+			.on("mousemove", mousemove);
+
+
+		function mousemove(event) {
+
+			vis.xpos = d3.pointer(event)[0];
+			console.log(vis.xpos)
+			vis.focus.attr("transform", "translate(" + vis.xpos + ", 0)")
+			vis.focus.select("text").text("Hello There");
+
+			/*console.log(vis.displayData)
+			console.log(vis.displayData[0])
+			console.log(vis.displayData[0][0].data.Year)
+
+
+			console.log(vis.x.invert(vis.xpos))
+
+			vis.bisectDate = d3.bisector(d=>d.Year).left;
+			vis.xValue = vis.x.invert(vis.xpos)
+
+			vis.index = vis.bisectDate(vis.displayData[0], vis.xValue);
+
+			console.log(vis.index)
+
+			vis.dataelement = vis.displayData[0][vis.index].Year;
+			console.log(vis.dataelement)*/
+
+		}
+
+
 	}
 }
