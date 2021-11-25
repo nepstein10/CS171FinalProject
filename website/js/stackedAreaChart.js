@@ -99,47 +99,36 @@ constructor(parentElement, data) {
 			.attr("id", "label")
 			.text("Category")
 
-
-
-
 		// Tooltip
-		vis.focus = vis.svg.append("g")
-			.attr("class", "focus")
+		vis.tooltip = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
 			.style("display", "none");
 
-		vis.focus.append("circle")
+		vis.tooltip.append("circle")
 			.attr("r", 5);
 
-		vis.focus.append("text")
-			.attr("x", 9)
-			.attr("dy", ".35em")
-			.style("font-size",15);
+		vis.tooltip.append("text")
+			.attr("x", 10)
+
+		vis.bisectDate = d3.bisector(d=>d.Year).left;
 
 		vis.wrangleData();
 
 	}
 
-	/*
- 	* Data wrangling
- 	*/
+
 	wrangleData(){
 		let vis = this;
         
         vis.displayData = vis.stackedData;
 
-		// Update the visualization
 		vis.updateVis();
 	}
 
-	/*
-	 * The drawing function - should use the D3 update sequence (enter, update, exit)
- 	* Function parameters only needed if different kinds of updates are needed
- 	*/
+
 	updateVis(){
 		let vis = this;
 
-		// Update domain
-        // Get the maximum of the multi-dimensional array or in other words, get the highest peak of the uppermost layer
         vis.y.domain([0, d3.max(vis.displayData, function(d) {
             return d3.max(d, function(e) {
                 return e[1];
@@ -174,10 +163,10 @@ constructor(parentElement, data) {
 			.attr("width", vis.width)
 			.attr("height", vis.height)
 			.on("mouseover", function() {
-				vis.focus.style("display", null);
+				vis.tooltip.style("display", null);
 			})
 			.on("mouseout", function() {
-				vis.focus.style("display", "none");
+				vis.tooltip.style("display", "none");
 			})
 			.on("mousemove", mousemove);
 
@@ -185,26 +174,12 @@ constructor(parentElement, data) {
 		function mousemove(event) {
 
 			vis.xpos = d3.pointer(event)[0];
-			console.log(vis.xpos)
-			vis.focus.attr("transform", "translate(" + vis.xpos + ", 0)")
-			vis.focus.select("text").text("Hello There");
-
-			/*console.log(vis.displayData)
-			console.log(vis.displayData[0])
-			console.log(vis.displayData[0][0].data.Year)
-
-
-			console.log(vis.x.invert(vis.xpos))
-
-			vis.bisectDate = d3.bisector(d=>d.Year).left;
+			vis.tooltip.attr("transform", "translate(" + vis.xpos + ", 0)")
 			vis.xValue = vis.x.invert(vis.xpos)
-
-			vis.index = vis.bisectDate(vis.displayData[0], vis.xValue);
-
-			console.log(vis.index)
-
-			vis.dataelement = vis.displayData[0][vis.index].Year;
-			console.log(vis.dataelement)*/
+			vis.index = vis.bisectDate(vis.data, vis.xValue);
+			vis.dataelement = vis.data[vis.index]['3P'];
+			vis.tooltip.select("text").text(vis.dataelement);
+			vis.svg.selectAll(".areacharttooltip").raise()
 
 		}
 
