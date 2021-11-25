@@ -23,10 +23,19 @@ function loadData() {
 
 	});
 
-	d3.csv("data/shotLocations.csv").then(shotData => {
-		console.log(shotData)
-		shotchart = new ShotChart("shotChart", shotData)
-		shotchart.initVis()
+	let yearsLoaded = 0
+	let yearlyShotData = {}
+	let years = [...Array(23).keys()].map(d=>d+1998)
+	const getLastTwo = y => {return (''+y).slice(2)}
+	years.forEach(year => {
+		d3.csv(`data/ShotsByYear/shots${getLastTwo(year-1)}-${getLastTwo(year)}.csv`).then(yearShotData => {
+			yearlyShotData[year] = yearShotData
+			yearsLoaded++
+			if (yearsLoaded == years.length) {
+				shotchart = new ShotChart("shotChart", yearlyShotData)
+				shotchart.initVis()
+			}
+		})
 	})
 
 	d3.csv("data/playerData.csv"). then(playerData=>{
@@ -36,6 +45,7 @@ function loadData() {
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
 	});
+
 }
 
 
