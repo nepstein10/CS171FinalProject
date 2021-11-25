@@ -1,30 +1,21 @@
 
-/*
- * StackedAreaChart - ES6 Class
- * @param  parentElement 	-- the HTML element in which to draw the visualization
- * @param  data             -- the data the that's provided initially
- * @param  displayData      -- the data that will be used finally (which might vary based on the selection)
- *
- * @param  focus            -- a switch that indicates the current mode (focus or stacked overview)
- * @param  selectedIndex    -- a global 'variable' inside the class that keeps track of the index of the selected area
- */
-
 class StackedAreaChart {
 
-// constructor method to initialize StackedAreaChart object
 constructor(parentElement, data) {
     this.parentElement = parentElement;
     this.data = data;
     this.displayData = [];
 
-    let colors = ['#a6cee3','#1f78b4','#b2df8a','#33a02c','#fb9a99'];
+	let vis = this;
+
+    vis.colors = ['#1d428a','#c8102e','#ffffff','#33a02c','#fb9a99'];
 
     // grab all the keys from the key value pairs in data (filter out 'year' ) to get a list of categories
     this.dataCategories = Object.keys(this.data[0]).filter(d=>d !== "Year")
 
     // prepare colors for range
     let colorArray = this.dataCategories.map( (d,i) => {
-        return colors[i%10]
+        return vis.colors[i%10]
     })
     // Set ordinal color scale
     this.colorScale = d3.scaleOrdinal()
@@ -33,13 +24,10 @@ constructor(parentElement, data) {
 }
 
 
-	/*
-	 * Method that initializes the visualization (static content, e.g. SVG area or axes)
- 	*/
 	initVis(){
 		let vis = this;
 
-		vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
+		vis.margin = {top: 40, right: 150, bottom: 60, left: 40};
 
 		vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
 		vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -86,31 +74,54 @@ constructor(parentElement, data) {
 
 		vis.stackedData = stack(vis.data);
 
-		console.log(vis.stackedData)
-
 		vis.area = d3.area()
 			.curve(d3.curveCardinal)
 			.x(d=> vis.x(d.data.Year))
-			.y0(d=> vis.y(d[0]))
-			.y1(d=> vis.y(d[1]));
-
-		// TO-DO (Activity IV): Add Tooltip placeholder
-		vis.svg.append("text")
-			.attr("id", "label")
-			.text("Category")
+			.y0(d=> vis.height - vis.y(d[0]))
+			.y1(d=> vis.height - vis.y(d[1]));
 
 		// Tooltip
-		vis.tooltip = vis.svg.append("g")
+		vis.tooltip1 = vis.svg.append("g")
 			.attr("class", "areacharttooltip")
 			.style("display", "none");
-
-		vis.tooltip.append("circle")
+		vis.tooltip1.append("circle")
 			.attr("r", 5);
+		vis.tooltip1.append("text")
+			.attr("x", 10)
 
-		vis.tooltip.append("text")
+		vis.tooltip2 = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
+			.style("display", "none");
+		vis.tooltip2.append("circle")
+			.attr("r", 5);
+		vis.tooltip2.append("text")
+			.attr("x", 10)
+
+		vis.tooltip3 = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
+			.style("display", "none");
+		vis.tooltip3.append("circle")
+			.attr("r", 5);
+		vis.tooltip3.append("text")
+			.attr("x", 10)
+
+		vis.tooltip4 = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
+			.style("display", "none");
+		vis.tooltip4.append("circle")
+			.attr("r", 5);
+		vis.tooltip4.append("text")
 			.attr("x", 10)
 
 		vis.bisectDate = d3.bisector(d=>d.Year).left;
+
+		vis.legend = vis.svg.append("g")
+			.attr('class', 'legend')
+			.attr('transform', `translate(${vis.width + 20}, ${0})`)
+
+		vis.legendtext = vis.svg.append("g")
+			.attr('class', 'legendtext')
+			.attr('transform', `translate(${vis.width + 50}, ${0})`)
 
 		vis.wrangleData();
 
@@ -147,8 +158,6 @@ constructor(parentElement, data) {
 				return vis.colorScale(d)
 			})
 			.attr("d", d => vis.area(d))
-			// TO-DO (Activity IV): update tooltip text on hover
-			.on("mouseover", function(event, d) {document.getElementById("label").innerHTML = d.key});
 
 		categories.exit().remove();
 
@@ -163,22 +172,65 @@ constructor(parentElement, data) {
 			.attr("width", vis.width)
 			.attr("height", vis.height)
 			.on("mouseover", function() {
-				vis.tooltip.style("display", null);
+				vis.tooltip1.style("display", null);
+				vis.tooltip2.style("display", null);
+				vis.tooltip3.style("display", null);
+				vis.tooltip4.style("display", null);
 			})
 			.on("mouseout", function() {
-				vis.tooltip.style("display", "none");
+				vis.tooltip1.style("display", null);
+				vis.tooltip2.style("display", null);
+				vis.tooltip3.style("display", null);
+				vis.tooltip4.style("display", null);
 			})
 			.on("mousemove", mousemove);
 
+		for (let i=0; i<5; i++) {
+			vis.legend.selectAll().data(vis.colors)
+				.enter()
+				.append("rect")
+				.attr("y", 20 * i)
+				.attr("height",20)
+				.attr("width", 20)
+				.attr("fill", vis.colors[i])
+
+			vis.legendtext
+				.append("text")
+				.text(Object.keys(vis.data[0])[i+1])
+				.attr("y", 20 * i + 15)
+
+
+		}
 
 		function mousemove(event) {
 
+			vis.percentformat = d3.format(".1%")
 			vis.xpos = d3.pointer(event)[0];
-			vis.tooltip.attr("transform", "translate(" + vis.xpos + ", 0)")
 			vis.xValue = vis.x.invert(vis.xpos)
 			vis.index = vis.bisectDate(vis.data, vis.xValue);
-			vis.dataelement = vis.data[vis.index]['3P'];
-			vis.tooltip.select("text").text(vis.dataelement);
+
+			vis.stat1 = vis.data[vis.index]['3P'];
+			vis.ypos1 = vis.y(vis.stat1)
+			vis.tooltip1.attr("transform", "translate(" + vis.xpos + "," + vis.ypos1 + ")")
+			vis.tooltip1.select("text").text(vis.percentformat(vis.stat1));
+
+			vis.stat2 = vis.data[vis.index]['16 ft to 3P'];
+			vis.ypos2 = vis.height - vis.y(1 - vis.stat1) - vis.y(1 - vis.stat2)
+			vis.tooltip2.attr("transform", "translate(" + vis.xpos + "," + vis.ypos2 + ")")
+			vis.tooltip2.select("text").text(vis.percentformat(parseFloat(vis.stat2) + parseFloat(vis.stat1)));
+
+			vis.stat3 = vis.data[vis.index]['10 to 16 ft'];
+			vis.ypos3 = vis.ypos2 - vis.y(1 - vis.stat3)
+			vis.tooltip3.attr("transform", "translate(" + vis.xpos + "," + vis.ypos3 + ")")
+			vis.tooltip3.select("text").text(vis.percentformat(parseFloat(vis.stat3) + parseFloat(vis.stat2) +
+				parseFloat(vis.stat1)));
+
+			vis.stat4 = vis.data[vis.index]['3 to 10 ft'];
+			vis.ypos4 = vis.ypos3 - vis.y(1 - vis.stat4)
+			vis.tooltip4.attr("transform", "translate(" + vis.xpos + "," + vis.ypos4 + ")")
+			vis.tooltip4.select("text").text(vis.percentformat(parseFloat(vis.stat4) + parseFloat(vis.stat3) +
+				parseFloat(vis.stat2) + parseFloat(vis.stat1)));
+
 			vis.svg.selectAll(".areacharttooltip").raise()
 
 		}
