@@ -23,7 +23,7 @@ function loadData() {
 
 	});
 
-	d3.csv("data/playerData2.csv"). then(playerData=>{
+	d3.csv("data/playerData.csv"). then(playerData=>{
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
 
