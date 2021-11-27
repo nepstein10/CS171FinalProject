@@ -121,6 +121,8 @@ class PlayerChart {
 
         vis.sumstat = d3.group(vis.data, d=>d.Player)
 
+        console.log(vis.data)
+
         vis.colorscale.domain(d3.extent(vis.sumstat, d=>
             (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))
 
@@ -179,11 +181,11 @@ class PlayerChart {
             .attr("stroke-dasharray", 700 + " " + 700)
             .attr("stroke-dashoffset", 700)
             .transition()
-            .delay(function(d, i) { return i * 1000; })
+            .delay(function(d, i) { return i * 500; })
             .duration(4000)
             .attr("stroke-dashoffset", 0);
 
-            console.log(vis.paths.node().getTotalLength())
+            //console.log(vis.paths.node().getTotalLength())
 
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
@@ -194,11 +196,15 @@ class PlayerChart {
         /*vis.eras = [1980, 1990, 2000, 2010]
 
         vis.eras.forEach( era => {
-            console.log("Test")
+            console.log(era) //Works fine
             vis.data.erafiltered = vis.data.filter(d => d.Era == era)
-            console.log(vis.data.erafiltered)
-            vis.sumstat = d3.group(vis.data, d=>d.Player)
-            vis.path = vis.svg.selectAll('path').data(vis.sumstat);
+            console.log(vis.data.erafiltered) //Looks correct
+            vis.sumstatera = d3.group(vis.data.erafiltered, d=>d.Player)
+            console.log(vis.sumstatera) //Looks correct
+
+            vis.path = vis.svg.selectAll('path').data(vis.sumstatera);
+            console.log(vis.path) //Looks wrong
+
             vis.paths = vis.path.enter().append('path')
                 .attr("class", "playerlines")
                 .attr("id", function(d) {
@@ -216,12 +222,12 @@ class PlayerChart {
                         .y(d => vis.y(+d["3PA"]))
                         (d[1])
                 })
-                .attr("stroke-dasharray", 700 + " " + 700)
+                /!*.attr("stroke-dasharray", 700 + " " + 700)
                 .attr("stroke-dashoffset", 700)
                 .transition()
                 .delay(function(d, i) { return i * 1000; })
                 .duration(4000)
-                .attr("stroke-dashoffset", 0);
+                .attr("stroke-dashoffset", 0);*!/
 
             //console.log(vis.paths.node().getTotalLength())
 
