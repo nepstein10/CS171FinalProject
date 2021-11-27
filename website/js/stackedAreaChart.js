@@ -198,8 +198,6 @@ constructor(parentElement, data) {
 				.append("text")
 				.text(Object.keys(vis.data[0])[i+1])
 				.attr("y", 20 * i + 15)
-
-
 		}
 
 		function mousemove(event) {
