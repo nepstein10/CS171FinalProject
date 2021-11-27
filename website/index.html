@@ -77,6 +77,8 @@
             <div class="row justify-content-center" style="height: 60vh">
                 <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
             </div>
+
+
         </div>
     </div>
 
@@ -152,11 +154,38 @@
         successful strategy would be even more prominent. Like before, we've highlighted a few
         interesting comparisons, but you can explore the data yourself, filtering by team and
         season.</p>
+
     <img src="img/courtview.png">
     <p>Below is a broad view, exploring how shot selection changes from the regular season once
         teams reach the playoffs. We can sort by team to see whether trends show better teams
         shooting differently or teams actually changing their behaviors.</p>
     <img src="img/shotselection.png">
+
+    <div class="container">
+
+        <div class="row">
+
+            <div id="chart-area">
+
+                <div id="display-controls">
+
+                    <div class="buttons">
+                        <button id='play-button' class="btn">Play</button>
+                        <button id='reset-button' class="btn">Reset</button>
+                    </div>
+
+                    <div id="slider-div">
+                        <label>Season: <span id="season">1996-1997</span> </label>
+                        <div id="slider"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
 
     <h3>Conclusion</h3>
 
@@ -174,6 +203,9 @@
 <script src="js/timeline.js"></script>
 <script src="js/draft.js"></script>
 <script src="js/playerChart.js"></script>
+
+
+<script src="dist/bundle.js"></script>
 
 <!-- Load data, create visualizations -->
 <script src="js/main.js"></script>
