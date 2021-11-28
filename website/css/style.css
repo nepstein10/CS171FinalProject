@@ -3,6 +3,35 @@
   width: 100%;
 }
 
+#pie-chart {
+  height: 100%;
+  width: 100%;
+}
+
+#pieTooltip {
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  /*  pointer-events: none;	This line needs to be removed */
+}
+#pieTooltip h3,h4 {
+  text-align: left;
+}
+#pieTooltip h4 {
+  font: 14px sans-serif;
+}
+
+#rackCharts {
+  background-image: url("/Users/eshikasaxena/Documents/CS171/CS171FinalProject/website/img/shelf.png");
+}
+
+.connection {
+  stroke: black;
+  stroke-dasharray: 5;
+  stroke-width: 3px;
+  opacity: 0.7;
+}
+
 #timeline {
   height: 100%;
   width: 100%;

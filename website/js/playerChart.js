@@ -121,13 +121,15 @@ class PlayerChart {
 
         vis.sumstat = d3.group(vis.data, d=>d.Player)
 
+        console.log(vis.data)
+
         vis.colorscale.domain(d3.extent(vis.sumstat, d=>
             (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
 
         // Draw the line
-        vis.path.enter().append('path')
+        vis.paths = vis.path.enter().append('path')
             .attr("class", "playerlines")
             .attr("id", function(d) {
                 return d[0].replace(/\s+/g, '')
@@ -176,12 +178,60 @@ class PlayerChart {
                     .style("top", 0)
                     .html(``);
             })
+            .attr("stroke-dasharray", 700 + " " + 700)
+            .attr("stroke-dashoffset", 700)
+            .transition()
+            .delay(function(d, i) { return i * 500; })
+            .duration(4000)
+            .attr("stroke-dashoffset", 0);
+
+            //console.log(vis.paths.node().getTotalLength())
 
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
             .call(vis.xAxis)
             .raise();
         vis.svg.select(".y-axis").call(vis.yAxis);
+
+        /*vis.eras = [1980, 1990, 2000, 2010]
+
+        vis.eras.forEach( era => {
+            console.log(era) //Works fine
+            vis.data.erafiltered = vis.data.filter(d => d.Era == era)
+            console.log(vis.data.erafiltered) //Looks correct
+            vis.sumstatera = d3.group(vis.data.erafiltered, d=>d.Player)
+            console.log(vis.sumstatera) //Looks correct
+
+            vis.path = vis.svg.selectAll('path').data(vis.sumstatera);
+            console.log(vis.path) //Looks wrong
+
+            vis.paths = vis.path.enter().append('path')
+                .attr("class", "playerlines")
+                .attr("id", function(d) {
+                    return d[0].replace(/\s+/g, '')
+                })
+                .attr("fill", "none")
+                .attr("stroke-width", 3)
+                .attr("stroke", function(d) {
+                    return vis.colorscale((d[1][d[1].length-1]['3PA']) /
+                        (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))
+                })
+                .attr("d", function(d){
+                    return d3.line().curve(d3.curveNatural)
+                        .x(d => vis.x(d.Season))
+                        .y(d => vis.y(+d["3PA"]))
+                        (d[1])
+                })
+                /!*.attr("stroke-dasharray", 700 + " " + 700)
+                .attr("stroke-dashoffset", 700)
+                .transition()
+                .delay(function(d, i) { return i * 1000; })
+                .duration(4000)
+                .attr("stroke-dashoffset", 0);*!/
+
+            //console.log(vis.paths.node().getTotalLength())
+
+        })*/
 
     }
 
