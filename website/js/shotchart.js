@@ -7,8 +7,10 @@ class ShotChart {
 
         this.displayData = []
         this.filters = {
+            label: "",
             players:[], teams:[], playoffs: "all",
-            color: "" // options would include "team" and "made"
+            color: "", // options would include "team" and "made"
+            subset: 1 // fraction of data to include
         }
 
         //this.filters.players.push("Tim Legler")
@@ -76,9 +78,11 @@ class ShotChart {
         // Show loading message
         vis.svg.append("text")
             .text("Data Loading...")
-            .attr("id", "shot-loading-text")
+            .attr("id", "shot-message-text")
             .attr("x", vis.width/2)
-            .attr("y", vis.height/2)
+            .attr("y", vis.height/4)
+            .attr("text-anchor", "middle")
+            .attr("font-size", `${vis.height/20}px`)
         vis.loading(true)
 
         //vis.wrangleData()
@@ -106,13 +110,7 @@ class ShotChart {
         } else if (vis.filters.playoffs === "regular") {
             filterBools.push(row => {return !row.playoffs})
         }
-        // console.log("Filter bools", filterBools)
-        // console.log(vis.filters)
-        // console.log(vis.displayData[10])
-        // filterBools.forEach(b => {
-        //     console.log(b, b(vis.displayData[10]))
-        // })
-        // console.log(vis.displayData.length)
+        console.log(vis.displayData)
         vis.displayData = vis.displayData.filter(row => {
             let retVal = true
             filterBools.forEach(b => {
@@ -122,7 +120,7 @@ class ShotChart {
             })
             return retVal
         })
-        console.log("Display data:", vis.displayData)
+        //console.log("Display data:", vis.displayData)
 
         // Apply keys
         let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
@@ -148,15 +146,43 @@ class ShotChart {
             .attr("cx", d => vis.x(d.shotx))
             .attr("cy", d => vis.y(d.shoty))
             .attr("r", 2)
-            .attr("fill", "black")//d => d.made ? "green" : "red")
-            .attr("opacity", 1/Math.log10(vis.displayData.length))
+            .attr("fill", function(d) {
+                if(vis.filters.color === "made") {
+                    return d.made ? "green" : "red"
+                } else if (vis.filters.color === "team") {
+                    return returnDualColor(d.team, true)
+                } else {
+                    return "black"
+                }
+            })
+            .attr("stroke", function(d) {
+                if (vis.filters.color === "team") {
+                    return returnDualColor(d.team, false)
+                } else {
+                    return "black"
+                }
+            })
+            .attr("opacity", function(d) {
+                return ["made", "team"].includes(vis.filters.color) ?
+                    1/Math.log10(vis.displayData.length) : 1/Math.log10(vis.displayData.length)
+            })
 
         circles.exit().remove()
         vis.loading(false)
+        if (vis.displayData.length == 0) {vis.noData(true)}
+        else {vis.noData(false)}
     }
 
     loading(b){
-        d3.select("#shot-loading-text").attr("display", b ? "block" : "none")
+        d3.select("#shot-message-text")
+            .text("Data Loading...")
+            .attr("display", b ? "block" : "none")
+    }
+
+    noData(b){
+        d3.select("#shot-message-text")
+            .text("No Data: Try a season this player played")
+            .attr("display", b ? "block" : "none")
     }
 
     async sliderChange(year) {
