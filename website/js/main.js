@@ -1,7 +1,6 @@
 
 // Variables for the visualization instances
 let areachart, playerChart, pieChart;
-
 let selectedPlayer1, selectedPlayer2;
 
 // Start application by loading the data
@@ -81,5 +80,7 @@ function playerChange() {
 	selectedPlayer2 = document.getElementById("playerSelector2").value;
 	playerChart.playerSelect()
 }
+
+
 
 
