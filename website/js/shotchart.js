@@ -1,10 +1,19 @@
 class ShotChart {
-    constructor(parentElement, data) {
+    constructor(parentElement, data, initialSeason=2000, loadSeasonShots) {
         this.parentElement = parentElement
         this.data = data
-        Object.keys(this.data).forEach(d => {
-            this.data[d] = this.processData(this.data[d])})
+        this.season = initialSeason
+        this.loadSeasonShots = loadSeasonShots
+
         this.displayData = []
+        this.filters = {
+            players:[], teams:[], playoffs: "all",
+            color: "" // options would include "team" and "made"
+        }
+
+        //this.filters.players.push("Tim Legler")
+        this.filters.teams.push("Golden State Warriors")
+        //this.season = 2013
     }
 
     initVis() {
@@ -13,7 +22,7 @@ class ShotChart {
 
         let H_W_RATIO = 1455.0 / 1365.0 // Ratio of court jpg, want to maintain that
 
-        vis.margin = {top: 10, right: 10, bottom: 10, left: 10}
+        vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
         vis.width = vis.height * H_W_RATIO
             //document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -47,16 +56,73 @@ class ShotChart {
             .attr("width", vis.width)
             .attr("height", vis.height)
 
-        vis.wrangleData()
+        // Add the season slider
+        let sliderScale = d3.scaleLinear(
+            [1998, 2020],
+            [10, vis.width - 10])
+
+        let slider = d3.sliderHorizontal(sliderScale)
+            .step(1)
+            .default(2000)
+            .on("onchange", val =>
+                vis.sliderChange(val)
+            )
+
+        vis.svg.append("g")
+            .attr("class", "slider")
+            .attr("transform", `translate(0,${vis.height + 10})`)
+            .call(slider)
+
+        // Show loading message
+        vis.svg.append("text")
+            .text("Data Loading...")
+            .attr("id", "shot-loading-text")
+            .attr("x", vis.width/2)
+            .attr("y", vis.height/2)
+        vis.loading(true)
+
+        //vis.wrangleData()
     }
 
     wrangleData() {
         let vis = this
 
-        let season = 1998
+        vis.loading(true)
+
         let parseDate = d3.timeParse("%Y%m")
         // Filter data as needed
-        vis.displayData = vis.data[season]
+        vis.displayData = vis.data[vis.season]
+
+        let filterBools = []
+
+        if(vis.filters.players.length) {
+            filterBools.push(row => {return vis.filters.players.includes(row.name)})
+        }
+        if(vis.filters.teams.length) {
+            filterBools.push(row => {return vis.filters.teams.includes(row.team)})
+        }
+        if(vis.filters.playoffs === "playoffs") {
+            filterBools.push(row => {return row.playoffs})
+        } else if (vis.filters.playoffs === "regular") {
+            filterBools.push(row => {return !row.playoffs})
+        }
+        // console.log("Filter bools", filterBools)
+        // console.log(vis.filters)
+        // console.log(vis.displayData[10])
+        // filterBools.forEach(b => {
+        //     console.log(b, b(vis.displayData[10]))
+        // })
+        // console.log(vis.displayData.length)
+        vis.displayData = vis.displayData.filter(row => {
+            let retVal = true
+            filterBools.forEach(b => {
+                if(!b(row)) {
+                    retVal = false
+                }
+            })
+            return retVal
+        })
+        console.log("Display data:", vis.displayData)
 
         // Apply keys
         let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
@@ -75,39 +141,32 @@ class ShotChart {
         let vis = this;
 
         let circles = vis.svg.selectAll("circle")
-            .data(vis.displayData)
+            .data(vis.displayData, d => d.key)
         circles.enter().append("circle")
             .merge(circles)
-            .transition()
+            //.transition()
             .attr("cx", d => vis.x(d.shotx))
             .attr("cy", d => vis.y(d.shoty))
             .attr("r", 2)
-            .attr("fill", "black")
-            .attr("opacity", 0.01)
+            .attr("fill", "black")//d => d.made ? "green" : "red")
+            .attr("opacity", 1/Math.log10(vis.displayData.length))
 
         circles.exit().remove()
+        vis.loading(false)
     }
 
-    processData(data) {
-        let parseDate = d3.timeParse("%Y%m%d")
-        let processedData = data.map(function(row) {
-            let newrow = {
-                date: parseDate(row["Game Date"]),
-                name: row["Player Name"],
-                distance: +row["Shot Distance"],
-                made: row["Shot Made Flag"] === "1" ? true : false,
-                three: row["Shot Type"] === "3PT Field Goal" ? true : false,
-                zone: row["Shot Zone Area"].slice(
-                        row["Shot Zone Area"].indexOf('(') + 1,
-                        row["Shot Zone Area"].indexOf(')')),
-                team: row["Team Name"],
-                shotx: +row["X Location"],
-                shoty: +row["Y Location"],
-                playoffs: row["Season Type"] === "Playoffs" ? true : false
-            }
-            return newrow
-        })
+    loading(b){
+        d3.select("#shot-loading-text").attr("display", b ? "block" : "none")
+    }
 
-        return processedData
+    async sliderChange(year) {
+        let vis = this
+        console.log("slider change to " + year)
+        vis.loading(true)
+        vis.season = year
+        if (!vis.data[year]) {
+            await loadSeasonShots(year)
+        }
+        vis.wrangleData()
     }
 }
