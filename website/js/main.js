@@ -1,6 +1,6 @@
 
 // Variables for the visualization instances
-let areachart, timeline, playerChart, pieChart;
+let areachart, playerChart, pieChart;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -19,9 +19,6 @@ function loadData() {
 	}). then(fgdata=>{
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
-
-		timeline = new Timeline('timeline', fgdata)
-		timeline.initVis();
 
 		// sum each property across 5 years
 		let reducer = function(previousValue, currentValue) {
