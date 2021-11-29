@@ -8,8 +8,8 @@ class PlayerChart {
 
     initVis() {
         let vis = this;
-        console.log("hello1")
-        vis.margin = {top: 40, right: 40, bottom: 60, left: 40};
+
+        vis.margin = {top: 40, right: 150, bottom: 60, left: 100};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -59,7 +59,7 @@ class PlayerChart {
         d3.select("#playerSelectButtons").html(
             `<select id='playerSelector1' className="custom-select align-self-center" style="width: 50%"
                     onChange="playerChange()">
-                <option value="NA" selected>Player 1</option>
+                <option value="NA" selected>Select Player 1 for Comparison</option>
                 <option value="LebronJames">Lebron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
@@ -68,7 +68,7 @@ class PlayerChart {
             </select>
             <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
                 onChange="playerChange()">
-                <option value="NA" selected>Player 2</option>
+                <option value="NA" selected>Select Player 2 for Comparison</option>
                 <option value="LebronJames">Lebron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
@@ -236,8 +236,10 @@ class PlayerChart {
     }
 
     playerSelect() {
+
         let vis = this;
         console.log(selectedPlayer1, selectedPlayer2)
+
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".selectedPlayerLabel").remove()
 

@@ -32,18 +32,6 @@
   opacity: 0.7;
 }
 
-#timeline {
-  height: 100%;
-  width: 100%;
-}
-
-.col-md-8 {
-  margin-top: 5vh;
-  border: thin solid grey;
-  border-radius: 5px;
-  background: rgba(221,221,221,0.45);
-}
-
 /*.row {*/
 /*  height: 15vh;*/
 /*}*/
@@ -82,7 +70,6 @@ h2 {
 }
 
 .area {
-  opacity: 0.7;
   clip-path: url(#clip);
 }
 .area:hover {
