@@ -59,7 +59,7 @@ class PlayerChart {
         d3.select("#playerSelectButtons").html(
             `<select id='playerSelector1' className="custom-select align-self-center" style="width: 50%"
                     onChange="playerChange()">
-                <option value="NA" selected>Player 1</option>
+                <option value="NA" selected>Select Player 1 for Comparison</option>
                 <option value="LebronJames">Lebron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
@@ -68,7 +68,7 @@ class PlayerChart {
             </select>
             <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
                 onChange="playerChange()">
-                <option value="NA" selected>Player 2</option>
+                <option value="NA" selected>Select Player 2 for Comparison</option>
                 <option value="LebronJames">Lebron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
