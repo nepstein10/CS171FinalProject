@@ -13,6 +13,13 @@ class ShotChart {
             subset: 1 // fraction of data to include
         }
 
+        this.message = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
+            "until the 2019-20 season. That's over 4 million shots! Use the slider to move " +
+            "from season to season to see the change in shot tendencies over the past two " +
+            "decades. We've started you off by showing you a random 10% of the shots for load " +
+            "speed, but you can select \"All\" in the team drop down to see all shots for a " +
+            "season. Click the buttons to see some specific interesting players and trends!"
+
         //this.filters.players.push("Tim Legler")
         this.filters.teams.push("Golden State Warriors")
         //this.season = 2013
@@ -63,7 +70,7 @@ class ShotChart {
             [1998, 2020],
             [10, vis.width - 10])
 
-        let slider = d3.sliderHorizontal(sliderScale)
+        vis.slider = d3.sliderHorizontal(sliderScale)
             .step(1)
             .default(2000)
             .on("onchange", val =>
@@ -73,7 +80,7 @@ class ShotChart {
         vis.svg.append("g")
             .attr("class", "slider")
             .attr("transform", `translate(0,${vis.height + 10})`)
-            .call(slider)
+            .call(vis.slider)
 
         // Show loading message
         vis.svg.append("text")
@@ -84,6 +91,10 @@ class ShotChart {
             .attr("text-anchor", "middle")
             .attr("font-size", `${vis.height/20}px`)
         vis.loading(true)
+
+        // Add meaning message
+        vis.messageP = d3.select('#shotChartMessage').append('p')
+            .html(vis.message)
 
         //vis.wrangleData()
     }

@@ -31,7 +31,7 @@ class ShotChartControls {
                 players: [],
                 teams: ["Houston Rockets", "San Antonio Spurs"],
                 playoffs: "all",
-                season: [1998, 2020],
+                seasons: [1998, 2020],
                 color: "team",
                 subset: 1,
             }
@@ -52,9 +52,13 @@ class ShotChartControls {
                         playoffs: c.playoffs,
                         color: c.color
                     }
-                    chart.season = chart.season// >= c.seasons[0] && chart.season <= c.seasons[1] ? chart.season : c.seasons[0]
+                    let season = chart.season
+                    if (!(season >= c.seasons[0] && season <= c.seasons[1])) {
+                        season = c.seasons[0]
+                    }
                     //console.log(chart.filters)
-                    chart.wrangleData()
+                    chart.slider.value(season)
+                    chart.sliderChange(season)
                     // TODO: Message of significance
                 })
         })
