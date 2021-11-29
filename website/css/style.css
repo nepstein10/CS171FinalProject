@@ -3,16 +3,33 @@
   width: 100%;
 }
 
-#timeline {
+#pie-chart {
   height: 100%;
   width: 100%;
 }
 
-.col-md-8 {
-  margin-top: 5vh;
-  border: thin solid grey;
-  border-radius: 5px;
-  background: rgba(221,221,221,0.45);
+#pieTooltip {
+  position: absolute;
+  text-align: center;
+  font: 12px sans-serif;
+  /*  pointer-events: none;	This line needs to be removed */
+}
+#pieTooltip h3,h4 {
+  text-align: left;
+}
+#pieTooltip h4 {
+  font: 14px sans-serif;
+}
+
+#rackCharts {
+  background-image: url("/Users/eshikasaxena/Documents/CS171/CS171FinalProject/website/img/shelf.png");
+}
+
+.connection {
+  stroke: black;
+  stroke-dasharray: 5;
+  stroke-width: 3px;
+  opacity: 0.7;
 }
 
 /*.row {*/
@@ -53,7 +70,6 @@ h2 {
 }
 
 .area {
-  opacity: 0.7;
   clip-path: url(#clip);
 }
 .area:hover {
