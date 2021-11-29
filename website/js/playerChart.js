@@ -29,7 +29,7 @@ class PlayerChart {
             .range([vis.height, 0])
 
         vis.colorscale = d3.scaleLinear()
-            .range(["#ccdcf9", "#113d8e"])
+            .range(["#e8e8ff", "#113d8e"])
 
         vis.xAxis = d3.axisBottom()
             .scale(vis.x)
