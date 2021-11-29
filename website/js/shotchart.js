@@ -10,18 +10,20 @@ class ShotChart {
             label: "",
             players:[], teams:[], playoffs: "all",
             color: "", // options would include "team" and "made"
-            subset: 1 // fraction of data to include
+            subset: 0.1 // fraction of data to include
         }
 
-        this.message = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
+        this.startMessage = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
             "until the 2019-20 season. That's over 4 million shots! Use the slider to move " +
             "from season to season to see the change in shot tendencies over the past two " +
-            "decades. We've started you off by showing you a random 10% of the shots for load " +
-            "speed, but you can select \"All\" in the team drop down to see all shots for a " +
-            "season. Click the buttons to see some specific interesting players and trends!"
+            "decades. We've started you off by showing you a random 10% of the shots in a " +
+            "given year for load speed, but you can select \"All\" in the team drop down to " +
+            "see all shots league-wide for a season. Click the buttons to see some specific " +
+            "interesting players and trends, or explore your favorite team's shot selection!"
+        this.message = this.startMessage
 
         //this.filters.players.push("Tim Legler")
-        this.filters.teams.push("Golden State Warriors")
+        //this.filters.teams.push("Golden State Warriors")
         //this.season = 2013
     }
 
@@ -33,8 +35,8 @@ class ShotChart {
 
         vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
-        vis.width = vis.height * H_W_RATIO
-            //document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.width = Math.max(vis.height * H_W_RATIO, document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right)
+        vis.height = vis.width / H_W_RATIO
 
         // SVG Area
         vis.svg = d3.select('#' + vis.parentElement).append("svg")
@@ -129,18 +131,21 @@ class ShotChart {
                     retVal = false
                 }
             })
+            if (retVal && vis.filters.subset < 1 && Math.random() > vis.filters.subset) {
+                retVal = false
+            }
             return retVal
         })
         //console.log("Display data:", vis.displayData)
 
         // Apply keys
-        let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
-        vis.displayData = vis.displayData.map(row => {
-            let zone = row.zone
-            row.key = zone + keyCounters[zone]
-            keyCounters[zone]++
-            return row
-        } )
+        // let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
+        // vis.displayData = vis.displayData.map(row => {
+        //     let zone = row.zone
+        //     row.key = zone + keyCounters[zone]
+        //     keyCounters[zone]++
+        //     return row
+        // } )
         console.log("# to Display: ", vis.displayData.length)
 
         vis.updateVis()
@@ -148,6 +153,8 @@ class ShotChart {
 
     updateVis() {
         let vis = this;
+
+        vis.messageP.html(vis.message)
 
         let circles = vis.svg.selectAll("circle")
             .data(vis.displayData, d => d.key)
@@ -175,7 +182,7 @@ class ShotChart {
             })
             .attr("opacity", function(d) {
                 return ["made", "team"].includes(vis.filters.color) ?
-                    1/Math.log10(vis.displayData.length) : 1/Math.log10(vis.displayData.length)
+                    1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
             })
 
         circles.exit().remove()
