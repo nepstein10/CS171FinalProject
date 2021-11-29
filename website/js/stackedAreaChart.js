@@ -8,7 +8,7 @@ constructor(parentElement, data) {
 
 	let vis = this;
 
-    vis.colors = ['#1d428a','#c8102e','#ffffff','#33a02c','#fb9a99'];
+    vis.colors = ['#1d428a','#2a60c9','#4c7cda','#769be3','#a0baec'];
 
     // grab all the keys from the key value pairs in data (filter out 'year' ) to get a list of categories
     this.dataCategories = Object.keys(this.data[0]).filter(d=>d !== "Year")
@@ -27,7 +27,7 @@ constructor(parentElement, data) {
 	initVis(){
 		let vis = this;
 
-		vis.margin = {top: 40, right: 150, bottom: 60, left: 40};
+		vis.margin = {top: 100, right: 150, bottom: 60, left: 100};
 
 		vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
 		vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -80,7 +80,7 @@ constructor(parentElement, data) {
 			.y0(d=> vis.height - vis.y(d[0]))
 			.y1(d=> vis.height - vis.y(d[1]));
 
-		// Tooltip
+		// Tooltips
 		vis.tooltip1 = vis.svg.append("g")
 			.attr("class", "areacharttooltip")
 			.style("display", "none");
@@ -113,15 +113,37 @@ constructor(parentElement, data) {
 		vis.tooltip4.append("text")
 			.attr("x", 10)
 
+		vis.tooltip5 = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
+			.style("display", "none");
+		vis.tooltip5.append("circle")
+			.attr("r", 5);
+		vis.tooltip5.append("text")
+			.attr("x", 10)
+
+		vis.tooltip6 = vis.svg.append("g")
+			.attr("class", "areacharttooltip")
+			.style("display", "none");
+		vis.tooltip6.append("line")
+			.style("stroke", "black")
+			.style("stroke-width", 1)
+			.attr("x1", 0)
+			.attr("y1", 0)
+			.attr("x2", 0)
+			.attr("y2", vis.height);
+		vis.tooltip6.append("text")
+			.attr("x", 0)
+			.attr("y", -25)
+
 		vis.bisectDate = d3.bisector(d=>d.Year).left;
 
 		vis.legend = vis.svg.append("g")
 			.attr('class', 'legend')
-			.attr('transform', `translate(${vis.width + 20}, ${0})`)
+			.attr('transform', `translate(${vis.width + 20}, ${vis.height - 100})`)
 
 		vis.legendtext = vis.svg.append("g")
 			.attr('class', 'legendtext')
-			.attr('transform', `translate(${vis.width + 50}, ${0})`)
+			.attr('transform', `translate(${vis.width + 50}, ${vis.height - 100})`)
 
 		vis.wrangleData();
 
@@ -176,12 +198,16 @@ constructor(parentElement, data) {
 				vis.tooltip2.style("display", null);
 				vis.tooltip3.style("display", null);
 				vis.tooltip4.style("display", null);
+				vis.tooltip5.style("display", null);
+				vis.tooltip6.style("display", null);
 			})
 			.on("mouseout", function() {
 				vis.tooltip1.style("display", null);
 				vis.tooltip2.style("display", null);
 				vis.tooltip3.style("display", null);
 				vis.tooltip4.style("display", null);
+				vis.tooltip5.style("display", null);
+				vis.tooltip6.style("display", null);
 			})
 			.on("mousemove", mousemove);
 
@@ -210,24 +236,31 @@ constructor(parentElement, data) {
 			vis.stat1 = vis.data[vis.index]['3P'];
 			vis.ypos1 = vis.y(vis.stat1)
 			vis.tooltip1.attr("transform", "translate(" + vis.xpos + "," + vis.ypos1 + ")")
-			vis.tooltip1.select("text").text(vis.percentformat(vis.stat1));
+			vis.tooltip1.select("text").text("3P: "+ vis.percentformat(vis.stat1));
 
 			vis.stat2 = vis.data[vis.index]['16 ft to 3P'];
 			vis.ypos2 = vis.height - vis.y(1 - vis.stat1) - vis.y(1 - vis.stat2)
 			vis.tooltip2.attr("transform", "translate(" + vis.xpos + "," + vis.ypos2 + ")")
-			vis.tooltip2.select("text").text(vis.percentformat(parseFloat(vis.stat2) + parseFloat(vis.stat1)));
+			vis.tooltip2.select("text").text("16 ft-3P: " + vis.percentformat(parseFloat(vis.stat2)));
 
 			vis.stat3 = vis.data[vis.index]['10 to 16 ft'];
 			vis.ypos3 = vis.ypos2 - vis.y(1 - vis.stat3)
 			vis.tooltip3.attr("transform", "translate(" + vis.xpos + "," + vis.ypos3 + ")")
-			vis.tooltip3.select("text").text(vis.percentformat(parseFloat(vis.stat3) + parseFloat(vis.stat2) +
-				parseFloat(vis.stat1)));
+			vis.tooltip3.select("text").text("10-16 ft: " + vis.percentformat(parseFloat(vis.stat3)));
 
 			vis.stat4 = vis.data[vis.index]['3 to 10 ft'];
 			vis.ypos4 = vis.ypos3 - vis.y(1 - vis.stat4)
 			vis.tooltip4.attr("transform", "translate(" + vis.xpos + "," + vis.ypos4 + ")")
-			vis.tooltip4.select("text").text(vis.percentformat(parseFloat(vis.stat4) + parseFloat(vis.stat3) +
-				parseFloat(vis.stat2) + parseFloat(vis.stat1)));
+			vis.tooltip4.select("text").text("3-10 ft: " + vis.percentformat(parseFloat(vis.stat4)));
+
+			vis.stat5 = vis.data[vis.index]['0 to 3 ft'];
+			vis.ypos5 = vis.ypos4 - vis.y(1 - vis.stat5)
+			vis.tooltip5.attr("transform", "translate(" + vis.xpos + "," + vis.ypos5 + ")")
+			vis.tooltip5.select("text").text("0-3 ft: " + vis.percentformat(parseFloat(vis.stat5)));
+
+			vis.stat6 = vis.data[vis.index]['Year'];
+			vis.tooltip6.attr("transform", "translate(" + vis.xpos + ", 0)")
+			vis.tooltip6.select("text").text(parseFloat(vis.stat6));
 
 			vis.svg.selectAll(".areacharttooltip").raise()
 
