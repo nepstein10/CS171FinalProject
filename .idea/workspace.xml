@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="25b34c29-89f8-4d5c-b644-25f590c12233" name="Changes" comment="" />
+    <list default="true" id="25b34c29-89f8-4d5c-b644-25f590c12233" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/CS171FinalProject.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/data/basicdata.csv" beforeDir="false" afterPath="$PROJECT_DIR$/website/data/basicdata.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/website/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/website/js/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/website/js/pieChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/website/js/pieChart.js" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
