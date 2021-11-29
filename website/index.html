@@ -58,6 +58,16 @@
         <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
     </div>
 
+    <div class="row" style="height: 100vh">
+        <div class="col-md-8 justify-content-center">
+            <div id="shotChart" class="align-self-center" style="height: 80vh"></div>
+        </div>
+        <div class="col-md-4 justify-content-center">
+            <div id="shotChartControls" class="align-self-center" style="height: 30%"></div>
+            <div id="shotChartMessage" class="align-self-center" style="height: 70%"></div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div id="chart-area">
@@ -85,10 +95,14 @@
         crossorigin="anonymous"></script>
 <!-- d3 -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-simple-slider"></script>
 
 <!-- Visualization objects -->
 <script src="js/stackedAreaChart.js"></script>
-<script src="js/draft.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/teamColors.js"></script>
+<script src="js/shotchart.js"></script>
+<script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
 <script src="js/pieChart.js"></script>
 
