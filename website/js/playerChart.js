@@ -8,7 +8,7 @@ class PlayerChart {
 
     initVis() {
         let vis = this;
-        console.log("hello1")
+
         vis.margin = {top: 40, right: 150, bottom: 60, left: 100};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
@@ -236,8 +236,10 @@ class PlayerChart {
     }
 
     playerSelect() {
+
         let vis = this;
         console.log(selectedPlayer1, selectedPlayer2)
+
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".selectedPlayerLabel").remove()
 
