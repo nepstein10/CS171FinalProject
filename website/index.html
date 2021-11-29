@@ -6,6 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>3px Line - the 3-point Revolution</title>
 
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="public/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="public/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="public/favicon-16x16.png">
+<!--    <link rel="manifest" href="public/site.webmanifest">-->
+
     <!-- Load Google Font -->
     <link href='https://fonts.googleapis.com/css?family=Roboto:100,400,300,400italic,700' rel='stylesheet'
           type='text/css'>
@@ -52,6 +58,16 @@
         <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
     </div>
 
+    <div class="row" style="height: 100vh">
+        <div class="col-md-8 justify-content-center">
+            <div id="shotChart" class="align-self-center" style="height: 80vh"></div>
+        </div>
+        <div class="col-md-4 justify-content-center">
+            <div id="shotChartControls" class="align-self-center" style="height: 30%"></div>
+            <div id="shotChartMessage" class="align-self-center" style="height: 70%"></div>
+        </div>
+    </div>
+
     <div class="container">
         <div class="row">
             <div id="chart-area">
@@ -79,10 +95,14 @@
         crossorigin="anonymous"></script>
 <!-- d3 -->
 <script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://unpkg.com/d3-simple-slider"></script>
 
 <!-- Visualization objects -->
 <script src="js/stackedAreaChart.js"></script>
-<script src="js/draft.js"></script>
+<script src="js/timeline.js"></script>
+<script src="js/teamColors.js"></script>
+<script src="js/shotchart.js"></script>
+<script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
 <script src="js/pieChart.js"></script>
 
