@@ -1,4 +1,4 @@
 new fullpage('#fullpage', {
-    sectionsColor: ['white', 'white', 'white', 'white'],
+    sectionsColor: ['white', 'white', 'white', 'white', 'white', 'white', 'white'],
 });
 
