@@ -1,6 +1,7 @@
 
 // Variables for the visualization instances
-let areachart, shotchart, shotChartControls, playerChart, pieChart;
+
+let areachart, shotchart, shotChartControls, playerChart;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -27,33 +28,6 @@ function loadData() {
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
 
-		// sum each property across 5 years
-		let reducer = function(previousValue, currentValue) {
-			return {
-				"0 to 3 ft": previousValue["0 to 3 ft"] + currentValue["0 to 3 ft"],
-				"3 to 10 ft": previousValue["3 to 10 ft"] + currentValue["3 to 10 ft"],
-				"10 to 16 ft": previousValue["10 to 16 ft"] + currentValue["10 to 16 ft"],
-				"16 ft to 3P": previousValue["16 ft to 3P"] + currentValue["16 ft to 3P"],
-				"3P": previousValue["3P"] + currentValue["3P"]
-			};
-		};
-		let chartNum = 0;
-		let titles = ["2000-2004", "2005-2009", "2010-2014", "2015-2019"];
-		for (let i = 3; i < 23; i+=5) {
-			let reduced = fgdata.slice(i, i+5).reduce(reducer);
-			let twoPtSum = 0;
-			for (const property in reduced) {
-				reduced[property] = reduced[property] / 5;
-				if (property != "3P") {
-					twoPtSum += reduced[property];
-				}
-			}
-			let data = {"2PT" : twoPtSum, "3PT": reduced["3P"]};
-			pieChart = new PieChart('pie-chart-'+chartNum.toString(), data, titles[chartNum]);
-			pieChart.initVis();
-			chartNum++;
-		}
-
 	});
 
 	let initialSeason = 2000
@@ -73,6 +47,20 @@ function loadData() {
 
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
+	});
+
+	d3.csv("data/basicdata.csv", row => {
+		row["3PA"] = +row["3PA"];
+		row["FGA"] = +row["FGA"];
+		return row;
+	}). then(basicdata=>{
+		let titles = ["1970s", "1980s", "1990s", "2000s", "2010s"];
+		let chartNum = 0;
+		for (let i = 51; i >= 2; i -= 10) {
+			let processed = processBasicData(basicdata, i);
+			let pieChart = new PieChart('pie-chart-'+chartNum.toString(), processed, titles[chartNum]);
+			chartNum++;
+		}
 	});
 }
 
@@ -97,6 +85,21 @@ function playerChange() {
 	selectedPlayer1 = document.getElementById("playerSelector1").value;
 	selectedPlayer2 = document.getElementById("playerSelector2").value;
 	playerChart.playerSelect()
+}
+
+// averages 3PA, 2PA, FGA across 10 seasons
+function processBasicData(basicdata, i) {
+	let reduced = basicdata.slice(i, i+10).reduce(function(previousValue, currentValue) {
+		return {
+			"FGA": previousValue["FGA"] + currentValue["FGA"],
+			"3PA": previousValue["3PA"] + currentValue["3PA"]
+		};
+	});
+	reduced["2PA"] = reduced["FGA"] - reduced["3PA"];
+	Object.keys(reduced).forEach((element, i) => {
+		reduced[element] /= 10;
+	});
+	return reduced;
 }
 
 function getLastTwo(y) {return (''+y).slice(2)}
