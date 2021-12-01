@@ -35,7 +35,8 @@ class ShotChart {
 
         vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
-        vis.width = Math.max(vis.height * H_W_RATIO, document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right)
+        vis.width = vis.height * H_W_RATIO
+        // vis.width = Math.max(vis.height * H_W_RATIO, document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right)
         vis.height = vis.width / H_W_RATIO
 
         // SVG Area
@@ -75,6 +76,7 @@ class ShotChart {
         vis.slider = d3.sliderHorizontal(sliderScale)
             .step(1)
             .default(2000)
+            .tickFormat(s => s)
             .on("onchange", val =>
                 vis.sliderChange(val)
             )
@@ -139,13 +141,13 @@ class ShotChart {
         //console.log("Display data:", vis.displayData)
 
         // Apply keys
-        // let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
-        // vis.displayData = vis.displayData.map(row => {
-        //     let zone = row.zone
-        //     row.key = zone + keyCounters[zone]
-        //     keyCounters[zone]++
-        //     return row
-        // } )
+        let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
+        vis.displayData = vis.displayData.map(row => {
+            let zone = row.zone
+            row.key = zone + keyCounters[zone]
+            keyCounters[zone]++
+            return row
+        } )
         console.log("# to Display: ", vis.displayData.length)
 
         vis.updateVis()
@@ -156,36 +158,56 @@ class ShotChart {
 
         vis.messageP.html(vis.message)
 
+        let durTime = vis.displayData.length >= 10000 ? 0 : 2000
+
         let circles = vis.svg.selectAll("circle")
             .data(vis.displayData, d => d.key)
-        circles.enter().append("circle")
-            .merge(circles)
-            //.transition()
-            .attr("cx", d => vis.x(d.shotx))
-            .attr("cy", d => vis.y(d.shoty))
-            .attr("r", 2)
-            .attr("fill", function(d) {
-                if(vis.filters.color === "made") {
-                    return d.made ? "green" : "red"
-                } else if (vis.filters.color === "team") {
-                    return returnDualColor(d.team, true)
-                } else {
-                    return "black"
-                }
-            })
-            .attr("stroke", function(d) {
-                if (vis.filters.color === "team") {
-                    return returnDualColor(d.team, false)
-                } else {
-                    return "black"
-                }
-            })
-            .attr("opacity", function(d) {
-                return ["made", "team"].includes(vis.filters.color) ?
-                    1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
-            })
+        circles.join(
+            enter => {enter.append("circle")
+                .attr("cx", d => vis.x(d.shotx))
+                .attr("cy", d => vis.y(d.shoty))
+                .attr("r", 2)
+                .attr("fill", function(d) {
+                    if(vis.filters.color === "made") {
+                        return d.made ? "green" : "red"
+                    } else if (vis.filters.color === "team") {
+                        return returnDualColor(d.team, true)
+                    } else {
+                        return "black"
+                    }
+                })
+                .style("opacity", 0)
+                .transition().duration(durTime)
+                .style("opacity", function(d) {
+                    return ["made", "team"].includes(vis.filters.color) ?
+                        1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                })
+                .selection()}
+            , update => {update
+                .transition().duration(durTime)
+                .attr("cx", d => vis.x(d.shotx))
+                .attr("cy", d => vis.y(d.shoty))
+                .attr("r", 2)
+                .attr("fill", function(d) {
+                    if(vis.filters.color === "made") {
+                        return d.made ? "green" : "red"
+                    } else if (vis.filters.color === "team") {
+                        return returnDualColor(d.team, true)
+                    } else {
+                        return "black"
+                    }
+                })
+                .style("opacity", function(d) {
+                    return ["made", "team"].includes(vis.filters.color) ?
+                        1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                })
+                .selection()}
+            , exit => {exit
+                .transition().duration(durTime)
+                .style("opacity", 0)
+                .remove()}
+        )
 
-        circles.exit().remove()
         vis.loading(false)
         if (vis.displayData.length == 0) {vis.noData(true)}
         else {vis.noData(false)}

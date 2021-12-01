@@ -5,11 +5,14 @@ let areachart, shotchart, shotChartControls, playerChart, pieChart;
 let selectedPlayer1, selectedPlayer2;
 
 let yearlyShotData = {}
-let yearsLoaded = 0
 let years = [...Array(23).keys()].map(d=>d+1998)
 
 // Start application by loading the data
 loadData();
+//sleep(3000)
+//getBackgroundData(); //Process some data after rest of page loads
+
+async function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function loadData() {
 
@@ -71,7 +74,6 @@ function loadData() {
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
 	});
-
 }
 
 
@@ -103,7 +105,7 @@ async function loadSeasonShots(year) {
 	console.log("Loading data from the " + year + " season")
 	await d3.csv(`data/ShotsByYear/shots${getLastTwo(year-1)}-${getLastTwo(year)}.csv`).then(yearShotData => {
 		yearlyShotData[year] = processData(yearShotData)
-		console.log("done processing now")
+		//console.log("done processing now")
 	})
 }
 
@@ -126,6 +128,13 @@ function processData(data) {
 		}
 		return newrow
 	})
+	processedData.sort((e1, e2) => {return e1.distance - e2.distance})
 
 	return processedData
+}
+
+function getBackgroundData() {
+	years.forEach(y => {
+		loadSeasonShots(y)
+	})
 }

@@ -5,6 +5,8 @@ class ShotChartControls {
     }
 
     initControl() {
+        let controller = this;
+
         let chart = this.chart
         this.d = d3.select('#'+this.parentElement)
         let buttonControls = [
@@ -14,7 +16,7 @@ class ShotChartControls {
                 teams: [],
                 playoffs: "all",
                 seasons: [2010, 2020],
-                color: "team",
+                color: "",
                 subset: 1,
                 message: "Steph Curry is one of the strongest 3-point shooters in the modern NBA," +
                     "routinely attempting shots from well beyond the arc when open. The 7-time all-star " +
@@ -29,7 +31,7 @@ class ShotChartControls {
                 teams: [],
                 playoffs: "all",
                 seasons: [1998, 2011],
-                color: "team",
+                color: "",
                 subset: 1,
                 message: "7\'1\" Shaquille \"Shaq\" O'Neal was one of the best players in the NBA for most " +
                     "of his 19-year career, earning 15 all-star selections. He also only ever made 1 3-pointer " +
@@ -48,10 +50,18 @@ class ShotChartControls {
                 seasons: [1998, 2020],
                 color: "team",
                 subset: 1,
-                message: "Over the past decade, the Houston Rockets have routinely been at or near the top of " +
-                    "the NBA in percentage of field goals attempted from 3-point range, and the Spurs have been " +
+                message: "Over the past decade, the " +
+                    `<span style='color:${returnDualColor("Houston Rockets")}'>Rockets</span>` +
+                    "have routinely been at or near the top of " +
+                    "the NBA in percentage of field goals attempted from 3-point range, and the " +
+                    `<span style='color:${returnDualColor("San Antonio Spurs")}'>Spurs</span>` +
+                    "have been " +
                     "at or near the bottom. In fact, for 2018-2020, the Rockets shot more than half of their shots " +
-                    "as 3s, around 150% of the Spurs' pace most seasons. Much of this can be attributed to Rockets " +
+                    "as 3s, around 150% of the Spurs' pace most seasons. This can be seen particularly in more recent " +
+                    "seasons, where the long 2-pointers are predominantly the grey of San Antonio, and the red of " +
+                    "Houston is clustered under the basket and behind the arc. " +
+                    "</p><p>" +
+                    "Much of this can be attributed to Rockets " +
                     "star James Harden, who let the league in 3-pointers, 3-point attempts, and points-per-game all " +
                     "three of those seasons (Click the James Harden button to explore his shooting tendencies!) " +
                     "The Spurs were in the NBA Finals in both 2013 and 2014, but have since gone 3-5 in playoff " +
@@ -61,34 +71,100 @@ class ShotChartControls {
             // TODO: JAMES HARDEN
             // TODO: RAY ALLEN
             // TODO: LEBRON JAMES?
-
+            // TODO: rest of dropdown players
         ]
 
         buttonControls.forEach(c => {
             let newB = this.d.append("button")
                 .attr("class", "controlButton")
                 .attr("type", "button")
-                //.attr("onClick", "this.buttonFunction")
                 .html(c.label)
                 .on("click", function(e) {
-                    //console.log(e, this)
-                    //console.log(chart.filters)
                     chart.filters = {
                         players: c.players,
                         teams: c.teams,
                         playoffs: c.playoffs,
-                        color: c.color
+                        color: c.color,
+                        subset: c.subset,
                     }
                     let season = chart.season
                     if (!(season >= c.seasons[0] && season <= c.seasons[1])) {
                         season = c.seasons[0]
                     }
                     chart.message = c.message
-                    //console.log(chart.filters)
                     if (season !== chart.season) {chart.slider.value(season)}
-                    else {chart.sliderChange(season)}
+                    else {
+                        chart.loading(true)
+                        chart.sliderChange(season)
+                    }
+                    d3.select("#shotChartTeamSelect")
+                        .classed("active", false)
+                        .property("value", "selectByTeam")
+                    d3.selectAll(".controlButton")
+                        .classed("active", false)
+                    d3.select(this).classed("active", true)
                 })
         })
-        console.log("done init")
+
+
+
+        let teamSelect = this.d.append("select")
+            .attr("id", "shotChartTeamSelect")
+            .attr("class", "active")
+            .style("width", "50%")
+            .on("change", function(e) {
+                console.log(e)
+                controller.selectChange()
+            })
+        teamSelect.append("option")
+            .html("Select by Team Here")
+            .property("value", "selectByTeam")
+            .property("hidden", true)
+        teamSelect.append("option")
+            .html("Subsample of All")
+            .property("value", "subsample")
+            .property('selected', true)
+        // teamSelect.append("option")
+        //     .html("all (WARNING: LONG LOAD)")
+        //     .property("value","all")
+        Object.entries(teamArrs).forEach(([key, val]) => {
+            teamSelect.append("option")
+                .html(key)
+        })
+
+    }
+
+    selectChange() {
+        console.log("CHANGING")
+        let chart = this.chart
+
+        let selectValue = d3.select('#shotChartTeamSelect').property('value')
+        if (selectValue === "all" ) {
+            chart.filters = {
+                players: [],
+                teams: [],
+                color: "",
+                subset: 1,
+            }
+        } else if (selectValue === "subsample") {
+            chart.filters = {
+                players: [],
+                teams: [],
+                color: "",
+                subset: 0.1,
+            }
+        } else {
+            chart.filters = {
+                players: [],
+                teams: teamArrs[selectValue],
+                color: "team",
+                subset: 1,
+            }
+        }
+        d3.selectAll(".controlButton")
+            .classed("active", false)
+        d3.select("#shotChartTeamSelect").classed("active", true)
+
+        chart.wrangleData()
     }
 }
