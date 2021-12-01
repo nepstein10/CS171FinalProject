@@ -166,7 +166,7 @@ class ShotChart {
             enter => {enter.append("circle")
                 .attr("cx", d => vis.x(d.shotx))
                 .attr("cy", d => vis.y(d.shoty))
-                .attr("r", 2)
+                .attr("r", 8)
                 .attr("fill", function(d) {
                     if(vis.filters.color === "made") {
                         return d.made ? "green" : "red"
@@ -178,6 +178,7 @@ class ShotChart {
                 })
                 .style("opacity", 0)
                 .transition().duration(durTime)
+                .attr("r", 2)
                 .style("opacity", function(d) {
                     return ["made", "team"].includes(vis.filters.color) ?
                         1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
