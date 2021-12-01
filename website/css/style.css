@@ -157,3 +157,7 @@ button {
   box-shadow: none;
   text-shadow: none;
 }
+
+.active {
+  background: lightblue;
+}
