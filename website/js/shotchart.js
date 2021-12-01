@@ -180,8 +180,8 @@ class ShotChart {
                 .transition().duration(durTime)
                 .attr("r", 2)
                 .style("opacity", function(d) {
-                    return ["made", "team"].includes(vis.filters.color) ?
-                        1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                    return 1/Math.log10(vis.displayData.length) //["made", "team"].includes(vis.filters.color) ?
+                    //1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
                 })
                 .selection()}
             , update => {update
@@ -199,8 +199,8 @@ class ShotChart {
                     }
                 })
                 .style("opacity", function(d) {
-                    return ["made", "team"].includes(vis.filters.color) ?
-                        1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                    return 1/Math.log10(vis.displayData.length) //["made", "team"].includes(vis.filters.color) ?
+                        //1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
                 })
                 .selection()}
             , exit => {exit
