@@ -97,6 +97,7 @@ function returnDualColor (team, primary=true) {
         case "Indiana Pacers":
             return primary ? '#002D62' : '#FDBB30';
         case "Los Angeles Clippers":
+        case "LA Clippers":
             return primary ? '#C8102E' : '#006BB6';
         case "Los Angeles Lakers":
             return primary ? '#552583' : '#FDB927';
@@ -158,7 +159,7 @@ let teamArrs = {
     "Golden State Warriors": ["Golden State Warriors"],
     "Houston Rockets": ["Houston Rockets"],
     "Indiana Pacers": ["Indiana Pacers"],
-    "LA Clippers": ["Los Angeles Clippers"],
+    "LA Clippers": ["Los Angeles Clippers", "LA Clippers"],
     "LA Lakers": ["Los Angeles Lakers"],
     "Memphis/Vancouver Grizzlies": ["Vancouver Grizzlies", "Memphis Grizzlies"],
     "Miami Heat": ["Miami Heat"],

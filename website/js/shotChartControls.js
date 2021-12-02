@@ -16,7 +16,7 @@ class ShotChartControls {
                 teams: [],
                 playoffs: "all",
                 seasons: [2010, 2020],
-                color: "",
+                color: "team",
                 subset: 1,
                 message: "Steph Curry is one of the strongest 3-point shooters in the modern NBA," +
                     "routinely attempting shots from well beyond the arc when open. The 7-time all-star " +
@@ -31,7 +31,7 @@ class ShotChartControls {
                 teams: [],
                 playoffs: "all",
                 seasons: [1998, 2011],
-                color: "",
+                color: "team",
                 subset: 1,
                 message: "7\'1\" Shaquille \"Shaq\" O'Neal was one of the best players in the NBA for most " +
                     "of his 19-year career, earning 15 all-star selections. He also only ever made 1 3-pointer " +
@@ -51,10 +51,10 @@ class ShotChartControls {
                 color: "team",
                 subset: 1,
                 message: "Over the past decade, the " +
-                    `<span style='color:${returnDualColor("Houston Rockets")}'>Rockets</span>` +
+                    `<span style='color:${returnDualColor("Houston Rockets")}'>Rockets</span> ` +
                     "have routinely been at or near the top of " +
                     "the NBA in percentage of field goals attempted from 3-point range, and the " +
-                    `<span style='color:${returnDualColor("San Antonio Spurs")}'>Spurs</span>` +
+                    `<span style='color:${returnDualColor("San Antonio Spurs")}'>Spurs</span> ` +
                     "have been " +
                     "at or near the bottom. In fact, for 2018-2020, the Rockets shot more than half of their shots " +
                     "as 3s, around 150% of the Spurs' pace most seasons. This can be seen particularly in more recent " +
@@ -100,13 +100,14 @@ class ShotChartControls {
                     d3.select("#shotChartTeamSelect")
                         .classed("active", false)
                         .property("value", "selectByTeam")
+                    d3.select("#playerSearchBox")
+                        .classed("active", false)
+                        .property("value", "")
                     d3.selectAll(".controlButton")
                         .classed("active", false)
                     d3.select(this).classed("active", true)
                 })
         })
-
-
 
         let teamSelect = this.d.append("select")
             .attr("id", "shotChartTeamSelect")
@@ -124,18 +125,29 @@ class ShotChartControls {
             .html("Subsample of All")
             .property("value", "subsample")
             .property('selected', true)
-        // teamSelect.append("option")
-        //     .html("all (WARNING: LONG LOAD)")
-        //     .property("value","all")
         Object.entries(teamArrs).forEach(([key, val]) => {
             teamSelect.append("option")
                 .html(key)
         })
 
+        let label = this.d.append("label")
+            .attr("for", "playerSearchBox")
+            .html("Search for a Player: ")
+        let playerSearchBox = this.d.append("input")
+            .attr("type", "text")
+            .attr("id", "playerSearchBox")
+            .attr("name", "playerSearchBox")
+            .property("placeholder", "Player Search")
+        this.d.append("button")
+            .attr("class", "controlButton")
+            .attr("type", "button")
+            .html("Search")
+            .on("click", function(e) {
+                controller.searchChange()
+            })
     }
 
     selectChange() {
-        console.log("CHANGING")
         let chart = this.chart
 
         let selectValue = d3.select('#shotChartTeamSelect').property('value')
@@ -161,9 +173,35 @@ class ShotChartControls {
                 subset: 1,
             }
         }
+        chart.message = "Use the slider to track this team's shots by season!"
         d3.selectAll(".controlButton")
             .classed("active", false)
+        d3.select("#playerSearchBox").classed("active", false)
         d3.select("#shotChartTeamSelect").classed("active", true)
+
+        chart.wrangleData()
+    }
+
+    searchChange() {
+        let chart = this.chart;
+
+        let searchValue = d3.select('#playerSearchBox').property('value')
+        chart.filters = {
+            players: [searchValue],
+            teams: [],
+            color: "team",
+            subset: 1,
+        }
+        chart.message = "Use the slider to track this player's shots over their career. " +
+            "If no data appears for any seasons, make sure the player appears by this name " +
+            "on <a href='https://www.basketball-reference.com/'>Basketball Reference</a>."
+
+        d3.select("#shotChartTeamSelect")
+            .classed("active", false)
+            .property("value", "selectByTeam")
+        d3.selectAll(".controlButton")
+            .classed("active", false)
+        d3.select("#playerSearchBox").classed("active", true)
 
         chart.wrangleData()
     }
