@@ -115,7 +115,7 @@ class PlayerChart {
     updateVis() {
         let vis = this;
 
-        vis.x.domain(d3.extent(vis.data, d=> d.Season));
+        vis.x.domain(d3.extent(vis.data, d=> parseInt(d["Total GP"])));
 
         vis.y.domain(d3.extent(vis.data, d=> +d["3PA"]));
 
@@ -127,6 +127,7 @@ class PlayerChart {
             (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
+        vis.lengths = []
 
         // Draw the line
         vis.paths = vis.path.enter().append('path')
@@ -142,7 +143,7 @@ class PlayerChart {
             })
             .attr("d", function(d){
                 return d3.line().curve(d3.curveNatural)
-                    .x(d => vis.x(d.Season))
+                    .x(d => vis.x(d["Total GP"]))
                     .y(d => vis.y(+d["3PA"]))
                     (d[1])
             })
@@ -178,14 +179,16 @@ class PlayerChart {
                     .style("top", 0)
                     .html(``);
             })
-            .attr("stroke-dasharray", 700 + " " + 700)
-            .attr("stroke-dashoffset", 700)
-            .transition()
-            .delay(function(d, i) { return i * 500; })
-            .duration(4000)
-            .attr("stroke-dashoffset", 0);
 
-            //console.log(vis.paths.node().getTotalLength())
+        //vis.length = vis.paths.node().getTotalLength()
+
+        vis.paths
+            .attr("stroke-dasharray", 1180 + " " + 1180)
+            .attr("stroke-dashoffset", 1180)
+            .transition()
+            .delay(function(d, i) { return i; })
+            .duration(6000)
+            .attr("stroke-dashoffset", 0);
 
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
