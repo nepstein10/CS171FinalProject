@@ -28,9 +28,6 @@ class PlayerChart {
         vis.y = d3.scaleLinear()
             .range([vis.height, 0])
 
-        /*vis.colorscale = d3.scaleLinear()
-            .range(["#ccdcf9", "#113d8e"])*/
-
         vis.colorScale = d3.scaleOrdinal()
             .domain([1980, 2010])
             .range(d3.schemeTableau10);

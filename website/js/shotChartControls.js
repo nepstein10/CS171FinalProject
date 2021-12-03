@@ -98,20 +98,20 @@ class ShotChartControls {
                         chart.sliderChange(season)
                     }
                     d3.select("#shotChartTeamSelect")
-                        .classed("active", false)
+                        .classed("active-filter", false)
                         .property("value", "selectByTeam")
                     d3.select("#playerSearchBox")
-                        .classed("active", false)
+                        .classed("active-filter", false)
                         .property("value", "")
                     d3.selectAll(".controlButton")
-                        .classed("active", false)
-                    d3.select(this).classed("active", true)
+                        .classed("active-filter", false)
+                    d3.select(this).classed("active-filter", true)
                 })
         })
 
         let teamSelect = this.d.append("select")
             .attr("id", "shotChartTeamSelect")
-            .attr("class", "active")
+            .attr("class", "active-filter")
             .style("width", "50%")
             .on("change", function(e) {
                 console.log(e)
@@ -175,9 +175,9 @@ class ShotChartControls {
         }
         chart.message = "Use the slider to track this team's shots by season!"
         d3.selectAll(".controlButton")
-            .classed("active", false)
-        d3.select("#playerSearchBox").classed("active", false)
-        d3.select("#shotChartTeamSelect").classed("active", true)
+            .classed("active-filter", false)
+        d3.select("#playerSearchBox").classed("active-filter", false)
+        d3.select("#shotChartTeamSelect").classed("active-filter", true)
 
         chart.wrangleData()
     }
@@ -197,11 +197,11 @@ class ShotChartControls {
             "on <a href='https://www.basketball-reference.com/'>Basketball Reference</a>."
 
         d3.select("#shotChartTeamSelect")
-            .classed("active", false)
+            .classed("active-filter", false)
             .property("value", "selectByTeam")
         d3.selectAll(".controlButton")
-            .classed("active", false)
-        d3.select("#playerSearchBox").classed("active", true)
+            .classed("active-filter", false)
+        d3.select("#playerSearchBox").classed("active-filter", true)
 
         chart.wrangleData()
     }

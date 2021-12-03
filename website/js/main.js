@@ -1,8 +1,6 @@
 
 // Variables for the visualization instances
-
 let areachart, shotchart, shotChartControls, playerChart;
-
 let selectedPlayer1, selectedPlayer2;
 
 let yearlyShotData = {}
@@ -135,6 +133,7 @@ function processData(data) {
 		}
 		return newrow
 	})
+
 	processedData.sort((e1, e2) => {return e1.distance - e2.distance})
 
 	return processedData
