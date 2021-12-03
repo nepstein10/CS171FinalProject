@@ -141,8 +141,8 @@ class PlayerChart {
 
         // Draw the line
         vis.paths = vis.path.enter().append('path')
-            //.attr("class", "playerlines")
-            .attr("class", d => `playerlines pEra${d[1][1]['Era']}`)
+            .attr("class", "playerlines")
+            //.attr("class", d => `playerlines pEra${d[1][1]['Era']}`)
             .attr("id", function(d) {
                 return d[0].replace(/\s+/g, '')
             })
@@ -205,12 +205,12 @@ class PlayerChart {
                 return vis.colorScale(parseInt(d[1][1]['Era']))
             })*/
 
-        vis.path.exit().remove();*/
+        vis.path.exit().remove();
 
 
         //vis.length = vis.paths.node().getTotalLength()
 
-        vis.svg.selectAll(".pEra1980")
+        vis.paths
             .attr("stroke-dasharray", 1180 + " " + 1180)
             .attr("stroke-dashoffset", 1180)
             .transition()

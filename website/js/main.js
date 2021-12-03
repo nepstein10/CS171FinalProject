@@ -70,9 +70,7 @@ function loadData() {
 
 
 function brushed() {
-
-	// TO-DO: React to 'brushed' event
-	// Get the extent of the current brush
+	
 	let selectionRange = d3.brushSelection(d3.select(".brush").node());
 
 	// Convert the extent into the corresponding domain values

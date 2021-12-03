@@ -13,7 +13,7 @@ class LineChart {
     initVis() {
         let vis = this;
 
-        vis.margin = {top: 100, right: 150, bottom: 60, left: 100};
+        vis.margin = {top: 100, right: 20, bottom: 60, left: 60};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -45,13 +45,10 @@ class LineChart {
             .range([vis.height, 0])
             .domain([0, 50])
 
-        console.log(vis.y(0.15))
-
-        //console.log(vis.data)
-
         vis.xAxis = d3.axisBottom()
             .scale(vis.x)
-            .tickFormat(d=>d);
+            .tickFormat(d=>d)
+            .ticks(5)
 
         vis.yAxis = d3.axisLeft()
             .scale(vis.y)
