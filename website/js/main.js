@@ -87,6 +87,10 @@ function playerChange() {
 	playerChart.playerSelect()
 }
 
+function positionChange() {
+	selectedPosition = document.getElementById("positionSelector").value;
+}
+
 // averages 3PA, 2PA, FGA across 10 seasons
 function processBasicData(basicdata, i) {
 	let reduced = basicdata.slice(i, i+10).reduce(function(previousValue, currentValue) {

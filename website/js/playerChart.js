@@ -81,6 +81,16 @@ class PlayerChart {
             </select>`
         )
 
+        d3.select("#positionFilter").html(
+            `<select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
+                    onChange="positionChange()">
+                <option value="NA" selected>Filter by Position</option>
+                <option value="Guard">Guard</option>
+                <option value="Wing">Wing</option>
+                <option value="Big">Big</option>
+            </select>`
+        )
+
         vis.wrangleData()
 
     }
@@ -111,6 +121,8 @@ class PlayerChart {
             }
         })
 
+        console.log(vis.data)
+
         vis.updateVis()
     }
 
@@ -124,8 +136,6 @@ class PlayerChart {
         vis.y.domain(d3.extent(vis.data, d=> +d["3PA"]));
 
         vis.sumstat = d3.group(vis.data, d=>d.Player)
-
-        console.log(vis.data)
 
         /*vis.colorscale.domain(d3.extent(vis.sumstat, d=>
             (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))*/
@@ -185,6 +195,19 @@ class PlayerChart {
                     .style("top", 0)
                     .html(``);
             })
+            .merge(vis.path)
+            .attr("d", function(d){
+                return d3.line().curve(d3.curveNatural)
+                    .x(d => vis.x(d["Total GP"]))
+                    .y(d => vis.y(+d["3PA"]))
+                    (d[1])
+            })
+            .attr("stroke", function(d) {
+                return vis.colorScale(parseInt(d[1][1]['Era']))
+            })
+
+        vis.path.exit().remove();
+        
 
         //vis.length = vis.paths.node().getTotalLength()
 
@@ -278,6 +301,8 @@ class PlayerChart {
             })
         }
     }
+
+
 
 
 }
