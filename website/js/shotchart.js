@@ -10,18 +10,20 @@ class ShotChart {
             label: "",
             players:[], teams:[], playoffs: "all",
             color: "", // options would include "team" and "made"
-            subset: 1 // fraction of data to include
+            subset: 0.1 // fraction of data to include
         }
 
-        this.message = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
+        this.startMessage = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
             "until the 2019-20 season. That's over 4 million shots! Use the slider to move " +
             "from season to season to see the change in shot tendencies over the past two " +
-            "decades. We've started you off by showing you a random 10% of the shots for load " +
-            "speed, but you can select \"All\" in the team drop down to see all shots for a " +
-            "season. Click the buttons to see some specific interesting players and trends!"
+            "decades. We've started you off by showing you a random 10% of the shots in a " +
+            "given year for load speed, but you can select \"All\" in the team drop down to " +
+            "see all shots league-wide for a season. Click the buttons to see some specific " +
+            "interesting players and trends, or explore your favorite team's shot selection!"
+        this.message = this.startMessage
 
         //this.filters.players.push("Tim Legler")
-        this.filters.teams.push("Golden State Warriors")
+        //this.filters.teams.push("Golden State Warriors")
         //this.season = 2013
     }
 
@@ -34,7 +36,8 @@ class ShotChart {
         vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
         vis.width = vis.height * H_W_RATIO
-            //document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        // vis.width = Math.max(vis.height * H_W_RATIO, document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right)
+        vis.height = vis.width / H_W_RATIO
 
         // SVG Area
         vis.svg = d3.select('#' + vis.parentElement).append("svg")
@@ -73,6 +76,7 @@ class ShotChart {
         vis.slider = d3.sliderHorizontal(sliderScale)
             .step(1)
             .default(2000)
+            .tickFormat(s => s)
             .on("onchange", val =>
                 vis.sliderChange(val)
             )
@@ -129,6 +133,9 @@ class ShotChart {
                     retVal = false
                 }
             })
+            if (retVal && vis.filters.subset < 1 && Math.random() > vis.filters.subset) {
+                retVal = false
+            }
             return retVal
         })
         //console.log("Display data:", vis.displayData)
@@ -149,36 +156,59 @@ class ShotChart {
     updateVis() {
         let vis = this;
 
+        vis.messageP.html(vis.message)
+
+        let durTime = vis.displayData.length >= 10000 ? 0 : 2000
+
         let circles = vis.svg.selectAll("circle")
             .data(vis.displayData, d => d.key)
-        circles.enter().append("circle")
-            .merge(circles)
-            //.transition()
-            .attr("cx", d => vis.x(d.shotx))
-            .attr("cy", d => vis.y(d.shoty))
-            .attr("r", 2)
-            .attr("fill", function(d) {
-                if(vis.filters.color === "made") {
-                    return d.made ? "green" : "red"
-                } else if (vis.filters.color === "team") {
-                    return returnDualColor(d.team, true)
-                } else {
-                    return "black"
-                }
-            })
-            .attr("stroke", function(d) {
-                if (vis.filters.color === "team") {
-                    return returnDualColor(d.team, false)
-                } else {
-                    return "black"
-                }
-            })
-            .attr("opacity", function(d) {
-                return ["made", "team"].includes(vis.filters.color) ?
-                    1/Math.log10(vis.displayData.length) : 1/Math.log10(vis.displayData.length)
-            })
+        circles.join(
+            enter => {enter.append("circle")
+                .attr("cx", d => vis.x(d.shotx))
+                .attr("cy", d => vis.y(d.shoty))
+                .attr("r", 8)
+                .attr("fill", function(d) {
+                    if(vis.filters.color === "made") {
+                        return d.made ? "green" : "red"
+                    } else if (vis.filters.color === "team") {
+                        return returnDualColor(d.team, true)
+                    } else {
+                        return "black"
+                    }
+                })
+                .style("opacity", 0)
+                .transition().duration(durTime)
+                .attr("r", 2)
+                .style("opacity", function(d) {
+                    return 1/Math.log10(vis.displayData.length) //["made", "team"].includes(vis.filters.color) ?
+                    //1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                })
+                .selection()}
+            , update => {update
+                .transition().duration(durTime)
+                .attr("cx", d => vis.x(d.shotx))
+                .attr("cy", d => vis.y(d.shoty))
+                .attr("r", 2)
+                .attr("fill", function(d) {
+                    if(vis.filters.color === "made") {
+                        return d.made ? "green" : "red"
+                    } else if (vis.filters.color === "team") {
+                        return returnDualColor(d.team, true)
+                    } else {
+                        return "black"
+                    }
+                })
+                .style("opacity", function(d) {
+                    return 1/Math.log10(vis.displayData.length) //["made", "team"].includes(vis.filters.color) ?
+                        //1 - (1 - 1/Math.log10(vis.displayData.length))/2 : 1/Math.log10(vis.displayData.length)
+                })
+                .selection()}
+            , exit => {exit
+                .transition().duration(durTime)
+                .style("opacity", 0)
+                .remove()}
+        )
 
-        circles.exit().remove()
         vis.loading(false)
         if (vis.displayData.length == 0) {vis.noData(true)}
         else {vis.noData(false)}

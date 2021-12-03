@@ -181,5 +181,9 @@ div.content-box {
   /*height: 70%;*/
   border-radius: 5%;
   padding: 5%;
-  background-color: rgba(256,256,256,.8);
+  background-color: rgba(256, 256, 256, .8);
+}
+
+.active-filter {
+    background: lightblue;
 }
