@@ -193,3 +193,8 @@ div.content-box {
   height: 400px;
   padding-top: 30px;
 }
+
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+  background: white;
+}
