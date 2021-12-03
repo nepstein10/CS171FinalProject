@@ -105,14 +105,14 @@ class LineChart {
             )
 
         //Draw the line
-        /*vis.line = d3.line()
-            .x(d => vis.x(d.YEAR))
+        vis.line = d3.line()
+            .x(d => vis.x(d.Year))
             .y(d => vis.y(100*d['3P']))
             .curve(d3.curveLinear);
 
         console.log(vis.line(vis.data))
 
-        vis.path = vis.svg.selectAll('path').data(vis.data);
+        /*vis.path = vis.svg.selectAll('path').data(vis.data);
         vis.path.enter().append('path')
             .attr('d', vis.line(vis.data))
             .attr("fill", "none")
