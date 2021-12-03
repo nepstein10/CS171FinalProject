@@ -265,7 +265,6 @@ constructor(parentElement, data) {
 			vis.svg.selectAll(".areacharttooltip").raise()
 
 		}
-
-
+		
 	}
 }

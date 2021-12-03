@@ -74,7 +74,7 @@ function brushed() {
 	let selectionRange = d3.brushSelection(d3.select(".brush").node());
 
 	// Convert the extent into the corresponding domain values
-	let selectionDomain = selectionRange.map(timeline.x.invert);
+	let selectionDomain = selectionRange.map(linechart.x.invert);
 
 	// Update focus chart (detailed information)
 	areachart.x.domain(selectionDomain)

@@ -6,7 +6,6 @@ class LineChart {
         this.data = data;
 
         let vis = this;
-        
 
     }
 
@@ -26,6 +25,13 @@ class LineChart {
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
+        // Overlay with path clipping
+        vis.svg.append("defs").append("clipPath")
+            .attr("id", "clip")
+            .append("rect")
+            .attr("width", vis.width)
+            .attr("height", vis.height);
+
         // Scales and axes
         vis.x = d3.scaleLinear()
             .range([0, vis.width])
@@ -37,7 +43,7 @@ class LineChart {
 
         vis.y = d3.scaleLinear()
             .range([vis.height, 0])
-            .domain([0, 100])
+            .domain([0, 50])
 
         console.log(vis.y(0.15))
 
@@ -58,6 +64,19 @@ class LineChart {
         vis.svg.append("g")
             .attr("class", "y-axis axis");
 
+        // TO-DO: Initialize brush component
+        let brush = d3.brushX()
+            .extent([[0, 0], [vis.width, vis.height]])
+            .on("brush", brushed);
+
+        // TO-DO: Append brush component here
+        vis.svg.append("g")
+            .attr("class", "x brush")
+            .call(brush)
+            .selectAll("rect")
+            .attr("y", -6)
+            .attr("height", vis.height + 7);
+
         vis.updateVis();
     }
 
@@ -65,7 +84,7 @@ class LineChart {
         let vis = this;
 
         //Draw the line
-        /*vis.svg.append("path")
+        vis.svg.append("path")
             .datum(vis.data)
             .attr("fill", "none")
             .attr("stroke", "steelblue")
@@ -73,10 +92,20 @@ class LineChart {
             .attr("d", d3.line()
                 .x(function(d) { return vis.x(d.Year) })
                 .y(function(d) { return vis.y(100*d['3P']) })
-            )*/
+            )
+
+        vis.svg.append("path")
+            .datum(vis.data)
+            .attr("fill", "none")
+            .attr("stroke", "crimson")
+            .attr("stroke-width", 1.5)
+            .attr("d", d3.line()
+                .x(function(d) { return vis.x(d.Year) })
+                .y(function(d) { return vis.y(100*d['16 ft to 3P']) })
+            )
 
         //Draw the line
-        vis.line = d3.line()
+        /*vis.line = d3.line()
             .x(d => vis.x(d.YEAR))
             .y(d => vis.y(100*d['3P']))
             .curve(d3.curveLinear);
@@ -87,7 +116,7 @@ class LineChart {
         vis.path.enter().append('path')
             .attr('d', vis.line(vis.data))
             .attr("fill", "none")
-            .attr('stroke', '#1C9A3D')
+            .attr('stroke', '#1C9A3D')*/
             
         // Call axis functions with the new domain
         vis.svg.select(".x-axis").call(vis.xAxis);
