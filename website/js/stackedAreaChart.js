@@ -47,6 +47,7 @@ constructor(parentElement, data) {
 			.attr("height", vis.height);
 
 		// Scales and axes
+
 		vis.x = d3.scaleLinear()
 			.range([0, vis.width])
 			.domain(d3.extent(vis.data, d=> d.Year));
@@ -56,7 +57,7 @@ constructor(parentElement, data) {
 
 		vis.xAxis = d3.axisBottom()
 			.scale(vis.x)
-			.tickFormat(d=>d);
+			.tickFormat(d=>d3.timeFormat(d));
 
 		vis.yAxis = d3.axisLeft()
 			.scale(vis.y)
@@ -265,7 +266,6 @@ constructor(parentElement, data) {
 			vis.svg.selectAll(".areacharttooltip").raise()
 
 		}
-
-
+		
 	}
 }

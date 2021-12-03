@@ -1,6 +1,10 @@
 
 // Variables for the visualization instances
-let areachart, shotchart, shotChartControls, playerChart;
+
+
+let areachart, shotchart, shotChartControls, playerChart, linechart;
+
+
 let selectedPlayer1, selectedPlayer2;
 
 let yearlyShotData = {}
@@ -25,7 +29,8 @@ function loadData() {
 	}). then(fgdata=>{
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
-
+		linechart = new LineChart('line-chart', fgdata)
+		linechart.initVis();
 	});
 
 	let initialSeason = 2000
@@ -71,7 +76,7 @@ function brushed() {
 	let selectionRange = d3.brushSelection(d3.select(".brush").node());
 
 	// Convert the extent into the corresponding domain values
-	let selectionDomain = selectionRange.map(timeline.x.invert);
+	let selectionDomain = selectionRange.map(linechart.x.invert);
 
 	// Update focus chart (detailed information)
 	areachart.x.domain(selectionDomain)
