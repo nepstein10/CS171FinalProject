@@ -1,7 +1,7 @@
 
 // Variables for the visualization instances
 
-let areachart, shotchart, shotChartControls, playerChart;
+let areachart, shotchart, shotChartControls, playerChart, linechart;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -27,7 +27,8 @@ function loadData() {
 	}). then(fgdata=>{
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
-
+		linechart = new LineChart('line-chart', fgdata)
+		linechart.initVis();
 	});
 
 	let initialSeason = 2000

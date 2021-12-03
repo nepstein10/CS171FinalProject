@@ -141,7 +141,6 @@ class PlayerChart {
             (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))*/
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
-        vis.lengths = []
 
         // Draw the line
         vis.paths = vis.path.enter().append('path')
@@ -162,6 +161,8 @@ class PlayerChart {
                     .y(d => vis.y(+d["3PA"]))
                     (d[1])
             })
+
+        vis.paths
             .on("mouseover", function(event, d) {
                 d3.selectAll(".playerlines").style('stroke', 'lightgrey')
                 d3.select(this).style('stroke', 'crimson')
@@ -195,7 +196,7 @@ class PlayerChart {
                     .style("top", 0)
                     .html(``);
             })
-            .merge(vis.path)
+            /*.merge(vis.path)
             .attr("d", function(d){
                 return d3.line().curve(d3.curveNatural)
                     .x(d => vis.x(d["Total GP"]))
@@ -206,8 +207,8 @@ class PlayerChart {
                 return vis.colorScale(parseInt(d[1][1]['Era']))
             })
 
-        vis.path.exit().remove();
-        
+        vis.path.exit().remove();*/
+
 
         //vis.length = vis.paths.node().getTotalLength()
 
@@ -219,53 +220,24 @@ class PlayerChart {
             .duration(6000)
             .attr("stroke-dashoffset", 0);
 
+
+        /*vis.eras = [1980, 1990, 2000, 2010]
+
+        vis.eras.forEach(era => {
+            vis.data.erafiltered = vis.data.filter(d => d.Era == era)
+            vis.sumstatera = d3.group(vis.data.erafiltered, d=>d.Player)
+            vis.path = vis.svg.selectAll('path').data(vis.sumstatera);
+            console.log(vis.path)
+        })*/
+
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
             .call(vis.xAxis)
             .raise();
         vis.svg.select(".y-axis").call(vis.yAxis);
 
-        /*vis.eras = [1980, 1990, 2000, 2010]
-
-        vis.eras.forEach( era => {
-            console.log(era) //Works fine
-            vis.data.erafiltered = vis.data.filter(d => d.Era == era)
-            console.log(vis.data.erafiltered) //Looks correct
-            vis.sumstatera = d3.group(vis.data.erafiltered, d=>d.Player)
-            console.log(vis.sumstatera) //Looks correct
-
-            vis.path = vis.svg.selectAll('path').data(vis.sumstatera);
-            console.log(vis.path) //Looks wrong
-
-            vis.paths = vis.path.enter().append('path')
-                .attr("class", "playerlines")
-                .attr("id", function(d) {
-                    return d[0].replace(/\s+/g, '')
-                })
-                .attr("fill", "none")
-                .attr("stroke-width", 3)
-                .attr("stroke", function(d) {
-                    return vis.colorscale((d[1][d[1].length-1]['3PA']) /
-                        (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))
-                })
-                .attr("d", function(d){
-                    return d3.line().curve(d3.curveNatural)
-                        .x(d => vis.x(d.Season))
-                        .y(d => vis.y(+d["3PA"]))
-                        (d[1])
-                })
-                /!*.attr("stroke-dasharray", 700 + " " + 700)
-                .attr("stroke-dashoffset", 700)
-                .transition()
-                .delay(function(d, i) { return i * 1000; })
-                .duration(4000)
-                .attr("stroke-dashoffset", 0);*!/
-
-            //console.log(vis.paths.node().getTotalLength())
-
-        })*/
-
     }
+
 
     playerSelect() {
 
