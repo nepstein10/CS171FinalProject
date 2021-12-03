@@ -187,3 +187,9 @@ div.content-box {
 .active-filter {
     background: lightblue;
 }
+
+#sircharles {
+  width: 600px;
+  height: 400px;
+  padding-top: 30px;
+}
