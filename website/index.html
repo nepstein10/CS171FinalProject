@@ -19,38 +19,56 @@
     <!-- CSS libraries -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="fullpage/dist/fullpage.css" />
 <!--    <link rel="stylesheet" href="css/fontawesome.min.css">-->
+
 
     <!-- Custom CSS code -->
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-<div class="container-fluid">
-<!--    heading -->
-    <div class="row">
-        <div class="row justify-content-center">
-            <div class="align-self-center">
-                <h1>3Point Revolution</h1>
-                <h3><i>a 3px line creation</i></h3>
+<div id="fullpage">
+    <div class="section">
+        <div class="row">
+            <div class="row justify-content-center">
+                <div class="align-self-center">
+                    <h1 class="title">The 3 Point Revolution</h1>
+                    <h3 class="title"><i>a 3px line creation</i></h3>
+                </div>
             </div>
         </div>
     </div>
-      
-    <div class="row justify-content-center" style="height: 60vh; background-image: url('img/shelf.png'); background-repeat: no-repeat;
-  background-size: 50% 110%; background-position: center;" id="rackCharts">
-        <div id="pie-chart-0" style="height: 100%; width: 10%"></div>
-        <div id="pie-chart-1" style="height: 100%; width: 10%"></div>
-        <div id="pie-chart-2" style="height: 100%; width: 10%"></div>
-        <div id="pie-chart-3" style="height: 100%; width: 10%"></div>
-        <div id="pie-chart-4" style="height: 100%; width: 10%"></div>
 
+    <div class="section">
+        <div class="content-box">
+            One of the most publicized transformations in the history of the NBA, the rise of analytics has had a
+            polarizing and profound impact on the way the game of basketball is played today. All 30 teams in the
+            league now boast analytics personnel or departments—people sitting behind computers, crunching numbers,
+            and impacting the outcome of games in their own uniquely cerebral way. But how has this wave of analytics
+            actually impacted the way the game is played—have team strategies changed? Are certain types of shots more
+            or less common now? Let’s dive in and find out.
+
+            <img src="img/sircharles.jpg" id="sircharles">
+            <div class="caption"> Charles Barkley—NBA Hall of Famer, Host of NBA on TNT, and an outspoken opponent
+                of the analytics movement. </div>
+            <div class="caption"> Art Credit: Aaron Dana </div>
+        </div>
     </div>
 
-    <!-- graph -->
-    <div class="row justify-content-center" style="height: 60vh">
-        <div class="align-self-center" id="stacked-area-chart" style="height: 100%; width: 100%"></div>
+    <div class="section">
+        <div class="content-box">
+            <div class="row justify-content-center" style="height: 60vh; background-image: url('img/shelf.png'); background-repeat: no-repeat;
+      background-size: 50% 110%; background-position: center;" id="rackCharts">
+                <div id="pie-chart-0" style="height: 100%; width: 10%"></div>
+                <div id="pie-chart-1" style="height: 100%; width: 10%"></div>
+                <div id="pie-chart-2" style="height: 100%; width: 10%"></div>
+                <div id="pie-chart-3" style="height: 100%; width: 10%"></div>
+                <div id="pie-chart-4" style="height: 100%; width: 10%"></div>
+            </div>
+        </div>
     </div>
+
 
     <div class="row justify-content-center" style="height: 60vh">
         <div class="align-self-center" id="line-chart" style="height: 100%; width: 100%"></div>
@@ -58,46 +76,77 @@
 
     <div class="row col-8">
         <div id="playerSelectButtons"></div>
-    </div>
 
-    <div class="row col-8">
-        <div id="positionFilter"></div>
-    </div>
-
-    <div class="row justify-content-center" style="height: 60vh">
-        <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
-    </div>
-
-    <div class="row" style="height: 100vh">
-        <div class="col-md-8 justify-content-center">
-            <div id="shotChart" class="align-self-center" style="height: 80vh"></div>
+    <div class="section">
+        <div class="content-box">
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="stacked-area-chart" style="height: 100%; width: 100%"></div>
+            </div>
         </div>
-        <div class="col-md-4 justify-content-center">
-            <div id="shotChartControls" class="align-self-center" style="height: 30%"></div>
-            <div id="shotChartMessage" class="align-self-center" style="height: 70%"></div>
+
+    </div>
+
+    <div class="section">
+        <div class="content-box">
+            <div class="row col-8">
+                <div id="playerSelectButtons"></div>
+            </div>
+
+            <div class="row col-8">
+                <div id="positionFilter"></div>
+            </div>
+
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
+            </div>
         </div>
     </div>
 
-    <div class="container">
-        <div class="row">
-            <div id="chart-area">
-                <div id="display-controls">
-                    <div class="buttons">
-                        <button id='play-button' class="btn">Play</button>
-                        <button id='reset-button' class="btn">Reset</button>
-                    </div>
-                    <div id="slider-div">
-                        <label>Season: <span id="season">1996-1997</span> </label>
-                        <div id="slider"></div>
+    <div class="section">
+        <div class="content-box">
+            <div class="row" style="height: 100vh">
+                <div class="col-md-8 justify-content-center">
+                    <div id="shotChart" class="align-self-center" style="height: 80vh"></div>
+                </div>
+                <div class="col-md-4 justify-content-center">
+                    <div id="shotChartControls" class="align-self-center" style="height: 30%"></div>
+                    <div id="shotChartMessage" class="align-self-center" style="height: 70%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="content-box">
+            <div class="container">
+                <div class="row">
+                    <div id="chart-area">
+                        <div id="display-controls">
+                            <div class="buttons">
+                                <button id='play-button' class="btn">Play</button>
+                                <button id='reset-button' class="btn">Reset</button>
+                            </div>
+                            <div id="slider-div">
+                                <label>Season: <span id="season">1996-1997</span> </label>
+                                <div id="slider"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <h3>Conclusion</h3>
+    <div class="section">
+        <div class="content-box">
+            <h3>Conclusion</h3>
+        </div>
+    </div>
 
 </div>
+
+
+
 
 <!-- Load JS libraries -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
@@ -107,6 +156,10 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 
+<!-- fullpage -->
+<script type="text/javascript" src="fullpage/dist/fullpage.js"></script>
+<script src="js/scroller.js"></script>
+
 <!-- Visualization objects -->
 <script src="js/stackedAreaChart.js"></script>
 <script src="js/timeline.js"></script>
@@ -115,6 +168,7 @@
 <script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
 <script src="js/pieChart.js"></script>
+
 <script src="js/lineChart.js"></script>
 
 <script src="dist/bundle.js"></script>

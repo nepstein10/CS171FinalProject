@@ -28,9 +28,6 @@ class PlayerChart {
         vis.y = d3.scaleLinear()
             .range([vis.height, 0])
 
-        /*vis.colorscale = d3.scaleLinear()
-            .range(["#ccdcf9", "#113d8e"])*/
-
         vis.colorScale = d3.scaleOrdinal()
             .domain([1980, 2010])
             .range(d3.schemeTableau10);
@@ -144,7 +141,8 @@ class PlayerChart {
 
         // Draw the line
         vis.paths = vis.path.enter().append('path')
-            .attr("class", "playerlines")
+            //.attr("class", "playerlines")
+            .attr("class", d => `playerlines pEra${d[1][1]['Era']}`)
             .attr("id", function(d) {
                 return d[0].replace(/\s+/g, '')
             })
@@ -205,14 +203,14 @@ class PlayerChart {
             })
             .attr("stroke", function(d) {
                 return vis.colorScale(parseInt(d[1][1]['Era']))
-            })
+            })*/
 
         vis.path.exit().remove();*/
 
 
         //vis.length = vis.paths.node().getTotalLength()
 
-        vis.paths
+        vis.svg.selectAll(".pEra1980")
             .attr("stroke-dasharray", 1180 + " " + 1180)
             .attr("stroke-dashoffset", 1180)
             .transition()
