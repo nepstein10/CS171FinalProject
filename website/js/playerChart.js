@@ -28,8 +28,12 @@ class PlayerChart {
         vis.y = d3.scaleLinear()
             .range([vis.height, 0])
 
-        vis.colorscale = d3.scaleLinear()
-            .range(["#ccdcf9", "#113d8e"])
+        /*vis.colorscale = d3.scaleLinear()
+            .range(["#ccdcf9", "#113d8e"])*/
+
+        vis.colorScale = d3.scaleOrdinal()
+            .domain([1980, 2010])
+            .range(d3.schemeTableau10);
 
         vis.xAxis = d3.axisBottom()
             .scale(vis.x)
@@ -123,8 +127,8 @@ class PlayerChart {
 
         console.log(vis.data)
 
-        vis.colorscale.domain(d3.extent(vis.sumstat, d=>
-            (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))
+        /*vis.colorscale.domain(d3.extent(vis.sumstat, d=>
+            (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))*/
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
         vis.lengths = []
@@ -138,8 +142,9 @@ class PlayerChart {
             .attr("fill", "none")
             .attr("stroke-width", 3)
             .attr("stroke", function(d) {
-                return vis.colorscale((d[1][d[1].length-1]['3PA']) /
-                    (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))
+                /*return vis.colorscale((d[1][d[1].length-1]['3PA']) /
+                    (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))*/
+                return vis.colorScale(parseInt(d[1][1]['Era']))
             })
             .attr("d", function(d){
                 return d3.line().curve(d3.curveNatural)
@@ -169,8 +174,9 @@ class PlayerChart {
             })
             .on("mouseout", function(event, d) {
                 d3.selectAll(".playerlines").style('stroke', function(d) {
-                    return vis.colorscale((d[1][d[1].length-1]['3PA']) /
-                        (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))
+                    /*return vis.colorscale((d[1][d[1].length-1]['3PA']) /
+                        (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))*/
+                    return vis.colorScale(parseInt(d[1][1]['Era']))
                 });
 
                 vis.tooltip
