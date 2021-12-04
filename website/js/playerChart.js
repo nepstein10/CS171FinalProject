@@ -172,6 +172,9 @@ class PlayerChart {
             console.log(vis.sumstat)
             vis.x.domain(d3.extent(vis.data.filter(d=> d.Position==vis.position), d=> parseInt(d["Total GP"])));
             vis.y.domain(d3.extent(vis.data.filter(d=> d.Position==vis.position), d=> +d["3PA"]));
+            d3.selectAll(".selectedPlayerLabel").remove()
+            document.getElementById("playerSelector1").value = "NA"
+            document.getElementById("playerSelector2").value = "NA"
         }
         else {
             vis.sumstat = d3.group(vis.data, d=>d.Player)
