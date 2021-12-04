@@ -93,14 +93,6 @@ class PlayerChart {
     }
 
 
-    positionSelect() {
-        let vis = this
-        vis.position = selectedPosition
-        console.log(vis.position)
-        vis.updateVis()
-    }
-
-
     wrangleData() {
         let vis = this;
 
@@ -134,6 +126,16 @@ class PlayerChart {
     }
 
 
+    positionSelect() {
+        let vis = this
+        vis.position = selectedPosition
+        console.log(vis.position)
+        vis.updateVis()
+        d3.selectAll(".playerlines").style('stroke', function(d) {
+            return vis.colorScale(parseInt(d[1][0]['Era']))
+        });
+    }
+
 
     updateVis() {
         let vis = this;
@@ -156,7 +158,9 @@ class PlayerChart {
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
 
         // Draw the line
-        vis.paths = vis.path.enter().append('path')
+        vis.paths = vis.path
+            .enter()
+            .append('path')
             .attr("class", "playerlines")
             //.attr("class", d => `playerlines pEra${d[1][1]['Era']}`)
             .attr("id", function(d) {
@@ -173,6 +177,21 @@ class PlayerChart {
                     .y(d => vis.y(+d["3PA"]))
                     (d[1])
             })
+
+        vis.path
+            .merge(vis.path)
+            .transition()
+            .attr("stroke", function(d) {
+                return vis.colorScale(parseInt(d[1][0]['Era']))
+            })
+            .attr("d", function(d){
+                return d3.line().curve(d3.curveNatural)
+                    .x(d => vis.x(d["Total GP"]))
+                    .y(d => vis.y(+d["3PA"]))
+                    (d[1])
+            })
+
+        vis.path.exit().remove();
 
         vis.paths
             .on("mouseover", function(event, d) {
@@ -206,21 +225,6 @@ class PlayerChart {
                     .html(``);
             })
 
-            .merge(vis.path)
-            .transition()
-            .attr("stroke", function(d) {
-                return vis.colorScale(parseInt(d[1][0]['Era']))
-            })
-            .attr("d", function(d){
-                return d3.line().curve(d3.curveNatural)
-                    .x(d => vis.x(d["Total GP"]))
-                    .y(d => vis.y(+d["3PA"]))
-                    (d[1])
-            })
-
-
-
-        vis.path.exit().remove();
 
         //vis.length = vis.paths.node().getTotalLength()
 
