@@ -61,6 +61,23 @@ class PlayerChart {
             .attr('class', "tooltip")
             .attr('id', 'playerChartToolTip')
 
+        //Create legend
+        vis.colors = ["#4e79a7", "#e15759", "#76b7b2", "#f28e2c"]
+        vis.eras = ["1980", "1990", "2000", "2010"]
+
+        vis.legend = vis.svg.append("g")
+            .attr('class', 'legend')
+            .attr('transform', `translate(${vis.width + 20}, ${0})`)
+
+        vis.legendtext = vis.svg.append("g")
+            .attr('class', 'legendtext')
+            .attr('transform', `translate(${vis.width + 50}, ${0})`)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (vis.width + 20) + "," + (-15) + ")")
+            .attr("id", "legendtitle")
+            .text("Player's Main Era")
+
 
         // Initialize buttons
         d3.select("#playerSelectButtons").html(
@@ -72,6 +89,7 @@ class PlayerChart {
                 <option value="MichaelJordan">Michael Jordan</option>
                 <option value="ReggieMiller">Reggie Miller</option>
                 <option value="RayAllen">Ray Allen</option>
+                <option value="KobeBryant">Kobe Bryant</option>
             </select>
             <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
                 onChange="playerChange()">
@@ -81,13 +99,14 @@ class PlayerChart {
                 <option value="MichaelJordan">Michael Jordan</option>
                 <option value="ReggieMiller">Reggie Miller</option>
                 <option value="RayAllen">Ray Allen</option>
+                <option value="KobeBryant">Kobe Bryant</option>
             </select>`
         )
 
         d3.select("#positionFilter").html(
             `<select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
                     onChange="positionChange()">
-                <option value="NA" selected>Filter by Position</option>
+                <option value="NA" selected>Filter by Player Position</option>
                 <option value="Guard">Guard</option>
                 <option value="Wing">Wing</option>
                 <option value="Big">Big</option>
@@ -201,7 +220,7 @@ class PlayerChart {
 
         vis.paths
             .on("mouseover", function(event, d) {
-                d3.selectAll(".playerlines").style('stroke', 'grey')
+                d3.selectAll(".playerlines").style('stroke', '#AEAEAE')
                 d3.select(this).style('stroke', 'crimson')
                 d3.select(this).raise()
                 vis.svg.select(".x-axis").raise()
@@ -255,6 +274,21 @@ class PlayerChart {
             .duration(800)
             .call(vis.yAxis);
 
+        for (let i=0; i<4; i++) {
+            vis.legend.selectAll().data(vis.colors)
+                .enter()
+                .append("rect")
+                .attr("y", 20 * i)
+                .attr("height",20)
+                .attr("width", 20)
+                .attr("fill", vis.colors[i])
+
+            vis.legendtext
+                .append("text")
+                .text(vis.eras[i])
+                .attr("y", 20 * i + 15)
+        }
+
     }
 
 
@@ -266,7 +300,7 @@ class PlayerChart {
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".selectedPlayerLabel").remove()
 
-            d3.selectAll(".playerlines").style('stroke', 'grey')
+            d3.selectAll(".playerlines").style('stroke', '#AEAEAE')
 
             vis.selectedPlayers = [selectedPlayer1, selectedPlayer2]
 
