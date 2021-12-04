@@ -8,7 +8,8 @@ constructor(parentElement, data) {
 
 	let vis = this;
 
-    vis.colors = ['#1d428a','#2a60c9','#4c7cda','#769be3','#a0baec'];
+    //vis.colors = ['#1d428a','#2a60c9','#4c7cda','#769be3','#a0baec'];
+	vis.colors = ["#59a14f","#76b7b2","#f28e2c","#e15759","#4e79a7"];
 
     // grab all the keys from the key value pairs in data (filter out 'year' ) to get a list of categories
     this.dataCategories = Object.keys(this.data[0]).filter(d=>d !== "Year")

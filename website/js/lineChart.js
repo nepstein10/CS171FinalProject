@@ -84,7 +84,7 @@ class LineChart {
         vis.svg.append("path")
             .datum(vis.data)
             .attr("fill", "none")
-            .attr("stroke", "steelblue")
+            .attr("stroke", "#4e79a7")
             .attr("stroke-width", 1.5)
             .attr("d", d3.line()
                 .x(function(d) { return vis.x(d.Year) })
@@ -94,26 +94,12 @@ class LineChart {
         vis.svg.append("path")
             .datum(vis.data)
             .attr("fill", "none")
-            .attr("stroke", "crimson")
+            .attr("stroke", "#e15759")
             .attr("stroke-width", 1.5)
             .attr("d", d3.line()
                 .x(function(d) { return vis.x(d.Year) })
                 .y(function(d) { return vis.y(100*d['16 ft to 3P']) })
             )
-
-        //Draw the line
-        vis.line = d3.line()
-            .x(d => vis.x(d.Year))
-            .y(d => vis.y(100*d['3P']))
-            .curve(d3.curveLinear);
-
-        console.log(vis.line(vis.data))
-
-        /*vis.path = vis.svg.selectAll('path').data(vis.data);
-        vis.path.enter().append('path')
-            .attr('d', vis.line(vis.data))
-            .attr("fill", "none")
-            .attr('stroke', '#1C9A3D')*/
             
         // Call axis functions with the new domain
         vis.svg.select(".x-axis").call(vis.xAxis);
