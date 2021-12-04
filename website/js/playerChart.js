@@ -92,6 +92,15 @@ class PlayerChart {
 
     }
 
+
+    positionSelect() {
+        let vis = this
+        vis.position = selectedPosition
+        console.log(vis.position)
+        vis.updateVis()
+    }
+
+
     wrangleData() {
         let vis = this;
 
@@ -121,6 +130,7 @@ class PlayerChart {
         console.log(vis.data)
 
         vis.updateVis()
+
     }
 
 
@@ -128,14 +138,20 @@ class PlayerChart {
     updateVis() {
         let vis = this;
 
-        vis.x.domain(d3.extent(vis.data, d=> parseInt(d["Total GP"])));
+        console.log(vis.position)
 
-        vis.y.domain(d3.extent(vis.data, d=> +d["3PA"]));
-
-        vis.sumstat = d3.group(vis.data, d=>d.Player)
-
-        /*vis.colorscale.domain(d3.extent(vis.sumstat, d=>
-            (d[1][d[1].length-1]['3PA']) / (d[1][d[1].length-1]['Season'] - d[1][0]['Season'])))*/
+        if (vis.position == "Big" || vis.position == "Wing" || vis.position == "Guard") {
+            vis.sumstat = d3.group(vis.data.filter(d=> d.Position==vis.position), d=>d.Player)
+            console.log(vis.sumstat)
+            vis.x.domain(d3.extent(vis.data.filter(d=> d.Position==vis.position), d=> parseInt(d["Total GP"])));
+            vis.y.domain(d3.extent(vis.data.filter(d=> d.Position==vis.position), d=> +d["3PA"]));
+        }
+        else {
+            vis.sumstat = d3.group(vis.data, d=>d.Player)
+            console.log(vis.sumstat)
+            vis.x.domain(d3.extent(vis.data, d=> parseInt(d["Total GP"])));
+            vis.y.domain(d3.extent(vis.data, d=> +d["3PA"]));
+        }
 
         vis.path = vis.svg.selectAll('path').data(vis.sumstat);
 
@@ -149,9 +165,7 @@ class PlayerChart {
             .attr("fill", "none")
             .attr("stroke-width", 3)
             .attr("stroke", function(d) {
-                /*return vis.colorscale((d[1][d[1].length-1]['3PA']) /
-                    (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))*/
-                return vis.colorScale(parseInt(d[1][1]['Era']))
+                return vis.colorScale(parseInt(d[1][0]['Era']))
             })
             .attr("d", function(d){
                 return d3.line().curve(d3.curveNatural)
@@ -162,7 +176,7 @@ class PlayerChart {
 
         vis.paths
             .on("mouseover", function(event, d) {
-                d3.selectAll(".playerlines").style('stroke', 'lightgrey')
+                d3.selectAll(".playerlines").style('stroke', 'grey')
                 d3.select(this).style('stroke', 'crimson')
                 d3.select(this).raise()
                 vis.svg.select(".x-axis").raise()
@@ -177,15 +191,12 @@ class PlayerChart {
                          </div>`);
 
                 d3.selectAll(".selectedPlayerLabel").remove()
-
                 document.getElementById("playerSelector1").value = "NA"
                 document.getElementById("playerSelector2").value = "NA"
             })
             .on("mouseout", function(event, d) {
                 d3.selectAll(".playerlines").style('stroke', function(d) {
-                    /*return vis.colorscale((d[1][d[1].length-1]['3PA']) /
-                        (d[1][d[1].length-1]['Season'] - d[1][0]['Season']))*/
-                    return vis.colorScale(parseInt(d[1][1]['Era']))
+                    return vis.colorScale(parseInt(d[1][0]['Era']))
                 });
 
                 vis.tooltip
@@ -194,19 +205,22 @@ class PlayerChart {
                     .style("top", 0)
                     .html(``);
             })
-            /*.merge(vis.path)
+
+            .merge(vis.path)
+            .transition()
+            .attr("stroke", function(d) {
+                return vis.colorScale(parseInt(d[1][0]['Era']))
+            })
             .attr("d", function(d){
                 return d3.line().curve(d3.curveNatural)
                     .x(d => vis.x(d["Total GP"]))
                     .y(d => vis.y(+d["3PA"]))
                     (d[1])
             })
-            .attr("stroke", function(d) {
-                return vis.colorScale(parseInt(d[1][1]['Era']))
-            })*/
+
+
 
         vis.path.exit().remove();
-
 
         //vis.length = vis.paths.node().getTotalLength()
 
@@ -218,21 +232,18 @@ class PlayerChart {
             .duration(6000)
             .attr("stroke-dashoffset", 0);
 
-
-        /*vis.eras = [1980, 1990, 2000, 2010]
-
-        vis.eras.forEach(era => {
-            vis.data.erafiltered = vis.data.filter(d => d.Era == era)
-            vis.sumstatera = d3.group(vis.data.erafiltered, d=>d.Player)
-            vis.path = vis.svg.selectAll('path').data(vis.sumstatera);
-            console.log(vis.path)
-        })*/
-
         // Call axis functions with the new domain
         vis.svg.select(".x-axis")
+            .transition()
+            .duration(800)
             .call(vis.xAxis)
-            .raise();
-        vis.svg.select(".y-axis").call(vis.yAxis);
+
+        vis.svg.select(".x-axis").raise();
+
+        vis.svg.select(".y-axis")
+            .transition()
+            .duration(800)
+            .call(vis.yAxis);
 
     }
 
@@ -245,7 +256,7 @@ class PlayerChart {
         if(selectedPlayer1 != "NA" || selectedPlayer2 != "NA") {
             d3.selectAll(".selectedPlayerLabel").remove()
 
-            d3.selectAll(".playerlines").style('stroke', 'lightgrey')
+            d3.selectAll(".playerlines").style('stroke', 'grey')
 
             vis.selectedPlayers = [selectedPlayer1, selectedPlayer2]
 

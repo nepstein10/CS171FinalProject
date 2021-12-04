@@ -90,6 +90,7 @@ function playerChange() {
 
 function positionChange() {
 	selectedPosition = document.getElementById("positionSelector").value;
+	playerChart.positionSelect()
 }
 
 // averages 3PA, 2PA, FGA across 10 seasons
