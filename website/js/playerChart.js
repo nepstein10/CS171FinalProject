@@ -51,10 +51,16 @@ class PlayerChart {
             .attr("id", "ylabel")
             .text("Cumulative Career 3PA")
 
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (vis.width - vis.margin.right) + "," + (vis.height + vis.margin.top) + ")")
+            .attr("id", "xlabel")
+            .text("Career Games Played")
+
         //Set up tooltip
         vis.tooltip = d3.select("body").append('div')
             .attr('class', "tooltip")
             .attr('id', 'playerChartToolTip')
+
 
         // Initialize buttons
         d3.select("#playerSelectButtons").html(
