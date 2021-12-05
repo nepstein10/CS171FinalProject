@@ -90,6 +90,12 @@ class PlayerChart {
                 <option value="ReggieMiller">Reggie Miller</option>
                 <option value="RayAllen">Ray Allen</option>
                 <option value="KobeBryant">Kobe Bryant</option>
+                <option value="AllenIverson">Allen Iverson</option>
+                <option value="KlayThompson">Klay Thompson</option>
+                <option value="LarryBird">Larry Bird</option>
+                <option value="JamesHarden">James Harden</option>
+                <option value="TimDuncan">Tim Duncan</option>
+                <option value="MagicJohnson">Magic Johnson</option>
             </select>
             <select id='playerSelector2' className="custom-select align-self-center" style="width: 40%"
                 onChange="playerChange()">
@@ -100,6 +106,12 @@ class PlayerChart {
                 <option value="ReggieMiller">Reggie Miller</option>
                 <option value="RayAllen">Ray Allen</option>
                 <option value="KobeBryant">Kobe Bryant</option>
+                <option value="AllenIverson">Allen Iverson</option>
+                <option value="KlayThompson">Klay Thompson</option>
+                <option value="LarryBird">Larry Bird</option>
+                <option value="JamesHarden">James Harden</option>
+                <option value="TimDuncan">Tim Duncan</option>
+                <option value="MagicJohnson">Magic Johnson</option>
             </select>`
         )
 
