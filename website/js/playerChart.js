@@ -103,7 +103,7 @@ class PlayerChart {
             </select>`
         )
 
-        d3.select("#positionFilter").html(
+        /*d3.select("#positionFilter").html(
             `<select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
                     onChange="positionChange()">
                 <option value="NA" selected>Filter by Player Position</option>
@@ -111,7 +111,7 @@ class PlayerChart {
                 <option value="Wing">Wing</option>
                 <option value="Big">Big</option>
             </select>`
-        )
+        )*/
 
         vis.wrangleData()
 

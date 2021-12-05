@@ -2,8 +2,7 @@
 // Variables for the visualization instances
 
 
-let areachart, shotchart, shotChartControls, playerChart, linechart;
-
+let areachart, shotchart, shotChartControls, playerChart, playerChart2, linechart, barChart;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -47,9 +46,18 @@ function loadData() {
 	d3.csv("data/playerData.csv"). then(playerData=>{
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
-
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
+	});
+
+	d3.csv("data/playerData.csv"). then(playerData=>{
+		playerChart2 = new PlayerChart('player-chart-2', playerData)
+		playerChart2.initVis()
+	});
+
+	d3.csv("data/playerData2.csv"). then(playerData=>{
+		barChart = new BarChart('bar-chart', playerData)
+		barChart.initVis()
 	});
 
 	d3.csv("data/basicdata.csv", row => {
@@ -90,7 +98,7 @@ function playerChange() {
 
 function positionChange() {
 	selectedPosition = document.getElementById("positionSelector").value;
-	playerChart.positionSelect()
+	playerChart2.positionSelect()
 }
 
 // averages 3PA, 2PA, FGA across 10 seasons
