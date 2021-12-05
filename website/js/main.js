@@ -12,12 +12,22 @@ let years = [...Array(23).keys()].map(d=>d+1998)
 
 // Start application by loading the data
 loadData();
-//sleep(3000)
+// let delayInMilliseconds = 60000;
+//
+// setTimeout(function() {
+// 	loadChartData();
+// 	//your code to be executed after delay
+// }, delayInMilliseconds);
+
+//setTimeout(loadChartData(), 50000);
+//loadChartData();
 //getBackgroundData(); //Process some data after rest of page loads
 
 async function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function loadData() {
+
+	//loadChartData();
 
 	d3.csv("data/percentfg.csv", row => {
 		row["0 to 3 ft"] = +row["0 to 3 ft"];
@@ -69,6 +79,8 @@ function loadData() {
 		chartNum++;
 
 	});
+
+
 }
 
 

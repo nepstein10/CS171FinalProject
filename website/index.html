@@ -166,17 +166,57 @@
 
     <div class="section">
         <div class="content-box">
-            <div class="container">
+            <div class="container-fluid" style="height: 100vh">
                 <div class="row">
-                    <div id="chart-area">
-                        <div id="display-controls">
-                            <div class="buttons">
-                                <button id='play-button' class="btn">Play</button>
-                                <button id='reset-button' class="btn">Reset</button>
+                    <div class="col-12">
+                        <div class="card" id="title">
+                            <div class="card-body">
+                                <h3>
+                                    Shot Distances Difference between Regular and Playoff Seasons
+                                </h3>
                             </div>
-                            <div id="slider-div">
-                                <label>Season: <span id="season">1996-1997</span> </label>
-                                <div id="slider"></div>
+                        </div>
+                    </div>
+                </div>
+                <br />
+
+                <div class="row">
+                    <div id="innerDiv">
+					<span>
+						<label id="seasontype" for="seasons">Select Playoff</label>
+						<label class="switch">
+							<input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
+							<span class="slider round"></span>
+						  </label>
+						<label for="playername">Select Player</label>
+						<select name="playername" id="player"></select>
+						<label for="teamname">Select Team</label>
+						<select name="teamname" id="team"></select>
+						<label for="year">Select Year</label>
+						<select name="year" id="year"></select>
+					</span>
+                    </div>
+                </div>
+
+                <div id="regularseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart1">
+                                <h5 class="card-title">
+                                    Regular Season
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div style="display:none;" id="playoffseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart2">
+                                <h5 class="card-title">
+                                    Playoffs
+                                </h5>
                             </div>
                         </div>
                     </div>
@@ -216,7 +256,7 @@
 <script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
 <script src="js/pieChart.js"></script>
-
+<script src="js/sideViewChart.js"></script>
 <script src="js/lineChart.js"></script>
 
 <script src="dist/bundle.js"></script>
