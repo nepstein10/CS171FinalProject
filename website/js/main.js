@@ -2,7 +2,7 @@
 // Variables for the visualization instances
 
 
-let areachart, shotchart, shotChartControls, playerChart, playerChart2, linechart, barChart;
+let areachart, shotchart, shotChartControls, playerChart, playerChart2, linechart, barChart, barChart2;
 
 let selectedPlayer1, selectedPlayer2;
 
@@ -58,7 +58,10 @@ function loadData() {
 	d3.csv("data/playerData2.csv"). then(playerData=>{
 		barChart = new BarChart('bar-chart', playerData)
 		barChart.initVis()
+		barChart2 = new BarChart2('bar-chart-2', playerData)
+		barChart2.initVis()
 	});
+
 
 	d3.csv("data/basicdata.csv", row => {
 		row["3PA"] = +row["3PA"];

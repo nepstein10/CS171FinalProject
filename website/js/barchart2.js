@@ -1,5 +1,4 @@
-
-class BarChart {
+class BarChart2 {
 
     constructor(parentElement, data) {
         this.parentElement = parentElement;
@@ -35,7 +34,8 @@ class BarChart {
 
         //Create y-axis
         vis.yAxis = d3.axisLeft()
-            .scale(vis.y);
+            .scale(vis.y)
+            .tickFormat(d3.format(".0%"))
 
         //Create x-axis
         vis.xAxis = d3.axisBottom()
@@ -54,7 +54,7 @@ class BarChart {
         vis.svg.append("text")
             .attr("transform", "translate(0, -10)")
             .attr("id", "ylabel")
-            .text("Career 3PA Per 100 Possessions")
+            .text("Career 3P%")
 
         vis.wrangleData();
     }
@@ -67,7 +67,7 @@ class BarChart {
             entry['Percent'] = parseFloat(entry['Percent'])
         })
 
-        vis.data.sort((a,b) => {return b['3PA'] - a['3PA']})
+        vis.data.sort((a,b) => {return b['Percent'] - a['Percent']})
 
         vis.updateVis();
     }
@@ -75,17 +75,17 @@ class BarChart {
     updateVis() {
         let vis = this;
 
-        vis.x.domain(['Malik Beasley', 'Ryan Anderson', 'Luguentz Dort', 'Kyle Kuzma', 'Jae Crowder', 'Ray Allen',
-            'Grayson Allen', 'Marcus Smart', 'Kelly Oubre Jr.', 'Reggie Miller', 'Kent Bazemore', 'P.J. Tucker',
-            'Larry Bird']);
-        vis.y.domain([0, d3.max(vis.data, d=>d['3PA'])]);
+        console.log(vis.data)
 
-        console.log(vis.x("Luguentz Dort"))
+        vis.x.domain(['Ray Allen', 'Reggie Miller', 'Grayson Allen', 'Malik Beasley', 'Ryan Anderson', 'Larry Bird',
+            'P.J. Tucker', 'Kent Bazemore', 'Jae Crowder', 'Kyle Kuzma', 'Kelly Oubre Jr.', 'Luguentz Dort',
+            'Marcus Smart']);
+        vis.y.domain([0, d3.max(vis.data, d=>d['Percent'])]);
 
         //Draw rectangles
         vis.bars = vis.svg.selectAll("rect")
             .data(vis.data)
-        
+
         vis.bars
             .enter()
             .append("rect")
@@ -93,9 +93,9 @@ class BarChart {
             .merge(vis.bars)
             .transition()
             .duration(300)
-            .attr("y", d => vis.y(d['3PA']))
+            .attr("y", d => vis.y(d['Percent']))
             .attr("x", d => vis.x(d.Player))
-            .attr("height", d=> vis.height - vis.y(d['3PA']))
+            .attr("height", d=> vis.height - vis.y(d['Percent']))
             .attr("width", vis.x.bandwidth())
             .attr("fill", function(d){
                 return d.Player == "Ray Allen" || d.Player == "Reggie Miller" || d.Player == "Larry Bird" ? "#e15759" : "#666666"});
@@ -103,7 +103,7 @@ class BarChart {
         // Exit
         vis.bars.exit().remove();
 
-        vis.line = d3.line()([[0, vis.y(6.67)], [vis.width, vis.y(6.67)]])
+        vis.line = d3.line()([[0, vis.y(0.345)], [vis.width, vis.y(0.345)]])
 
         vis.svg.append('path')
             .attr("class", "leagueaverage")
@@ -112,13 +112,12 @@ class BarChart {
             .attr("fill", "none")
             .attr('d', vis.line)
 
-
         //Update axis
         vis.svg.select(".y-axis").call(vis.yAxis);
         vis.svg.select(".x-axis").call(vis.xAxis);
 
         vis.svg.append("text")
-            .attr("transform", "translate(" + (vis.width - 165) + "," + (vis.y(6.67) - 10) + ")")
+            .attr("transform", "translate(" + (vis.width - 165) + "," + (vis.y(0.345) - 10) + ")")
             .attr("id", "leagueavglabel")
             .text("Current Season Average")
     }

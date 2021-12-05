@@ -241,3 +241,11 @@ div.content-box {
   padding: 10px;
   width: 35%
 }
+
+.leagueaverage {
+  stroke-dasharray: 5,5;
+}
+
+#leagueavglabel {
+  font-size: 15px;
+}
