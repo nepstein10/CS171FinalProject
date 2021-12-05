@@ -84,7 +84,7 @@ class PlayerChart {
             `<select id='playerSelector1' className="custom-select align-self-center" style="width: 50%"
                     onChange="playerChange()">
                 <option value="NA" selected>Select Player 1 for Comparison</option>
-                <option value="LebronJames">Lebron James</option>
+                <option value="LeBronJames">LeBron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
                 <option value="ReggieMiller">Reggie Miller</option>
@@ -94,7 +94,7 @@ class PlayerChart {
             <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
                 onChange="playerChange()">
                 <option value="NA" selected>Select Player 2 for Comparison</option>
-                <option value="LebronJames">Lebron James</option>
+                <option value="LeBronJames">LeBron James</option>
                 <option value="StephCurry">Steph Curry</option>
                 <option value="MichaelJordan">Michael Jordan</option>
                 <option value="ReggieMiller">Reggie Miller</option>
@@ -233,9 +233,11 @@ class PlayerChart {
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                         <div style="border: thin solid grey; background: none; padding: 5px;">
-                             <p>${d[0]}<p>
-                         </div>`);
+                        <div id="playerdetail">
+                            <p id="playername">${d[0]}<p>
+                            <p>Total Career 3PA: ${d[1][d[1].length-1]['3PA']}<p>
+                            <img src="img/profiles/${d[0]}.jpg" id="profiles">
+                        </div>`);
 
                 d3.selectAll(".selectedPlayerLabel").remove()
                 document.getElementById("playerSelector1").value = "NA"
@@ -314,7 +316,7 @@ class PlayerChart {
                 d3.select("#"+player).raise()
 
                 vis.distance = d3.select("#"+player)._groups[0][0].getTotalLength()
-                vis.xcoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).x
+                vis.xcoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).x + 10
                 vis.ycoord = d3.select("#"+player)._groups[0][0].getPointAtLength(vis.distance).y
 
                 vis.selector = document.getElementById("playerSelector"+vis.index)
