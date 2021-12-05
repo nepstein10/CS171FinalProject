@@ -5,6 +5,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/css/style.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/playerData.csv" beforeDir="false" afterPath="$PROJECT_DIR$/data/playerData.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/js/playerChart.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/playerChart.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,6 +72,7 @@
       <updated>1637812675807</updated>
       <workItem from="1637812677140" duration="16765000" />
       <workItem from="1638065335001" duration="880000" />
+      <workItem from="1638675437560" duration="36000" />
     </task>
     <servers />
   </component>

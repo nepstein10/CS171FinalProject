@@ -9,7 +9,7 @@ class PlayerChart {
     initVis() {
         let vis = this;
 
-        vis.margin = {top: 40, right: 150, bottom: 60, left: 100};
+        vis.margin = {top: 60, right: 150, bottom: 60, left: 100};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -52,7 +52,7 @@ class PlayerChart {
             .text("Cumulative Career 3PA")
 
         vis.svg.append("text")
-            .attr("transform", "translate(" + (vis.width - vis.margin.right) + "," + (vis.height + vis.margin.top) + ")")
+            .attr("transform", "translate(" + (vis.width - vis.margin.right) + "," + (vis.height + vis.margin.top - 15) + ")")
             .attr("id", "xlabel")
             .text("Career Games Played")
 
@@ -67,21 +67,21 @@ class PlayerChart {
 
         vis.legend = vis.svg.append("g")
             .attr('class', 'legend')
-            .attr('transform', `translate(${vis.width + 20}, ${0})`)
+            .attr('transform', `translate(${vis.width + 25}, ${0})`)
 
         vis.legendtext = vis.svg.append("g")
             .attr('class', 'legendtext')
-            .attr('transform', `translate(${vis.width + 50}, ${0})`)
+            .attr('transform', `translate(${vis.width + 55}, ${0})`)
 
         vis.svg.append("text")
-            .attr("transform", "translate(" + (vis.width + 20) + "," + (-15) + ")")
+            .attr("transform", "translate(" + (vis.width + 25) + "," + (-15) + ")")
             .attr("id", "legendtitle")
             .text("Player's Main Era")
 
 
         // Initialize buttons
         d3.select("#playerSelectButtons").html(
-            `<select id='playerSelector1' className="custom-select align-self-center" style="width: 50%"
+            `<select id='playerSelector1' className="custom-select align-self-center" style="width: 40%"
                     onChange="playerChange()">
                 <option value="NA" selected>Select Player 1 for Comparison</option>
                 <option value="LeBronJames">LeBron James</option>
@@ -91,7 +91,7 @@ class PlayerChart {
                 <option value="RayAllen">Ray Allen</option>
                 <option value="KobeBryant">Kobe Bryant</option>
             </select>
-            <select id='playerSelector2' className="custom-select align-self-center" style="width: 50%"
+            <select id='playerSelector2' className="custom-select align-self-center" style="width: 40%"
                 onChange="playerChange()">
                 <option value="NA" selected>Select Player 2 for Comparison</option>
                 <option value="LeBronJames">LeBron James</option>
@@ -102,16 +102,6 @@ class PlayerChart {
                 <option value="KobeBryant">Kobe Bryant</option>
             </select>`
         )
-
-        /*d3.select("#positionFilter").html(
-            `<select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
-                    onChange="positionChange()">
-                <option value="NA" selected>Filter by Player Position</option>
-                <option value="Guard">Guard</option>
-                <option value="Wing">Wing</option>
-                <option value="Big">Big</option>
-            </select>`
-        )*/
 
         vis.wrangleData()
 

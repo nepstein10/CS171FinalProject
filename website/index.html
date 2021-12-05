@@ -73,6 +73,9 @@
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                Threes have risen in frequency, at the cost of long twos.
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-8">
@@ -108,10 +111,12 @@
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                The best players of today are taking more threes than those of past eras.
+            </div>
             <div class="row col-8">
                 <div id="playerSelectButtons"></div>
             </div>
-
             <div class="row justify-content-center" style="height: 60vh">
                 <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
             </div>
@@ -128,7 +133,10 @@
 
     <div class="section">
         <div class="content-box">
-            <div>
+            <div class="sectiontitle">
+                The three is being more heavily adopted across all positions, even big men.
+            </div>
+            <div id="positionSelectButtons">
                 <select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
                         onChange="positionChange()">
                     <option value="NA" selected>Filter by Player Position</option>
@@ -143,9 +151,11 @@
             <div>
                 Use the position filter to compare players across the same position. The trend is consistent across the
                 board: players of today who are just halfway or less into their careers have already
-                launched more threes than their peers from past eras. The trend for bigs is
+                launched more threes than many of their peers from past eras. The trend for bigs is
                 especially eye-opening: even skilled post players like Joel Embiid and Nikola Jokic must take a steady
-                diet of threes just by nature of the way the game is played today.
+                diet of threes just by nature of the way the game is played today. A few outliers aside, most bigs in
+                the 90s and 2000s would rarely ever attempt a three. Notice the heavy clustering of lines at the
+                bottom of the big-filtered chart.
             </div>
         </div>
     </div>
@@ -154,22 +164,29 @@
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                Fun Fact
+            </div>
             <div>
                 Luguentz Dortz, a young defensive specialist and extremely unremarkable three point shooter, is taking more
                 three point shots per game this season than Reggie Miller, the third all-time leader in three point makes,
                 did in any season of his 18-year career.
             </div>
-            <div>
-                Think guys like Larry Bird and Reggie Miller would frequently launch the ball from deep? Well, get ready
-                to re-think that as we compare them to some of the current league’s average Joes.
-            </div>
         </div>
     </div>
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                Role players are launching the three like never before.
+            </div>
             <div class="row justify-content-center" style="height: 60vh">
                 <div class="align-self-center" id="bar-chart" style="height: 100%; width: 100%"></div>
+            </div>
+            <div>
+                Think guys like Larry Bird and Reggie Miller would frequently launch the ball from deep? Well, you might
+                want to re-think that as we compare them to some of the current league’s average Joes. What were once
+                historic rates of three point shot attempts are now being outdone by perenial bench players.
             </div>
         </div>
     </div>
