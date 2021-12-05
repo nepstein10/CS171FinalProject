@@ -57,13 +57,17 @@ function loadData() {
 		row["FGA"] = +row["FGA"];
 		return row;
 	}). then(basicdata=>{
-		let titles = ["1970s", "1980s", "1990s", "2000s", "2010s"];
+		let titles = ["1980s", "1990s", "2000s", "2010s", "2020s*"];
 		let chartNum = 0;
-		for (let i = 51; i >= 2; i -= 10) {
-			let processed = processBasicData(basicdata, i);
+		for (let i = 41; i >= 11; i -= 10) {
+			let processed = processBasicData(basicdata, i-9, i+1);
 			let pieChart = new PieChart('pie-chart-'+chartNum.toString(), processed, titles[chartNum]);
 			chartNum++;
 		}
+		let processed = processBasicData(basicdata, 0, 2);
+		let pieChart = new PieChart('pie-chart-'+chartNum.toString(), processed, titles[chartNum]);
+		chartNum++;
+
 	});
 }
 
@@ -94,8 +98,9 @@ function positionChange() {
 }
 
 // averages 3PA, 2PA, FGA across 10 seasons
-function processBasicData(basicdata, i) {
-	let reduced = basicdata.slice(i, i+10).reduce(function(previousValue, currentValue) {
+function processBasicData(basicdata, start_index, end_index) {
+	console.log(basicdata.slice(start_index, end_index));
+	let reduced = basicdata.slice(start_index, end_index).reduce(function(previousValue, currentValue) {
 		return {
 			"FGA": previousValue["FGA"] + currentValue["FGA"],
 			"3PA": previousValue["3PA"] + currentValue["3PA"]
