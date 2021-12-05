@@ -37,7 +37,7 @@ class PieChart {
             .attr('class', 'title pie-title')
             .append('text')
             .text(vis.title)
-            .attr('transform', `translate(${55}, 90)`)
+            .attr('transform', `translate(${51}, 90)`)
             .attr('text-anchor', 'middle');
 
         // pie chart setup
