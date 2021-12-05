@@ -249,3 +249,13 @@ div.content-box {
 #leagueavglabel {
   font-size: 15px;
 }
+
+#dort {
+  height: 50%;
+  width: 50%;
+  padding: 15px;
+}
+
+.caption {
+  font-style: italic;
+}

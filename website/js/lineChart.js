@@ -61,12 +61,10 @@ class LineChart {
         vis.svg.append("g")
             .attr("class", "y-axis axis");
 
-        // TO-DO: Initialize brush component
         let brush = d3.brushX()
             .extent([[0, 0], [vis.width, vis.height]])
             .on("brush", brushed);
 
-        // TO-DO: Append brush component here
         vis.svg.append("g")
             .attr("class", "x brush")
             .call(brush)
@@ -104,6 +102,28 @@ class LineChart {
         // Call axis functions with the new domain
         vis.svg.select(".x-axis").call(vis.xAxis);
         vis.svg.select(".y-axis").call(vis.yAxis);
+
+        vis.svg.append("circle")
+            .attr("fill", "#e15759")
+            .attr("cx", 20)
+            .attr("cy", 100)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(28, 104)")
+            .attr("class", "linechartlabel")
+            .text("16 ft to 3P")
+
+        vis.svg.append("circle")
+            .attr("fill", "#4e79a7")
+            .attr("cx", 20)
+            .attr("cy", 80)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(28, 84)")
+            .attr("class", "linechartlabel")
+            .text("3P")
 
     }
 
