@@ -8,7 +8,8 @@ class PieChart {
     // constructor method to initialize PieChart object
     constructor(parentElement, data, title) {
         this.parentElement = parentElement;
-        this.circleColors = ['#E47041', '#B54213'];
+        this.circleColors = ['#d94d09', '#B54213'];
+        // this.circleColors = ['#E47041', '#B54213'];
         this.data = data;
         this.title = title;
 
@@ -36,14 +37,14 @@ class PieChart {
             .attr('class', 'title pie-title')
             .append('text')
             .text(vis.title)
-            .attr('transform', `translate(${55}, 90)`)
+            .attr('transform', `translate(${51}, 90)`)
             .attr('text-anchor', 'middle');
 
         // pie chart setup
         vis.pieChartGroup = vis.svg
             .append('g')
             .attr('class', 'pie-chart')
-            .attr("transform", "translate(" + 55 + "," + ((vis.height / 2) - 15) + ")");
+            .attr("transform", "translate(" + 51 + "," + ((vis.height / 2) - 15) + ")");
 
         // Define a default pie layout
         vis.pie = d3.pie()
@@ -77,12 +78,12 @@ class PieChart {
 
         vis.gradient0.append("svg:stop")
             .attr("offset", "0%")
-            .attr("stop-color", vis.circleColors[0])
+            .attr("stop-color", '#e06a1c')
             .attr("stop-opacity", 1);
 
         vis.gradient0.append("svg:stop")
             .attr("offset", "100%")
-            .attr("stop-color", "#161616")
+            .attr("stop-color", '#161616')
             .attr("stop-opacity", 1);
 
         vis.gradient1 = vis.svg.append("svg:defs")
