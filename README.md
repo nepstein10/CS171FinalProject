@@ -6,7 +6,7 @@ CS171: Visualization, Harvard University
 <br />
 Website link: https://nepstein10.github.io/CS171FinalProject/website/
 <br />
-Screencast link: TBD
+Screencast link: https://drive.google.com/file/d/1tjLPGXDFHHS4lIRvEykpWNWOxFAbrnlg/view?usp=sharing
 <br />
 <br />
 plugins: fullPage by Alvaro Trigo https://github.com/alvarotrigo/fullPage.js/#fullpagejs
