@@ -87,7 +87,7 @@ function loadData() {
 
 
 function loadChartData() {
-	// shot distance viz for index.js
+	// shot distance viz for shotDistance.js
 	d3.csv("data/ShotsByYear/shots00-01.csv").then( function (data1) {
 		d3.csv("data/ShotsByYear/shots17-18.csv").then ( function (data2) {
 	console.log("start");
