@@ -2,8 +2,57 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="85e71a0b-6768-4b5c-9f51-2196902d1e7c" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/data/playerData2.csv" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/dort.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Allen Iverson.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Anthony Davis.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Carmelo Anthony.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Charles Barkley.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Clyde Drexler.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Damian Lillard.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/David Robinson.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Dirk Nowitzki.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Dominique Wilkins.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Dwight Howard.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Dwyane Wade.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Gary Payton.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/George Gervin.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Giannis Antetokounmpo.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Grant Hill.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Hakeem Olajuwon.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Isiah Thomas.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/James Harden.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/James Worthy.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Joel Embiid.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/John Stockton.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Julius Erving.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Karl Malone.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Kawhi Leonard.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Kevin Durant.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Kevin Garnett.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Kevin McHale.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Klay Thompson.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Kobe Bryant.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Larry Bird.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/LeBron James.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Magic Johnson.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Michael Jordan.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Nikola Jokic.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Paul George.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Paul Pierce.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Penny Hardaway.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Ray Allen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Reggie Miller.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Scottie Pippen.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Shaquille O'Neal.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Steph Curry.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Steve Nash.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Tim Duncan.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/img/profiles/Tracy McGrady.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/main.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

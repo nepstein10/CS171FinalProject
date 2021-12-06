@@ -21,6 +21,8 @@
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="fullpage/dist/fullpage.css" />
 <!--    <link rel="stylesheet" href="css/fontawesome.min.css">-->
+    <link rel="stylesheet" href="css/shotdistance.css"/>
+
 
 
     <!-- Custom CSS code -->
@@ -227,7 +229,6 @@
         </div>
     </div>
 
-
     <div class="section">
         <div class="content-box">
             <div class="row" style="height: 100vh">
@@ -242,19 +243,67 @@
         </div>
     </div>
 
+    <!-- below is for the shot distance visualization-->
     <div class="section">
         <div class="content-box">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="row">
-                    <div id="chart-area">
-                        <div id="display-controls">
-                            <div class="buttons">
-                                <button id='play-button' class="btn">Play</button>
-                                <button id='reset-button' class="btn">Reset</button>
+                    <div class="col-12">
+                        <div class="card" id="title">
+                            <div class="card-body">
+                                <h3>
+                                    Shot Distance Differences between Regular and Playoff Seasons
+                                </h3>
                             </div>
-                            <div id="slider-div">
-                                <label>Season: <span id="season">1996-1997</span> </label>
-                                <div id="slider"></div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div id="innerDiv">
+					<span>
+						<label id="seasontype" for="seasons">Select Playoff</label>
+						<label class="switch">
+							<input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
+							<span class="slider round"></span>
+						  </label>
+                        <br>
+                        <div>
+						<label for="playername">Select Player</label>
+						<select name="playername" id="player"></select>
+                        </div>
+                        <div>
+						<label for="teamname">Select Team</label>
+						<select name="teamname" id="team"></select>
+                        </div>
+                        <div>
+						<label for="year">Select Year</label>
+						<select name="year" id="year"></select>
+                        </div>
+					</span>
+                    </div>
+                </div>
+
+                <div id="regularseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart1">
+                                <h5 class="card-title">
+                                    Regular Season
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:none;" id="playoffseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart2">
+                                <h5 class="card-title">
+                                    Playoffs
+                                </h5>
                             </div>
                         </div>
                     </div>
@@ -262,6 +311,7 @@
             </div>
         </div>
     </div>
+    <!-- end of section for shot distance viz-->
 
     <div class="section">
         <div class="content-box">
@@ -271,7 +321,18 @@
 
 </div>
 
-
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- D3 JavaScript -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<!-- for map colouring !-->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!-- Load as script for data parsing !-->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
 
 <!-- Load JS libraries -->
@@ -290,6 +351,7 @@
 <script src="js/stackedAreaChart.js"></script>
 <script src="js/timeline.js"></script>
 <script src="js/teamColors.js"></script>
+<script src="js/shotDistance.js"></script>
 <script src="js/shotchart.js"></script>
 <script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
