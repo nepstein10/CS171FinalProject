@@ -56,6 +56,10 @@ class BarChart {
             .attr("id", "ylabel")
             .text("Career 3PA Per 100 Possessions")
 
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'playerChartToolTip')
+
         vis.wrangleData();
     }
 
@@ -90,6 +94,32 @@ class BarChart {
             .enter()
             .append("rect")
             .attr("class", "bars")
+            //Mouseover
+            .on('mouseover', function(event, d) {
+                console.log(d)
+                //Fill color on hover
+                d3.select(this)
+                    .attr('stroke-width', '2px')
+                    .attr('stroke', 'black')
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                         <div>
+                             <h6>${d['3PA']}<h6>
+                         </div>`);
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .attr('stroke-width', '0px')
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
+            })
             .merge(vis.bars)
             .transition()
             .duration(300)
@@ -121,6 +151,29 @@ class BarChart {
             .attr("transform", "translate(" + (vis.width - 165) + "," + (vis.y(6.67) - 10) + ")")
             .attr("id", "leagueavglabel")
             .text("Current Season Average")
+
+        vis.svg.append("circle")
+            .attr("fill", "#e15759")
+            .attr("cx", 3 * vis.width / 4)
+            .attr("cy", 0)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (3 * vis.width / 4 + 10) + ", 4)")
+            .attr("class", "barchartlabel")
+            .text("Historic Shooters")
+
+        vis.svg.append("circle")
+            .attr("fill", "#666666")
+            .attr("cx", 3 * vis.width / 4)
+            .attr("cy", 20)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (3 * vis.width / 4 + 10) + ", 24)")
+            .attr("class", "barchartlabel")
+            .text("Modern Day Players")
+
     }
 
 

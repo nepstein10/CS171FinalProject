@@ -259,3 +259,10 @@ div.content-box {
 .caption {
   font-style: italic;
 }
+
+#playerChartToolTip {
+  border: thin solid grey;
+  border-radius: 5px;
+  background: white;
+  padding: 10px;
+}
