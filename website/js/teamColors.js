@@ -131,7 +131,7 @@ function returnDualColor (team, primary=true) {
         case "Sacramento Kings":
             return primary ? '#5A2D81' : '#63727A';
         case "San Antonio Spurs":
-            return primary ? '#C4CED4' : '#000000';
+            return primary ? '#696969' : '#000000';
         case "Toronto Raptors":
             return primary ? '#753BBD' : '#BA0C2F';
         case "Utah Jazz":
