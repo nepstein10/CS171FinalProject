@@ -56,6 +56,10 @@ class BarChart2 {
             .attr("id", "ylabel")
             .text("Career 3P%")
 
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'playerChartToolTip')
+
         vis.wrangleData();
     }
 
@@ -90,6 +94,32 @@ class BarChart2 {
             .enter()
             .append("rect")
             .attr("class", "bars")
+            //Mouseover
+            .on('mouseover', function(event, d) {
+                console.log(d)
+                //Fill color on hover
+                d3.select(this)
+                    .attr('stroke-width', '2px')
+                    .attr('stroke', 'black')
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                         <div>
+                             <h6>${d3.format(".1%")(d['Percent'])}<h6>
+                         </div>`);
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .attr('stroke-width', '0px')
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
+            })
             .merge(vis.bars)
             .transition()
             .duration(300)
