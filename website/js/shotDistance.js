@@ -43,10 +43,10 @@ function multiLine(data, id) {
     // var height=screen.height/5;
     // height=height*2.3;//taking height equal to 3.3/5 of height of screen
 
-    let height = document.getElementById(id).getBoundingClientRect().height
-    let width = document.getElementById(id).getBoundingClientRect().width
+    let height = 2 / 3 * document.getElementById("chart1").getBoundingClientRect().height
+    let width = document.getElementById("chart1").getBoundingClientRect().width
 
-    var margin = { top: 10, right: 30, bottom: 30, left: 20 };
+    var margin = { top: 0, right: 30, bottom: 30, left: 20 };
 
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
