@@ -62,12 +62,15 @@ function multiLine(data, id) {
             "translate(" + margin.left + "," + margin.top + ")"
         );
 
-    var sumstat1 = d3
-        .nest() // nest function allows to group the calculation per level of a factor
-        .key(function (d) {
-            return d.name;
-        })
-        .entries(data);
+    // var sumstat1 = d3
+    //     .nest() // nest function allows to group the calculation per level of a factor
+    //     .key(function (d) {
+    //         return d.name;
+    //     })
+    //     .entries(data);
+
+    var sumstat1 = Array.from(d3.group(data, d => d.name), ([key, values]) => ({key, values}));
+    console.log(sumstat1);
 
     var max=0;
 

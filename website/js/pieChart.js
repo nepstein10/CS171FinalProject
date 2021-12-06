@@ -160,9 +160,8 @@ class PieChart {
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                     <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                         <h4>${d.data.label}</h4>
-                         <h4> value: ${Math.round(d.value * 100)}%</h4>           
+                     <div style="border: thin solid grey; border-radius: 5px; background: white; padding: 5px">
+                         <h4>${Math.round(d.value * 100)}%</h4>           
                      </div>`);
 
             })
