@@ -12,7 +12,7 @@ class BarChart {
     initVis() {
         let vis = this;
 
-        vis.margin = {top: 100, right: 20, bottom: 60, left: 60};
+        vis.margin = {top: 25, right: 20, bottom: 100, left: 60};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -56,6 +56,10 @@ class BarChart {
             .attr("id", "ylabel")
             .text("Career 3PA Per 100 Possessions")
 
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "tooltip")
+            .attr('id', 'playerChartToolTip')
+
         vis.wrangleData();
     }
 
@@ -80,7 +84,7 @@ class BarChart {
             'Larry Bird']);
         vis.y.domain([0, d3.max(vis.data, d=>d['3PA'])]);
 
-        console.log(vis.x("Luguentz Dort"))
+        //console.log(vis.x("Luguentz Dort"))
 
         //Draw rectangles
         vis.bars = vis.svg.selectAll("rect")
@@ -90,6 +94,32 @@ class BarChart {
             .enter()
             .append("rect")
             .attr("class", "bars")
+            //Mouseover
+            .on('mouseover', function(event, d) {
+                console.log(d)
+                //Fill color on hover
+                d3.select(this)
+                    .attr('stroke-width', '2px')
+                    .attr('stroke', 'black')
+                vis.tooltip
+                    .style("opacity", 1)
+                    .style("left", event.pageX + "px")
+                    .style("top", event.pageY + "px")
+                    .html(`
+                         <div>
+                             <h6>${d['3PA']}<h6>
+                         </div>`);
+            })
+            .on("mouseout", function(event, d) {
+                d3.select(this)
+                    .attr('stroke-width', '0px')
+
+                vis.tooltip
+                    .style("opacity", 0)
+                    .style("left", 0)
+                    .style("top", 0)
+                    .html(``);
+            })
             .merge(vis.bars)
             .transition()
             .duration(300)
@@ -115,14 +145,41 @@ class BarChart {
 
         //Update axis
         vis.svg.select(".y-axis").call(vis.yAxis);
-        vis.svg.select(".x-axis").call(vis.xAxis);
+        vis.svg.select(".x-axis").call(vis.xAxis)
+            .selectAll("text")
+            .attr("x", 0)
+            .attr("y", 9)
+            .attr("dy", "-.75rem")
+            .attr("dx", ".75rem")
+            .attr("transform", `rotate(90)`)
+            .style("text-anchor", "start");
+
 
         vis.svg.append("text")
             .attr("transform", "translate(" + (vis.width - 165) + "," + (vis.y(6.67) - 10) + ")")
             .attr("id", "leagueavglabel")
-            .text("Current Season Average")
+            .text("2021 League Average")
+
+        vis.svg.append("circle")
+            .attr("fill", "#e15759")
+            .attr("cx", 3 * vis.width / 4)
+            .attr("cy", 0)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (3 * vis.width / 4 + 10) + ", 4)")
+            .attr("class", "barchartlabel")
+            .text("Historic Shooters")
+
+        vis.svg.append("circle")
+            .attr("fill", "#666666")
+            .attr("cx", 3 * vis.width / 4)
+            .attr("cy", 20)
+            .attr("r", 4)
+
+        vis.svg.append("text")
+            .attr("transform", "translate(" + (3 * vis.width / 4 + 10) + ", 24)")
+            .attr("class", "barchartlabel")
+            .text("Modern Day Players")
     }
-
-
-
 }

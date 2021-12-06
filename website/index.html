@@ -21,6 +21,8 @@
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="fullpage/dist/fullpage.css" />
 <!--    <link rel="stylesheet" href="css/fontawesome.min.css">-->
+    <link rel="stylesheet" href="css/shotdistance.css"/>
+
 
 
     <!-- Custom CSS code -->
@@ -43,10 +45,10 @@
     <div class="section">
         <div class="content-box">
             <div class="sectiontitle">
-                The Rise of Analytics in Basketball
+                The Rise of Basketball Analytics
             </div>
-            <p class="story-text" style="height: 20%">
-                One of the most publicized transformations in the history of the NBA, the rise of analytics has had a
+            <p class="story-text" style="height: 30%">
+                One of the most publicized transformations in the history of the NBA, the rise of analytics, has had a
                 polarizing and profound impact on the way the game of basketball is played today. All 30 teams in the
                 league now boast analytics personnel or departments—people sitting behind computers, crunching numbers,
                 and impacting the outcome of games in their own uniquely cerebral way. But how has this wave of analytics
@@ -54,20 +56,26 @@
                 or less common now? Let’s dive in and find out.
             </p>
 
-            <img src="img/sircharles.jpg" id="sircharles" style="height: 60%">
+            <img src="img/sircharles.jpg" id="sircharles" style="height: 50%">
             <p class="caption story-text" style="height: 10%">
                 Charles Barkley—NBA Hall of Famer, Host of NBA on TNT, and an outspoken opponent
-                of the analytics movement. Art Credit: Aaron Dana</p>
+                of the analytics movement. Art Credit: Aaron Dana
+            </p>
         </div>
     </div>
 
     <div class="section">
         <div class="content-box">
             <div class="sectiontitle">
-                The frequency of three point shots has increased dramatically from the 2000s to present.
+                The frequency of three point shots has increased dramatically.
             </div>
-            <div class="row justify-content-center" style="height: 85%; background-image: url('img/shelf.png'); background-repeat: no-repeat;
-      background-size: auto 100%; background-position: center;" id="rackCharts">
+            <p class="story-text">
+                A basic breakdown of NBA shot attempts over time highlights the uptick in three pointers, particularly
+                from 2000 to 2020. Let's now take a deeper dive into that transformation.
+            </p>
+            <div class="row justify-content-center" style="height: 80%; margin-top: 0%;
+                background-image: url('img/shelf.png'); background-repeat: no-repeat;
+                background-size: auto 100%; background-position: center;" id="rackCharts">
                 <div id="pie-chart-0" class="ball-chart"></div>
                 <div id="pie-chart-1" class="ball-chart"></div>
                 <div id="pie-chart-2" class="ball-chart"></div>
@@ -88,8 +96,8 @@
                 When the frequency of one type of shot rises, the frequency of another must fall.
                 Long mid-range shots—favorites of legends of the sport like Kobe Bryant and Allen Iverson—have been
                 largely discarded, swapped for three pointers that are just a few steps further from the basket,
-                but 50% higher in value. Use your mouse to brush over the chart on the right to control the time
-                frame of the left-hand chart.
+                but 50% higher in value. <span class="instructions">Use your mouse to brush over the chart on the right to control the time
+                frame of the left-hand chart</span>.
             </p>
             <div class="container" style="height: 70%">
                 <div class="row" style="height: 100%">
@@ -109,6 +117,90 @@
     </div>
 
     <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                The clearest illustration of changing strategy is a shot chart
+            </div>
+            <p class="story-text small">
+                <span class="instructions">As you use the slider to explore the data,
+                notice how the long 2-pointers (especially near the baseline) disappear, and the shots
+                bifurcate into mostly 3s and layups.</span> Click the buttons to see some interesting players
+                and trends we've highlighed, or explore your favorite team or player's shot selection!
+            </p>
+            <div class="row" style="height: 80%">
+                <div class="col-md-8 justify-content-center" style="height: 100%">
+                    <div id="shotChart" class="align-self-center" style="height: 100%"></div>
+                </div>
+                <div class="col-md-4 justify-content-center">
+                    <div id="shotChartControls" class="align-self-center" style="height: 50%"></div>
+                    <div id="shotChartMessage" class="align-self-center" style="height: 50%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- below is for the shot distance visualization-->
+    <div class="section">
+        <div class="content-box">
+            <div class="container-fluid">
+                <div class="sectiontitle">
+                    Explore Shot Distance Tendencies
+                </div>
+                <p class="story-text">
+                    <span class="instructions">Use the various filters below</span> to explore how shot selection has
+                    changed between the beginning of the 21st century and now. Each line represents shot attempts from
+                    a particular distance, where a thicker line means a higher percentage of the filtered shots are from
+                    that distance. Notice how thin the lines between the paint and three point line (23 feet) are
+                    when looking just at the recent seasons!
+                </p>
+                <div class="row" style="height: 75%;">
+                    <div class="col-3" id="innerDiv" style="height: 100%">
+                        <label id="seasontype" for="seasonselector">Select Playoffs</label>
+                        <label class="switch">
+                            <input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
+                            <span class="slider round"></span>
+                        </label>
+                        <br>
+                        <br>
+                        <label for="player">Select Player</label>
+                        <select name="playername" id="player"></select>
+                        <br>
+                        <label for="team">Select Team</label>
+                        <select name="teamname" id="team"></select>
+                        <br>
+                        <label for="year">Select Year</label>
+                        <select name="year" id="year"></select>
+                    </div>
+                    <div class="col-9">
+                        <div id="regularseason" class="row">
+                            <div class="card">
+                                <div class="card-body" id="chart1" style="height: 100%">
+                                    <h5 class="card-title">
+                                        Regular Season
+                                    </h5>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display:none;" id="playoffseason" class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body" id="chart2" style="height: 100%;">
+                                        <h5 class="card-title">
+                                            Playoffs
+                                        </h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end of section for shot distance viz-->
+
+    <div class="section">
         <div class="content-box small">
             <div class="sectiontitle">
                 Does this trend hold through for all groups of players?
@@ -117,7 +209,7 @@
                 So the league as a whole is embracing the three point shot like never before and casting aside the once
                 celebrated long-two. But how does this change look at the individual level? Let's start with the league's
                 best. The players featured in the next chart are superstars, considered the best-of-the-best of their
-                respective eras. We have organized these players into four eras—the 1980s, 1990s, 2000s, and 2010s—based
+                respective eras. We have organized these players into four groups—the 1980s, 1990s, 2000s, and 2010s—based
                 on when they were drafted and/or achieved their peak level of play. Let's see how they stack up to each
                 other when it comes to three point shot selection.
             </p>
@@ -129,20 +221,17 @@
             <div class="sectiontitle">
                 The best players of today are taking more threes than those of past eras.
             </div>
-            <div class="row col-8">
-                <div id="playerSelectButtons"></div>
-            </div>
-            <div class="row justify-content-center" style="height: 60vh">
-                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
-            </div>
-
-            <div>
+            <p class="story-text">
                 Decade-by-decade, the three point shot has become more popular among the league's best players. But what is
                 particularly startling is the rate at which players of the modern era are taking them compared
                 to past generations. Players like Steph Curry and James Harden have barely scratched the career longevitiy
                 of a Kobe Bryant, but have already far surpassed him when it comes to total three pointers taken. There
                 are of course exceptions to this trend. Players such as Giannis Antetokounmpo and Anthony Davis show that
                 you can still be a superstar in today's league while doing most of your damage inside the three point line.
+            </p>
+            <div id="playerSelectButtons" class="row" style="height: 5%"></div>
+            <div class="row justify-content-center" style="height: 55%">
+                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
             </div>
         </div>
     </div>
@@ -153,8 +242,16 @@
             <div class="sectiontitle">
                 The three is being more heavily adopted across all positions, even big men.
             </div>
+            <p class="story-text">
+                <span class="instructions"> Use the position filter to compare players across the same position.</span>
+                The trend is consistent across the board: superstar players of today who are just halfway into
+                their careers have already launched more threes than many of their peers from past eras. The trend for
+                bigs is especially eye-opening: even skilled post players like Joel Embiid and Nikola Jokic take a
+                steady diet of threes just by nature of the way the game is played today. A few outliers aside, most
+                bigs in the 90s and 2000s would rarely ever attempt a three.
+            </p>
             <div id="positionSelectButtons">
-                <select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
+                <select id='positionSelector' className="custom-select align-self-center" style="width: 33%%"
                         onChange="positionChange()">
                     <option value="NA" selected>Filter by Player Position</option>
                     <option value="Guard">Guard</option>
@@ -162,39 +259,28 @@
                     <option value="Big">Big</option>
                 </select>
             </div>
-            <div class="row justify-content-center" style="height: 60vh">
+            <div class="row justify-content-center" style="height: 60%">
                 <div class="align-self-center" id="player-chart-2" style="height: 100%; width: 100%"></div>
-            </div>
-            <div>
-                Use the position filter to compare players across the same position. The trend is consistent across the
-                board: players of today who are just halfway or less into their careers have already
-                launched more threes than many of their peers from past eras. The trend for bigs is
-                especially eye-opening: even skilled post players like Joel Embiid and Nikola Jokic must take a steady
-                diet of threes just by nature of the way the game is played today. A few outliers aside, most bigs in
-                the 90s and 2000s would rarely ever attempt a three. Notice the heavy clustering of lines at the
-                bottom of the big-filtered chart.
             </div>
         </div>
     </div>
-
-
 
     <div class="section">
         <div class="content-box">
             <div class="sectiontitle">
                 What about the non-superstar players?
             </div>
-            <div>
+            <p class="story-text">
                 Limiting our analysis to the ~10 best players in the league in a few different eras does not truly
                 capture how extreme the three point revolution has been. To do that, we must look at the rest of the
                 the league—average NBA players who aren't the stars of the show.
-            </div>
+            </p>
             <img src="img/dort.jpg" id="dort">
-            <div class="caption">
-                Luguentz Dortz (above), a young defensive specialist and below average three point shooter, is
+            <p class="story-text">
+                For example, Luguentz Dortz (above), a young defensive specialist and below average three point shooter, is
                 taking more three point shots per game this season than Reggie Miller, the 3rd all-time leader in
                 three point makes, did in any season of his 18-year career.
-            </div>
+            </p>
         </div>
     </div>
 
@@ -203,68 +289,33 @@
             <div class="sectiontitle">
                 Role players are launching the three like never before.
             </div>
-            <div class="row justify-content-center" style="height: 60vh">
-                <div class="align-self-center" id="bar-chart" style="height: 100%; width: 100%"></div>
-            </div>
-            <div>
+            <p class="story-text">
                 Think guys like Larry Bird, Ray Allen, and Reggie Miller would frequently launch the ball from deep?
                 Well, you might want to re-think that notion as we compare them to some of the current league’s average
                 Joes. What were once historic rates of three point shot attempts are now being outdone by
                 perennial bench players.
+            </p>
+            <div class="row justify-content-center" style="height: 70%">
+                <div class="align-self-center" id="bar-chart" style="height: 100%; width: 100%"></div>
             </div>
+
         </div>
     </div>
 
     <div class="section">
         <div class="content-box">
             <div class="sectiontitle">
-                You don't need to be a historic shooter to have the greenlight in today's league.
+                Not only good shooters have the green light in today's league.
             </div>
-            <div class="row justify-content-center" style="height: 60vh">
-                <div class="align-self-center" id="bar-chart-2" style="height: 100%; width: 100%"></div>
-            </div>
-            <div>
+            <p class="story-text">
                 In the 90s and 2000s, if you wanted to take a bunch of threes, you had to be an excellent shooter. The
                 same cannot be said anymore in this era of basketball. Average shooters are hoisting up as many,
                 or more, shots than the likes of Ray Allen and Reggie Miller. When looking at the chart above, keep
                 in mind that the difference between a ~40% and ~35% three point shooter is considered substantial by
                 NBA standards.
-            </div>
-        </div>
-    </div>
-
-
-    <div class="section">
-        <div class="content-box">
-            <div class="row" style="height: 100vh">
-                <div class="col-md-8 justify-content-center">
-                    <div id="shotChart" class="align-self-center" style="height: 80vh"></div>
-                </div>
-                <div class="col-md-4 justify-content-center">
-                    <div id="shotChartControls" class="align-self-center" style="height: 30%"></div>
-                    <div id="shotChartMessage" class="align-self-center" style="height: 70%"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="section">
-        <div class="content-box">
-            <div class="container">
-                <div class="row">
-                    <div id="chart-area">
-                        <div id="display-controls">
-                            <div class="buttons">
-                                <button id='play-button' class="btn">Play</button>
-                                <button id='reset-button' class="btn">Reset</button>
-                            </div>
-                            <div id="slider-div">
-                                <label>Season: <span id="season">1996-1997</span> </label>
-                                <div id="slider"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            </p>
+            <div class="row justify-content-center" style="height: 70%">
+                <div class="align-self-center" id="bar-chart-2" style="height: 100%; width: 100%"></div>
             </div>
         </div>
     </div>
@@ -272,12 +323,36 @@
     <div class="section">
         <div class="content-box">
             <h3>Conclusion</h3>
+            <div>
+                Basketball has turned into a game of numbers. While there was once a lush diversity of shot frequencies
+                across the hardwood, we now see a regimented, economical divide into three point shots and paint shots,
+                with very little in between. Post shots and long midrange shots, the bread and butter of generations of
+                NBA legends from Bird to Kobe, have practically been forsaken with the rise of the analytics
+                movement. While this evolution makes sense from a pure efficiency standpoint, the question must be begged:
+                is it actually good for the sport? Many fans and analysts alike have responded with a resounding "no."
+
+                So what can be done? The league-wide shift towards shooting more threes was the result of a basic distortion
+                in incentives: instead of shooting the midrange, players could simply shoot the ball from a few steps
+                further back for a 50% higher payoff. Once teams and players truly grasped this fact, they all started
+                exploiting it. Perhaps now we need a new change in incentives. For instance, the three point line could be
+                pushed further back so the shot becomes more challenging and less efficient. Or perhaps NBA officiating
+                should begin to loosen up on the perimeter, allowing defenses to disrupt three point attempts more
+                effectively. The options are numerous and the NBA shouldn't shy away from embracing major change. After all,
+                the introduction of the three point line in 1979 was itself one of the most radical changes in all of sports.
+            </div>
         </div>
     </div>
 
 </div>
 
-
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- for map colouring !-->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!-- Load as script for data parsing !-->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
 
 <!-- Load JS libraries -->
@@ -296,6 +371,7 @@
 <script src="js/stackedAreaChart.js"></script>
 <script src="js/timeline.js"></script>
 <script src="js/teamColors.js"></script>
+<script src="js/shotDistance.js"></script>
 <script src="js/shotchart.js"></script>
 <script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>

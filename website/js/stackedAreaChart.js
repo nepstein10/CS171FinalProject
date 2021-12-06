@@ -28,7 +28,7 @@ constructor(parentElement, data) {
 	initVis(){
 		let vis = this;
 
-		vis.margin = {top: 100, right: 150, bottom: 60, left: 50};
+		vis.margin = {top: 25, right: 125, bottom: 25, left: 75};
 
 		vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
 		vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -82,6 +82,12 @@ constructor(parentElement, data) {
 			.x(d=> vis.x(d.data.Year))
 			.y0(d=> vis.height - vis.y(d[0]))
 			.y1(d=> vis.height - vis.y(d[1]));
+
+		vis.svg.append("text")
+			.attr("transform", "translate(-50," + (vis.height / 2 + vis.margin.top) + ") rotate(-90)")
+			//.attr("transform", "rotate(-90)")
+			.attr("id", "ylabel")
+			.text("% of Total League Shots")
 
 		// Tooltips
 		vis.tooltip1 = vis.svg.append("g")

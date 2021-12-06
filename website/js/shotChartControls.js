@@ -34,13 +34,10 @@ class ShotChartControls {
                 color: "team",
                 subset: 1,
                 message: "7\'1\" Shaquille \"Shaq\" O'Neal was one of the best players in the NBA for most " +
-                    "of his 19-year career, earning 15 all-star selections. He also only ever made 1 3-pointer " +
-                    "(you won't find it here because it was in the 1996 season, before location data was " +
-                    "tracked, and you will find only 7 three point attempts.) Instead, he managed to lead the " +
-                    "league in scoring 3 times, and in shooting percentage 10 times, by rarely taking shots " +
-                    "from more than a few feet away, and being highly effective in the paint. Even before the " +
-                    "3-point revolution, he was already avoiding long, low-percentage 2s, and this strategy is " +
-                    "part of what made him a Hall-of-Famer."
+                    "of his 19-year career, earning 15 all-star selections. He also only ever made 1 3-pointer! " +
+                    "Instead, he managed to lead the league in scoring 3 times, and in shooting percentage 10 " +
+                    "times, by rarely taking shots from more than a few feet away, and being highly effective in " +
+                    "the paint."
             },
             {
                 label: "Rockets v. Spurs",
@@ -59,19 +56,33 @@ class ShotChartControls {
                     "at or near the bottom. In fact, for 2018-2020, the Rockets shot more than half of their shots " +
                     "as 3s, around 150% of the Spurs' pace most seasons. This can be seen particularly in more recent " +
                     "seasons, where the long 2-pointers are predominantly the grey of San Antonio, and the red of " +
-                    "Houston is clustered under the basket and behind the arc. " +
-                    "</p><p>" +
-                    "Much of this can be attributed to Rockets " +
-                    "star James Harden, who let the league in 3-pointers, 3-point attempts, and points-per-game all " +
-                    "three of those seasons (Click the James Harden button to explore his shooting tendencies!) " +
-                    "The Spurs were in the NBA Finals in both 2013 and 2014, but have since gone 3-5 in playoff " +
-                    "series, and missed the postseason in each of the past 2 years. The Rockets are 7-6 in playoff " +
-                    "series over that span, getting eliminated by the also-three-heavy Warrios 4 of those seasons."
-            }
-            // TODO: JAMES HARDEN
-            // TODO: RAY ALLEN
-            // TODO: LEBRON JAMES?
-            // TODO: rest of dropdown players
+                    "Houston is clustered under the basket and behind the arc."
+            },
+            {
+                label: "Ray Allen",
+                players: ["Ray Allen"],
+                teams: [],
+                playoffs: "all",
+                seasons: [1998, 2014],
+                color: "team",
+                subset: 1,
+                message: "Ray Allen is the all-time NBA record holder for career 3s. With multiple teams over a nearly " +
+                    "two-decade-long career, he consistently drained shots from behind the arc. However, even his pace of 3s " +
+                    "was slower than that of most modern 3-point shooters!"
+            },
+            {
+                label: "Kobe Bryant",
+                players: ["Kobe Bryant"],
+                teams: [],
+                playoffs: "all",
+                seasons: [1998, 2016],
+                color: "team",
+                subset: 1,
+                message: "Bryant is recognized near-universally as one of the best players of all time. He was not known " +
+                    "for his 3-point shooting however, instead opting for being highly effective in the post and mid-range " +
+                    "jumpshots that are falling out of favor in the modern game. He was an all-star every year from 2000 " +
+                    "until his career ended in 2016."
+            },
         ]
 
         buttonControls.forEach(c => {
@@ -109,16 +120,24 @@ class ShotChartControls {
                 })
         })
 
+        this.d.append("br")
+        this.d.append("span")
+            .attr("class", "instructions")
+            .html("Explore the data by:")
+        this.d.append("br")
+        let tlabel = this.d.append("label")
+            .attr("for", "shotChartTeamSelect")
+            .html("Team: ")
         let teamSelect = this.d.append("select")
             .attr("id", "shotChartTeamSelect")
             .attr("class", "active-filter")
-            .style("width", "50%")
+            .style("width", "75%")
             .on("change", function(e) {
                 console.log(e)
                 controller.selectChange()
             })
         teamSelect.append("option")
-            .html("Select by Team Here")
+            .html("Select by Team")
             .property("value", "selectByTeam")
             .property("hidden", true)
         teamSelect.append("option")
@@ -130,9 +149,9 @@ class ShotChartControls {
                 .html(key)
         })
 
-        let label = this.d.append("label")
+        let plabel = this.d.append("label")
             .attr("for", "playerSearchBox")
-            .html("Search for a Player: ")
+            .html("Player: ")
         let playerSearchBox = this.d.append("input")
             .attr("type", "text")
             .attr("id", "playerSearchBox")

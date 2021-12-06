@@ -1,6 +1,8 @@
 
 // Variables for the visualization instances
-
+let dseason1 = [], dseason2 = [];
+let date=[];
+let player=[], team=[], year=[];
 
 let areachart, shotchart, shotChartControls, playerChart, playerChart2, linechart, barChart, barChart2;
 
@@ -11,6 +13,9 @@ let years = [...Array(23).keys()].map(d=>d+1998)
 
 // Start application by loading the data
 loadData();
+
+loadChartData();
+
 //sleep(3000)
 //getBackgroundData(); //Process some data after rest of page loads
 
@@ -25,7 +30,7 @@ function loadData() {
 		row["16 ft to 3P"] = +row["16 ft to 3P"];
 		row["3P"] = +row["3P"];
 		return row;
-	}). then(fgdata=>{
+	}).then(fgdata => {
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
 		linechart = new LineChart('line-chart', fgdata)
@@ -43,19 +48,19 @@ function loadData() {
 	shotChartControls.initControl()
 
 
-	d3.csv("data/playerData.csv"). then(playerData=>{
+	d3.csv("data/playerData.csv").then(playerData => {
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
 	});
 
-	d3.csv("data/playerData.csv"). then(playerData=>{
+	d3.csv("data/playerData.csv").then(playerData => {
 		playerChart2 = new PlayerChart('player-chart-2', playerData)
 		playerChart2.initVis()
 	});
 
-	d3.csv("data/playerData2.csv"). then(playerData=>{
+	d3.csv("data/playerData2.csv").then(playerData => {
 		barChart = new BarChart('bar-chart', playerData)
 		barChart.initVis()
 		barChart2 = new BarChart2('bar-chart-2', playerData)
@@ -82,6 +87,249 @@ function loadData() {
 	});
 }
 
+
+function loadChartData() {
+	// shot distance viz for shotDistance.js
+	d3.csv("data/ShotsByYear/shots00-01.csv").then( function (data1) {
+		d3.csv("data/ShotsByYear/shots17-18.csv").then ( function (data2) {
+			data1.forEach((d,i) => {
+				if (
+					d["X Location"] != 0 &&
+					d["Y Location"] != 0 &&
+					d["Shot Made Flag"] == 1 &&
+					parseInt(d["Shot Distance"]) <= 45
+				) {
+					player.push(d["Player Name"]);
+					team.push(d["Team Name"]);
+					d["year"]= d["Game Date"].substring(0,4);
+					year.push(d["year"]);
+					if (
+						d["Season Type"].localeCompare(
+							"Regular Season"
+						) == 0
+					) {
+						d.name = d["Shot Distance"].toString();
+						d["X Location"] = d["X Location"] / 12;
+						dseason1.push(d);
+					} else if (
+						d["Season Type"].localeCompare("Playoffs") == 0
+					) {
+						d.name = d["Shot Distance"].toString();
+						d["X Location"] = d["X Location"] / 12;
+						dseason2.push(d);
+					}
+				}
+			});
+			data2.forEach((d) => {
+				if (
+					d["X Location"] != 0 &&
+					d["Y Location"] != 0 &&
+					d["Shot Made Flag"] == 1 &&
+					parseInt(d["Shot Distance"]) <= 45
+				) {
+					player.push(d["Player Name"]);
+					team.push(d["Team Name"]);
+					d["year"]= d["Game Date"].substring(0,4);
+					year.push(d["year"]);
+					if (
+						d["Season Type"].localeCompare(
+							"Regular Season"
+						) == 0
+					) {
+						d.name = d["Shot Distance"].toString();
+						d["X Location"] = d["X Location"] / 12;
+						dseason1.push(d);
+					} else if (
+						d["Season Type"].localeCompare("Playoffs") == 0
+					) {
+						d.name = d["Shot Distance"].toString();
+						d["X Location"] = d["X Location"] / 12;
+						dseason2.push(d);
+					}
+				}
+			});
+			console.log("middle");
+			var uniqueTeam = [];
+			$.each(team, function(i, el){
+				if($.inArray(el, uniqueTeam) === -1) uniqueTeam.push(el);
+			});
+
+			var uniquePlayer = [];
+			$.each(player, function(i, el){
+				if($.inArray(el, uniquePlayer) === -1) uniquePlayer.push(el);
+			});
+
+			var uniqueYears = [];
+			$.each(year, function(i, el){
+				if($.inArray(el, uniqueYears) === -1) uniqueYears.push(el);
+			});
+
+			uniquePlayer.sort();
+
+			uniqueTeam.sort();
+
+			addOptions(uniquePlayer,"player");
+
+			addOptions(uniqueTeam,"team");
+
+			addOptions(uniqueYears,"year");
+
+			multiLine(dseason1, "chart1");
+
+			multiLine(dseason2, "chart2");
+
+			let dseason1temp=[], dseason2temp=[];
+
+			let playerstemp=[];
+
+			$("#player").on("change", function () {
+				dseason1temp=[]; dseason2temp=[];
+				var t = $("#team").val();
+				var p = $(this).val();
+				var y= $("#year").val();
+
+				dseason1.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							if(d["Player Name"].localeCompare(p)==0 || p.localeCompare("all")==0){
+								dseason1temp.push(d);
+							}
+						}
+					}
+				})
+
+				dseason2.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							if(d["Player Name"].localeCompare(p)==0 || p.localeCompare("all")==0){
+								dseason2temp.push(d);
+							}
+						}
+					}
+				})
+
+				d3.select("#chart1 svg").remove();
+				d3.select("#chart2 svg").remove();
+				if(dseason1temp.length>0){
+					multiLine(dseason1temp, "chart1");
+				}
+				if(dseason2temp.length>0){
+					multiLine(dseason2temp, "chart2");
+				}
+
+			});
+
+
+			$("#year").on("change", function () {
+				dseason1temp=[]; dseason2temp=[];
+				var t = $("#team").val();
+				var p = $("#player").val();
+				var y= $(this).val();
+
+				dseason1.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							if(d["Player Name"].localeCompare(p)==0 || p.localeCompare("all")==0){
+								dseason1temp.push(d);
+							}
+						}
+					}
+				})
+
+				dseason2.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							if(d["Player Name"].localeCompare(p)==0 || p.localeCompare("all")==0){
+								dseason2temp.push(d);
+							}
+						}
+					}
+				})
+
+				d3.select("#chart1 svg").remove();
+				d3.select("#chart2 svg").remove();
+				if(dseason1temp.length>0){
+					multiLine(dseason1temp, "chart1");
+				}
+				if(dseason2temp.length>0){
+					multiLine(dseason2temp, "chart2");
+				}
+
+			});
+
+			$("#seasonselector").on("change", function () {
+				var option = $(this).val();
+				var opt = document.getElementById("seasonselector").dataset.click;
+				if(opt.localeCompare("regular")==0){
+					document.getElementById("regularseason").style.display="none";
+					document.getElementById("playoffseason").style.display="block";
+					document.getElementById("seasonselector").dataset.click="playoff";
+					document.getElementById("seasontype").innerHTML ="Select Regular";
+				}
+				else if(opt.localeCompare("playoff")==0){
+					document.getElementById("regularseason").style.display="block";
+					document.getElementById("playoffseason").style.display="none";
+					document.getElementById("seasonselector").dataset.click="regular";
+					document.getElementById("seasontype").innerHTML ="Select Playoff";
+				}
+			})
+
+			$("#team").on("change", function () {
+				playerstemp=[];
+				dseason1temp=[]; dseason2temp=[];
+				var t = $(this).val();
+				var p = $("#player").val();
+				var y= $("#year").val();
+
+				dseason1.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							dseason1temp.push(d);
+							playerstemp.push(d["Player Name"]);
+						}
+					}
+				})
+
+				dseason2.forEach(d=>{
+					if(d["Team Name"].localeCompare(t)==0 || t.localeCompare("all")==0)
+					{
+						if(d["year"].localeCompare(y)==0 || y.localeCompare("all")==0){
+							dseason2temp.push(d);
+							playerstemp.push(d["Player Name"]);
+						}
+					}
+				})
+
+
+				var uniquePlayertemp = [];
+				$.each(playerstemp, function(i, el){
+					if($.inArray(el, uniquePlayertemp) === -1) uniquePlayertemp.push(el);
+				});
+
+				uniquePlayertemp.sort();
+
+				addOptions(uniquePlayertemp,"player");
+
+				d3.select("#chart1 svg").remove();
+				d3.select("#chart2 svg").remove();
+				if(dseason1temp.length>0){
+					multiLine(dseason1temp, "chart1");
+				}
+				if(dseason2temp.length>0){
+					multiLine(dseason2temp, "chart2");
+				}
+				// end of shot distance viz
+			});
+			console.log("end");
+
+		});
+	});
+}
 
 
 function brushed() {
@@ -155,7 +403,6 @@ function processData(data) {
 	})
 
 	processedData.sort((e1, e2) => {return e1.distance - e2.distance})
-
 	return processedData
 }
 

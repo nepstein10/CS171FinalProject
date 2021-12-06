@@ -177,7 +177,7 @@ div.content-box.small {
 
 .ball-chart {
   height: 100%;
-  width: 13vh;
+  width: 12vh;
   padding-right: 0px;
   padding-left: 0px;
   /*margin-left: 1%;*/
@@ -223,20 +223,6 @@ div.content-box.small {
   margin-right: auto;
 }
 
-#playerSelectButtons {
-  position: absolute;
-  right: 700px;
-  padding: 10px;
-  width: 50%
-}
-
-#positionSelectButtons {
-  position: absolute;
-  right: 825px;
-  padding: 10px;
-  width: 35%
-}
-
 .leagueaverage {
   stroke-dasharray: 5,5;
 }
@@ -246,8 +232,7 @@ div.content-box.small {
 }
 
 #dort {
-  height: 50%;
-  width: 50%;
+  height: 65%;
   padding: 15px;
 }
 
@@ -265,8 +250,27 @@ div.content-box.small {
   /*background-color: rgba(256, 256, 256, .8);*/
 }
 
+.story-text.small {
+  font-size: .75rem;
+}
+
 .caption {
   font-size: .8rem;
   font-style: italic;
   text-align: center;
+}
+
+.instructions {
+  font-weight: bold;
+}
+
+#playerChartToolTip {
+  border: thin solid grey;
+  border-radius: 5px;
+  background: white;
+  padding: 10px;
+}
+
+.controlButton {
+  font-size: .8rem;
 }

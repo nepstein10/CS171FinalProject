@@ -14,12 +14,11 @@ class ShotChart {
         }
 
         this.startMessage = "Here is a chart with all NBA shot attempts from the 1997-98 season " +
-            "until the 2019-20 season. That's over 4 million shots! Use the slider to move " +
-            "from season to season to see the change in shot tendencies over the past two " +
-            "decades. We've started you off by showing you a random 10% of the shots in a " +
-            "given year for load speed, but you can select \"All\" in the team drop down to " +
-            "see all shots league-wide for a season. Click the buttons to see some specific " +
-            "interesting players and trends, or explore your favorite team's shot selection!"
+            "until the 2019-20 season. That's over 4 million shots! We've started you off by " +
+            "showing you a random 10% of the shots from the 1999-2000 season, and recommend you " +
+            "start by using the slider to see how shots change over time. Afterwards, click the " +
+            "buttons to see some specific interesting players and trends, or explore your favorite " +
+            "team's shot selection!"
         this.message = this.startMessage
 
         //this.filters.players.push("Tim Legler")
@@ -35,9 +34,10 @@ class ShotChart {
 
         vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
+        console.log(vis.height)
         vis.width = vis.height * H_W_RATIO
         // vis.width = Math.max(vis.height * H_W_RATIO, document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right)
-        vis.height = vis.width / H_W_RATIO
+        //vis.height = vis.width / H_W_RATIO
 
         // SVG Area
         vis.svg = d3.select('#' + vis.parentElement).append("svg")
@@ -98,6 +98,7 @@ class ShotChart {
 
         // Add meaning message
         vis.messageP = d3.select('#shotChartMessage').append('p')
+            .attr("class", "story-text small")
             .html(vis.message)
 
         //vis.wrangleData()
