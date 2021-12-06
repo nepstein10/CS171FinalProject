@@ -5,13 +5,16 @@
 
 class PieChart {
 
-    // constructor method to initialize Timeline object
+    // constructor method to initialize PieChart object
     constructor(parentElement, data, title) {
         this.parentElement = parentElement;
-        this.circleColors = ['#B54213', '#E47041'];
+        this.circleColors = ['#d94d09', '#B54213'];
+        // this.circleColors = ['#E47041', '#B54213'];
         this.data = data;
         this.title = title;
 
+        // initialize vis
+        this.initVis();
     }
 
     initVis() {
@@ -29,6 +32,39 @@ class PieChart {
             .append("g")
             .attr("transform", "translate(" + vis.margin.left + "," + vis.margin.top + ")");
 
+        // add title
+        vis.svg.append('g')
+            .attr('class', 'title pie-title')
+            .append('text')
+            .text(vis.title)
+            .attr('transform', `translate(${51}, 90)`)
+            .attr('text-anchor', 'middle');
+
+        // pie chart setup
+        vis.pieChartGroup = vis.svg
+            .append('g')
+            .attr('class', 'pie-chart')
+            .attr("transform", "translate(" + 51 + "," + ((vis.height / 2) - 15) + ")");
+
+        // Define a default pie layout
+        vis.pie = d3.pie()
+            .value(d => d.value);
+
+        // Pie chart settings
+        vis.outerRadius = 50;
+        vis.innerRadius = 0;      // Relevant for donut charts
+
+        // Path generator for the pie segments
+        vis.arc = d3.arc()
+            .innerRadius(vis.innerRadius)
+            .outerRadius(vis.outerRadius);
+
+        // append tooltip
+        vis.tooltip = d3.select("body").append('div')
+            .attr('class', "pieTooltip")
+            .attr('id', 'pieTooltip');
+
+        // create gradient fills
         vis.gradient0 = vis.svg.append("svg:defs")
             .append("svg:radialGradient")
             .attr("id", "gradient0")
@@ -42,12 +78,12 @@ class PieChart {
 
         vis.gradient0.append("svg:stop")
             .attr("offset", "0%")
-            .attr("stop-color", "#E47041")
+            .attr("stop-color", '#e06a1c')
             .attr("stop-opacity", 1);
 
         vis.gradient0.append("svg:stop")
             .attr("offset", "100%")
-            .attr("stop-color", "#161616")
+            .attr("stop-color", '#161616')
             .attr("stop-opacity", 1);
 
         vis.gradient1 = vis.svg.append("svg:defs")
@@ -63,45 +99,13 @@ class PieChart {
 
         vis.gradient1.append("svg:stop")
             .attr("offset", "0%")
-            .attr("stop-color", "#B54213")
+            .attr("stop-color", vis.circleColors[1])
             .attr("stop-opacity", 1);
 
         vis.gradient1.append("svg:stop")
             .attr("offset", "100%")
             .attr("stop-color", "#161616")
             .attr("stop-opacity", 1);
-
-        // add title
-        vis.svg.append('g')
-            .attr('class', 'title pie-title')
-            .append('text')
-            .text(vis.title)
-            .attr('transform', `translate(${vis.width / 2}, 90)`)
-            .attr('text-anchor', 'middle');
-
-        // pie chart setup
-        vis.pieChartGroup = vis.svg
-            .append('g')
-            .attr('class', 'pie-chart')
-            .attr("transform", "translate(" + vis.width / 2 + "," + vis.height / 2 + ")");
-
-        // Define a default pie layout
-        vis.pie = d3.pie()
-            .value(d => d.value);
-
-        // Pie chart settings
-        vis.outerRadius = vis.width / 3;
-        vis.innerRadius = 0;      // Relevant for donut charts
-
-        // Path generator for the pie segments
-        vis.arc = d3.arc()
-            .innerRadius(vis.innerRadius)
-            .outerRadius(vis.outerRadius);
-
-        // append tooltip
-        vis.tooltip = d3.select("body").append('div')
-            .attr('class', "pieTooltip")
-            .attr('id', 'pieTooltip')
 
         // call next method in pipeline
         this.wrangleData();
@@ -113,15 +117,17 @@ class PieChart {
 
         vis.displayData = [];
 
-        Object.keys(vis.data).forEach((element, i) =>
-                vis.displayData.push({
-                    label: element,
-                    value: vis.data[element],
-                    color: vis.circleColors[i]
-                })
-        );
+        vis.displayData.push({
+                label: "2PA",
+                value: vis.data["2PA"] / vis.data["FGA"],
+            });
 
-        vis.updateVis()
+        vis.displayData.push({
+            label: "3PA",
+            value: vis.data["3PA"] / vis.data["FGA"],
+        });
+
+        vis.updateVis();
 
     }
 
@@ -133,6 +139,7 @@ class PieChart {
         vis.arcs = vis.pieChartGroup.selectAll(".arc")
             .data(vis.pie(vis.displayData));
 
+        // Draw arcs
         vis.arcs.enter()
             .append("path")
             .attr("class", "arc")
@@ -141,11 +148,13 @@ class PieChart {
             .attr('stroke', 'black')
             .attr('fill', function(d, index) { return `url(#${'gradient' + index })`})
             .on('mouseover', function(event, d){
+                // highlight selected segment
                 d3.select(this)
                     .attr('stroke-width', '2px')
                     .attr('stroke', 'black')
                     .style('opacity', 0.5);
 
+                // pop up tooltip with more information
                 vis.tooltip
                     .style("opacity", 1)
                     .style("left", event.pageX + 20 + "px")
@@ -180,15 +189,5 @@ class PieChart {
             .style("text-anchor", "middle")
             .style("font-size", 10)
             .style("fill", "white");
-
-        // add bball image
-        // vis.svg.append("g")
-        //     // .attr("transform", function(d) { return "translate(" + vis.arc.centroid(d) + ")"; })
-        //     .append("svg:image")
-        //     .attr("xlink:href","file:///bball.jpeg")
-        //     .attr("width",2*vis.outerRadius)
-        //     .attr("height",2*vis.outerRadius)
-        //     .attr("x",-1*2*vis.outerRadius/2)
-        //     .attr("y",-1*2*vis.outerRadius/2);
     }
 }

@@ -1,11 +1,23 @@
 
 // Variables for the visualization instances
-let areachart, playerChart, pieChart;
+let dseason1 = [], dseason2 = [];
+let date=[];
+let player=[], team=[], year=[];
+
+let areachart, shotchart, shotChartControls, playerChart, playerChart2, linechart, barChart, barChart2;
 
 let selectedPlayer1, selectedPlayer2;
 
+let yearlyShotData = {}
+let years = [...Array(23).keys()].map(d=>d+1998)
+
 // Start application by loading the data
 loadData();
+loadChartData();
+//sleep(3000)
+//getBackgroundData(); //Process some data after rest of page loads
+
+async function sleep(ms) {return new Promise(resolve => setTimeout(resolve, ms))}
 
 function loadData() {
 
@@ -16,50 +28,69 @@ function loadData() {
 		row["16 ft to 3P"] = +row["16 ft to 3P"];
 		row["3P"] = +row["3P"];
 		return row;
-	}). then(fgdata=>{
+	}).then(fgdata => {
 		areachart = new StackedAreaChart('stacked-area-chart', fgdata);
 		areachart.initVis();
-
-		// sum each property across 5 years
-		let reducer = function(previousValue, currentValue) {
-			return {
-				"0 to 3 ft": previousValue["0 to 3 ft"] + currentValue["0 to 3 ft"],
-				"3 to 10 ft": previousValue["3 to 10 ft"] + currentValue["3 to 10 ft"],
-				"10 to 16 ft": previousValue["10 to 16 ft"] + currentValue["10 to 16 ft"],
-				"16 ft to 3P": previousValue["16 ft to 3P"] + currentValue["16 ft to 3P"],
-				"3P": previousValue["3P"] + currentValue["3P"]
-			};
-		};
-		let chartNum = 0;
-		let titles = ["2000-2004", "2005-2009", "2010-2014", "2015-2019"];
-		for (let i = 3; i < 23; i+=5) {
-			let reduced = fgdata.slice(i, i+5).reduce(reducer);
-			let twoPtSum = 0;
-			for (const property in reduced) {
-				reduced[property] = reduced[property] / 5;
-				if (property != "3P") {
-					twoPtSum += reduced[property];
-				}
-			}
-			let data = {"2PT" : twoPtSum, "3PT": reduced["3P"]};
-			pieChart = new PieChart('pie-chart-'+chartNum.toString(), data, titles[chartNum]);
-			pieChart.initVis();
-			chartNum++;
-		}
-
+		linechart = new LineChart('line-chart', fgdata)
+		linechart.initVis();
 	});
 
-	d3.csv("data/playerData.csv"). then(playerData=>{
+	let initialSeason = 2000
+	shotchart = new ShotChart("shotChart", yearlyShotData, initialSeason, loadSeasonShots)
+	shotchart.initVis()
+	loadSeasonShots(initialSeason).then(() => {
+		shotchart.wrangleData()
+	})
+
+	shotChartControls = new ShotChartControls("shotChartControls", shotchart)
+	shotChartControls.initControl()
+
+
+	d3.csv("data/playerData.csv").then(playerData => {
 		playerChart = new PlayerChart('player-chart', playerData)
 		playerChart.initVis()
-
 		selectedPlayer1 = document.getElementById("playerSelector1").value;
 		selectedPlayer2 = document.getElementById("playerSelector2").value;
 	});
 
-// shot distance viz for index.js
-	d3.csv("data/shots00-01.csv", function (data1) {
-		d3.csv("data/shots17-18.csv", function (data2) {
+	d3.csv("data/playerData.csv").then(playerData => {
+		playerChart2 = new PlayerChart('player-chart-2', playerData)
+		playerChart2.initVis()
+	});
+
+	d3.csv("data/playerData2.csv").then(playerData => {
+		barChart = new BarChart('bar-chart', playerData)
+		barChart.initVis()
+		barChart2 = new BarChart2('bar-chart-2', playerData)
+		barChart2.initVis()
+	});
+
+
+	d3.csv("data/basicdata.csv", row => {
+		row["3PA"] = +row["3PA"];
+		row["FGA"] = +row["FGA"];
+		return row;
+	}).then(basicdata => {
+		let titles = ["1980s", "1990s", "2000s", "2010s", "2020s*"];
+		let chartNum = 0;
+		for (let i = 41; i >= 11; i -= 10) {
+			let processed = processBasicData(basicdata, i - 9, i + 1);
+			let pieChart = new PieChart('pie-chart-' + chartNum.toString(), processed, titles[chartNum]);
+			chartNum++;
+		}
+		let processed = processBasicData(basicdata, 0, 2);
+		let pieChart = new PieChart('pie-chart-' + chartNum.toString(), processed, titles[chartNum]);
+		chartNum++;
+
+	});
+}
+
+
+function loadChartData() {
+	// shot distance viz for index.js
+	d3.csv("data/ShotsByYear/shots00-01.csv").then( function (data1) {
+		d3.csv("data/ShotsByYear/shots17-18.csv").then ( function (data2) {
+	console.log("start");
 			data1.forEach((d,i) => {
 				if (
 					d["X Location"] != 0 &&
@@ -117,7 +148,7 @@ function loadData() {
 					}
 				}
 			});
-
+			console.log("middle");
 			var uniqueTeam = [];
 			$.each(team, function(i, el){
 				if($.inArray(el, uniqueTeam) === -1) uniqueTeam.push(el);
@@ -294,7 +325,7 @@ function loadData() {
 				}
 				// end of shot distance viz
 			});
-
+			console.log("end");
 
 		});
 	});
@@ -303,13 +334,11 @@ function loadData() {
 
 
 function brushed() {
-
-	// TO-DO: React to 'brushed' event
-	// Get the extent of the current brush
+	
 	let selectionRange = d3.brushSelection(d3.select(".brush").node());
 
 	// Convert the extent into the corresponding domain values
-	let selectionDomain = selectionRange.map(timeline.x.invert);
+	let selectionDomain = selectionRange.map(linechart.x.invert);
 
 	// Update focus chart (detailed information)
 	areachart.x.domain(selectionDomain)
@@ -323,4 +352,64 @@ function playerChange() {
 	playerChart.playerSelect()
 }
 
+function positionChange() {
+	selectedPosition = document.getElementById("positionSelector").value;
+	playerChart2.positionSelect()
+}
 
+// averages 3PA, 2PA, FGA across 10 seasons
+function processBasicData(basicdata, start_index, end_index) {
+	console.log(basicdata.slice(start_index, end_index));
+	let reduced = basicdata.slice(start_index, end_index).reduce(function(previousValue, currentValue) {
+		return {
+			"FGA": previousValue["FGA"] + currentValue["FGA"],
+			"3PA": previousValue["3PA"] + currentValue["3PA"]
+		};
+	});
+	reduced["2PA"] = reduced["FGA"] - reduced["3PA"];
+	Object.keys(reduced).forEach((element, i) => {
+		reduced[element] /= 10;
+	});
+	return reduced;
+}
+
+function getLastTwo(y) {return (''+y).slice(2)}
+
+async function loadSeasonShots(year) {
+	console.log("Loading data from the " + year + " season")
+	await d3.csv(`data/ShotsByYear/shots${getLastTwo(year-1)}-${getLastTwo(year)}.csv`).then(yearShotData => {
+		yearlyShotData[year] = processData(yearShotData)
+		//console.log("done processing now")
+	})
+}
+
+function processData(data) {
+	let parseDate = d3.timeParse("%Y%m%d")
+	let processedData = data.map(function(row) {
+		let newrow = {
+			date: parseDate(row["Game Date"]),
+			name: row["Player Name"],
+			distance: +row["Shot Distance"],
+			made: row["Shot Made Flag"] === "1" ? true : false,
+			three: row["Shot Type"] === "3PT Field Goal" ? true : false,
+			zone: row["Shot Zone Area"].slice(
+				row["Shot Zone Area"].indexOf('(') + 1,
+				row["Shot Zone Area"].indexOf(')')),
+			team: row["Team Name"],
+			shotx: +row["X Location"],
+			shoty: +row["Y Location"],
+			playoffs: row["Season Type"] === "Playoffs" ? true : false
+		}
+		return newrow
+	})
+
+	processedData.sort((e1, e2) => {return e1.distance - e2.distance})
+
+	return processedData
+}
+
+function getBackgroundData() {
+	years.forEach(y => {
+		loadSeasonShots(y)
+	})
+}

@@ -32,18 +32,6 @@
   opacity: 0.7;
 }
 
-#timeline {
-  height: 100%;
-  width: 100%;
-}
-
-.col-md-8 {
-  margin-top: 5vh;
-  border: thin solid grey;
-  border-radius: 5px;
-  background: rgba(221,221,221,0.45);
-}
-
 /*.row {*/
 /*  height: 15vh;*/
 /*}*/
@@ -82,7 +70,6 @@ h2 {
 }
 
 .area {
-  opacity: 0.7;
   clip-path: url(#clip);
 }
 .area:hover {
@@ -169,4 +156,106 @@ button {
   border-radius: 8px;
   box-shadow: none;
   text-shadow: none;
+}
+
+body {
+  background-image: url('../img/courtbackground.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+h1.title, h3.title {
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px #000000;
+}
+
+section {
+  height: 100%;
+}
+
+div.content-box {
+  margin: 5%;
+  /*width: 0%;*/
+  /*height: 70%;*/
+  border-radius: 5%;
+  padding: 5%;
+  background-color: rgba(256, 256, 256, .8);
+}
+
+.active-filter {
+    background: lightblue;
+}
+
+#sircharles {
+  width: 600px;
+  height: 400px;
+  padding: 20px;
+}
+
+#fp-nav ul li a span,
+.fp-slidesNav ul li a span {
+  background: white;
+}
+
+.bar-x-axis {
+  font-size: 12px;
+}
+
+#playerdetail {
+  border-radius: 10px;
+  border: thin solid grey;
+  background-color: rgba(256, 256, 256, .8);
+  padding: 5px;
+  text-align: center;
+}
+
+#playername {
+  font-weight: bold;
+}
+
+#profiles {
+  height: 50%;
+  width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#playerSelectButtons {
+  position: absolute;
+  right: 700px;
+  padding: 10px;
+  width: 50%
+}
+
+.sectiontitle {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+#positionSelectButtons {
+  position: absolute;
+  right: 825px;
+  padding: 10px;
+  width: 35%
+}
+
+.leagueaverage {
+  stroke-dasharray: 5,5;
+}
+
+#leagueavglabel {
+  font-size: 15px;
+}
+
+#dort {
+  height: 50%;
+  width: 50%;
+  padding: 15px;
+}
+
+.caption {
+  font-style: italic;
 }

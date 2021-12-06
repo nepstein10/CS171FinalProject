@@ -1,6 +1,5 @@
 <!doctype html>
 <html>
-
 <head>
     <meta charset="utf-8">
     <meta name="description" content="">
@@ -22,29 +21,11 @@
           integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="fullpage/dist/fullpage.css" />
 <!--    <link rel="stylesheet" href="css/fontawesome.min.css">-->
-
-    <!-- Custom CSS code -->
-    <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/index.css"/>
 
 
-
-    <!-- Bootstrap 4 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- D3 JavaScript v4 -->
-    <script src="https://d3js.org/d3.v4.min.js"></script>
-    <!-- for map colouring !-->
-    <script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
-    <!-- Load as script for data parsing !-->
-    <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
-
-
+    <!-- Custom CSS code -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -78,20 +59,27 @@
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                The frequency of three point shots has increased dramatically from the 2000s to present.
+            </div>
             <div class="row justify-content-center" style="height: 60vh; background-image: url('img/shelf.png'); background-repeat: no-repeat;
       background-size: 50% 110%; background-position: center;" id="rackCharts">
-                <div id="pie-chart-0" style="height: 100%; width: 10%"></div>
-                <div id="pie-chart-1" style="height: 100%; width: 10%"></div>
-                <div id="pie-chart-2" style="height: 100%; width: 10%"></div>
-                <div id="pie-chart-3" style="height: 100%; width: 10%"></div>
-                <div id="pie-chart-4" style="height: 100%; width: 10%"></div>
+                <div id="pie-chart-0" style="height: 100%; width: 105px"></div>
+                <div id="pie-chart-1" style="height: 100%; width: 105px"></div>
+                <div id="pie-chart-2" style="height: 100%; width: 105px"></div>
+                <div id="pie-chart-3" style="height: 100%; width: 105px"></div>
+                <div id="pie-chart-4" style="height: 100%; width: 105px"></div>
             </div>
+            <h10 style="display: block">* Only includes 2020 and 2021 seasons</h10>
         </div>
     </div>
 
 
     <div class="section">
         <div class="content-box">
+            <div class="sectiontitle">
+                The rise in three point frequency has come at the cost of long twos.
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-8">
@@ -108,7 +96,8 @@
                 <div> When the frequency of one type of shot rises, the frequency of another must fall.
                     Long mid-range shots—favorites of legends of the sport like Kobe Bryant and Allen Iverson—have been
                     largely discarded, swapped for three pointers that are just a few steps further from the basket,
-                    but 50% higher in value.
+                    but 50% higher in value. Use your mouse to brush over the chart on the right to control the time
+                    frame of the left-hand chart.
                 </div>
             </div>
         </div>
@@ -116,19 +105,129 @@
 
     <div class="section">
         <div class="content-box">
-            <div class="row col-8">
-                <div id="playerSelectButtons"></div>
+            <div class="sectiontitle">
+                Does this trend hold through for all groups of players?
             </div>
-
-            <div class="row col-8">
-                <div id="positionFilter"></div>
-            </div>
-
-            <div class="row justify-content-center" style="height: 60vh">
-                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
+            <div>
+                So the league as a whole is embracing the three point shot like never before and casting aside the once
+                celebrated long-two. But how does this change look at the individual level? Let's start with the league's
+                best. The players featured in the next chart are superstars, considered the best-of-the-best of their
+                respective eras. We have organized these players into four eras—the 1980s, 1990s, 2000s, and 2010s—based
+                on when they were drafted and/or achieved their peak level of play. Let's see how they stack up to each
+                other when it comes to three point shot selection.
             </div>
         </div>
     </div>
+
+    <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                The best players of today are taking more threes than those of past eras.
+            </div>
+            <div class="row col-8">
+                <div id="playerSelectButtons"></div>
+            </div>
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="player-chart" style="height: 100%; width: 100%"></div>
+            </div>
+
+            <div>
+                Decade-by-decade, the three point shot has become more popular among the league's best players. But what is
+                particularly startling is the rate at which players of the modern era are taking them compared
+                to past generations. Players like Steph Curry and James Harden have barely scratched the career longevitiy
+                of a Kobe Bryant, but have already far surpassed him when it comes to total three pointers taken. There
+                are of course exceptions to this trend. Players such as Giannis Antetokounmpo and Anthony Davis show that
+                you can still be a superstar in today's league while doing most of your damage inside the three point line.
+            </div>
+        </div>
+    </div>
+
+
+    <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                The three is being more heavily adopted across all positions, even big men.
+            </div>
+            <div id="positionSelectButtons">
+                <select id='positionSelector' className="custom-select align-self-center" style="width: 50%"
+                        onChange="positionChange()">
+                    <option value="NA" selected>Filter by Player Position</option>
+                    <option value="Guard">Guard</option>
+                    <option value="Wing">Wing</option>
+                    <option value="Big">Big</option>
+                </select>
+            </div>
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="player-chart-2" style="height: 100%; width: 100%"></div>
+            </div>
+            <div>
+                Use the position filter to compare players across the same position. The trend is consistent across the
+                board: players of today who are just halfway or less into their careers have already
+                launched more threes than many of their peers from past eras. The trend for bigs is
+                especially eye-opening: even skilled post players like Joel Embiid and Nikola Jokic must take a steady
+                diet of threes just by nature of the way the game is played today. A few outliers aside, most bigs in
+                the 90s and 2000s would rarely ever attempt a three. Notice the heavy clustering of lines at the
+                bottom of the big-filtered chart.
+            </div>
+        </div>
+    </div>
+
+
+
+    <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                What about the non-superstar players?
+            </div>
+            <div>
+                Limiting our analysis to the ~10 best players in the league in a few different eras does not truly
+                capture how extreme the three point revolution has been. To do that, we must look at the rest of the
+                the league—average NBA players who aren't the stars of the show.
+            </div>
+            <img src="img/dort.jpg" id="dort">
+            <div class="caption">
+                Luguentz Dortz (above), a young defensive specialist and below average three point shooter, is
+                taking more three point shots per game this season than Reggie Miller, the 3rd all-time leader in
+                three point makes, did in any season of his 18-year career.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                Role players are launching the three like never before.
+            </div>
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="bar-chart" style="height: 100%; width: 100%"></div>
+            </div>
+            <div>
+                Think guys like Larry Bird, Ray Allen, and Reggie Miller would frequently launch the ball from deep?
+                Well, you might want to re-think that notion as we compare them to some of the current league’s average
+                Joes. What were once historic rates of three point shot attempts are now being outdone by
+                perennial bench players.
+            </div>
+        </div>
+    </div>
+
+    <div class="section">
+        <div class="content-box">
+            <div class="sectiontitle">
+                You don't need to be a historic shooter to have the greenlight in today's league.
+            </div>
+            <div class="row justify-content-center" style="height: 60vh">
+                <div class="align-self-center" id="bar-chart-2" style="height: 100%; width: 100%"></div>
+            </div>
+            <div>
+                In the 90s and 2000s, if you wanted to take a bunch of threes, you had to be an excellent shooter. The
+                same cannot be said anymore in this era of basketball. Average shooters are hoisting up as many,
+                or more, shots than the likes of Ray Allen and Reggie Miller. When looking at the chart above, keep
+                in mind that the difference between a ~40% and ~35% three point shooter is considered substantial by
+                NBA standards.
+            </div>
+        </div>
+    </div>
+
 
     <div class="section">
         <div class="content-box">
@@ -143,6 +242,78 @@
             </div>
         </div>
     </div>
+
+    <!-- below is for the shot distance visualization-->
+    <div class="section">
+        <div class="content-box">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card" id="title">
+                            <div class="card-body">
+                                <h3>
+                                    Shot Distance Differences between Regular and Playoff Seasons
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+
+                <div class="row">
+                    <div id="innerDiv">
+					<span>
+						<label id="seasontype" for="seasons">Select Playoff</label>
+						<label class="switch">
+							<input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
+							<span class="slider round"></span>
+						  </label>
+                        <br>
+                        <div>
+						<label for="playername">Select Player</label>
+						<select name="playername" id="player"></select>
+                        </div>
+                        <div>
+						<label for="teamname">Select Team</label>
+						<select name="teamname" id="team"></select>
+                        </div>
+                        <div>
+						<label for="year">Select Year</label>
+						<select name="year" id="year"></select>
+                        </div>
+					</span>
+                    </div>
+                </div>
+
+                <div id="regularseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart1">
+                                <h5 class="card-title">
+                                    Regular Season
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:none;" id="playoffseason" class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-body" id="chart2">
+                                <h5 class="card-title">
+                                    Playoffs
+                                </h5>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- end of section for shot distance viz-->
+
 
     <div class="section">
         <div class="content-box">
@@ -171,73 +342,23 @@
         </div>
     </div>
 
-    <!-- below is for the shot distance visualization-->
-    <div class="section">
-        <div class="content-box">
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card" id="title">
-                            <div class="card-body">
-                                <h3>
-                                    Shot Distances Difference between Regular and Playoff Seasons
-                                </h3>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br />
-
-                <div class="row justify-content-center">
-                    <div id="innerDiv">
-					<span>
-						<label id="seasontype" for="seasons">Select Playoff</label>
-						<label class="switch">
-							<input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
-							<span class="slider round"></span>
-						  </label>
-						<label for="playername">Select Player</label>
-						<select name="playername" id="player"></select>
-						<label for="teamname">Select Team</label>
-						<select name="teamname" id="team"></select>
-						<label for="year">Select Year</label>
-						<select name="year" id="year"></select>
-					</span>
-                    </div>
-                </div>
-
-                <div id="regularseason" class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body" id="chart1">
-                                <h5 class="card-title">
-                                    Regular Season
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <br>
-                <div style="display:none;" id="playoffseason" class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body" id="chart2">
-                                <h5 class="card-title">
-                                    Playoffs
-                                </h5>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
-
 </div>
 
 
+<!-- Bootstrap 4 -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<!-- D3 JavaScript -->
+<script src="https://d3js.org/d3.v4.min.js"></script>
+<!-- for map colouring !-->
+<script src="https://d3js.org/d3-scale-chromatic.v1.min.js"></script>
+<!-- Load as script for data parsing !-->
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/0.10.0/lodash.min.js"></script>
 
 
 <!-- Load JS libraries -->
@@ -248,8 +369,6 @@
 <script src="https://d3js.org/d3.v7.min.js"></script>
 <script src="https://unpkg.com/d3-simple-slider"></script>
 
-
-
 <!-- fullpage -->
 <script type="text/javascript" src="fullpage/dist/fullpage.js"></script>
 <script src="js/scroller.js"></script>
@@ -258,26 +377,23 @@
 <script src="js/stackedAreaChart.js"></script>
 <script src="js/timeline.js"></script>
 <script src="js/teamColors.js"></script>
+
+<script src="js/index.js"></script>
 <script src="js/shotchart.js"></script>
 <script src="js/shotChartControls.js"></script>
 <script src="js/playerChart.js"></script>
 <script src="js/pieChart.js"></script>
-
 <script src="js/lineChart.js"></script>
-
-<script src="js/shotDistance.js"></script>
-
+<script src="js/barchart.js"></script>
+<script src="js/barchart2.js"></script>
 <script src="dist/bundle.js"></script>
 
 <!-- Load data, create visualizations -->
 <script src="js/main.js"></script>
-
-</body>
-
 <!--
 <script>
-    window.onload = loadChartData(); //for first time chart loading
+    window.onload = loadChartData()
 </script>
 -->
-
+</body>
 </html>
