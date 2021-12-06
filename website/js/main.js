@@ -13,7 +13,9 @@ let years = [...Array(23).keys()].map(d=>d+1998)
 
 // Start application by loading the data
 loadData();
+
 loadChartData();
+
 //sleep(3000)
 //getBackgroundData(); //Process some data after rest of page loads
 
@@ -70,16 +72,16 @@ function loadData() {
 		row["3PA"] = +row["3PA"];
 		row["FGA"] = +row["FGA"];
 		return row;
-	}).then(basicdata => {
+	}). then(basicdata=>{
 		let titles = ["1980s", "1990s", "2000s", "2010s", "2020s*"];
 		let chartNum = 0;
 		for (let i = 41; i >= 11; i -= 10) {
-			let processed = processBasicData(basicdata, i - 9, i + 1);
-			let pieChart = new PieChart('pie-chart-' + chartNum.toString(), processed, titles[chartNum]);
+			let processed = processBasicData(basicdata, i-9, i+1);
+			let pieChart = new PieChart('pie-chart-'+chartNum.toString(), processed, titles[chartNum]);
 			chartNum++;
 		}
 		let processed = processBasicData(basicdata, 0, 2);
-		let pieChart = new PieChart('pie-chart-' + chartNum.toString(), processed, titles[chartNum]);
+		let pieChart = new PieChart('pie-chart-'+chartNum.toString(), processed, titles[chartNum]);
 		chartNum++;
 
 	});
@@ -90,7 +92,6 @@ function loadChartData() {
 	// shot distance viz for shotDistance.js
 	d3.csv("data/ShotsByYear/shots00-01.csv").then( function (data1) {
 		d3.csv("data/ShotsByYear/shots17-18.csv").then ( function (data2) {
-	console.log("start");
 			data1.forEach((d,i) => {
 				if (
 					d["X Location"] != 0 &&
@@ -119,7 +120,6 @@ function loadChartData() {
 					}
 				}
 			});
-
 			data2.forEach((d) => {
 				if (
 					d["X Location"] != 0 &&
@@ -332,7 +332,6 @@ function loadChartData() {
 }
 
 
-
 function brushed() {
 	
 	let selectionRange = d3.brushSelection(d3.select(".brush").node());
@@ -404,7 +403,6 @@ function processData(data) {
 	})
 
 	processedData.sort((e1, e2) => {return e1.distance - e2.distance})
-
 	return processedData
 }
 
