@@ -176,12 +176,24 @@ section {
 }
 
 div.content-box {
-  margin: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
   /*width: 0%;*/
-  /*height: 70%;*/
-  border-radius: 5%;
+  height: 90vh;
+  border-radius: 5vh;
   padding: 5%;
   background-color: rgba(256, 256, 256, .8);
+}
+
+div.content-box.small {
+  height: 40vh;
+}
+
+.ball-chart {
+  height: 100%;
+  width: 15%;
+  /*margin-left: 1%;*/
+  /*margin-right: 1%;*/
 }
 
 .active-filter {
@@ -189,9 +201,9 @@ div.content-box {
 }
 
 #sircharles {
-  width: 600px;
-  height: 400px;
-  padding: 20px;
+  width: 60vh;
+  height: 40vh;
+  padding: 2vh;
 }
 
 #fp-nav ul li a span,
@@ -230,11 +242,6 @@ div.content-box {
   width: 50%
 }
 
-.sectiontitle {
-  font-size: 24px;
-  font-weight: bold;
-}
-
 #positionSelectButtons {
   position: absolute;
   right: 825px;
@@ -256,6 +263,26 @@ div.content-box {
   padding: 15px;
 }
 
+
+/* TEXT CSS */
+.sectiontitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 10%;
+}
+
+p.story-text {
+
+}
+
+.story-text {
+  font-size: 1rem;
+  text-align: justify;
+  /*background-color: rgba(256, 256, 256, .8);*/
+}
+
 .caption {
+  font-size: .8rem;
   font-style: italic;
+  text-align: center;
 }
