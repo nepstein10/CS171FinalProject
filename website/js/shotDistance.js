@@ -1,3 +1,4 @@
+
 function addOptions(data, id) {
     $("#"+id).find("option").remove();
     var count = data.length;
@@ -62,15 +63,15 @@ function multiLine(data, id) {
             "translate(" + margin.left + "," + margin.top + ")"
         );
 
-    // var sumstat1 = d3
-    //     .nest() // nest function allows to group the calculation per level of a factor
-    //     .key(function (d) {
-    //         return d.name;
+    // var sumstat1 = d3.nest() // nest function allows to group the calculation per level of a factor
+     //    .key(function (d) {
+     //        return d.name;
     //     })
-    //     .entries(data);
+     //    .entries(data);
 
     var sumstat1 = Array.from(d3.group(data, d => d.name), ([key, values]) => ({key, values}));
     console.log(sumstat1);
+    //update nest
 
     var max=0;
 

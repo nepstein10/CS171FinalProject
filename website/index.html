@@ -154,9 +154,10 @@
                     when looking just at the recent seasons!
                 </p>
                 <div class="row" style="height: 75%;">
-                    <div class="col-3" id="innerDiv" style="height: 100%">
-                        <label id="seasontype" for="seasonselector">Select Playoffs</label>
-                        <label class="switch">
+                    <div class="col-3" id="innerDiv" style="height: 500px">
+
+                        <label style="display: none" id="seasontype" for="seasonselector">Select Playoffs</label>
+                        <label style="display: none" class="switch">
                             <input data-click="regular" id="seasonselector" name="seasons" type="checkbox" checked>
                             <span class="slider round"></span>
                         </label>
@@ -173,8 +174,8 @@
                     </div>
                     <div class="col-9">
                         <div id="regularseason" class="row">
-                            <div class="card">
-                                <div class="card-body" id="chart1" style="height: 100%">
+                            <div>
+                                <div id="chart1" style="height: 500px">
                                     <h5 class="card-title">
                                         Regular Season
                                     </h5>
@@ -182,10 +183,10 @@
                             </div>
                         </div>
 
-                        <div style="display:none;" id="playoffseason" class="row">
+                        <div id="playoffseason" class="row">
                             <div class="col-12">
-                                <div class="card">
-                                    <div class="card-body" id="chart2" style="height: 100%;">
+                                <div>
+                                    <div id="chart2" style="height: 500px">
                                         <h5 class="card-title">
                                             Playoffs
                                         </h5>
@@ -193,6 +194,7 @@
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
             </div>
