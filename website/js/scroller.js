@@ -1,5 +1,5 @@
 new fullpage('#fullpage', {
-    touchSensitivity: 15,
+    touchSensitivity: 5,
     navigation: true,
     navigationTooltips: []
 

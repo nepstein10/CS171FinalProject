@@ -1,3 +1,4 @@
+
 function addOptions(data, id) {
     $("#"+id).find("option").remove();
     var count = data.length;
@@ -36,13 +37,16 @@ function ExcelDateToJSDate(serial) {
 
 function multiLine(data, id) {
 
-    var box = document.querySelector('#title');//selecting the div with id #chart1
-    var width = box.offsetWidth/4 *3.75;// taking width equal to  #chart1 width
+    // var box = document.querySelector('#chart1');//selecting the div with id #chart1
+    // var width = box.offsetWidth/4 *3.75;// taking width equal to  #chart1 width
+    //
+    // var height=screen.height/5;
+    // height=height*2.3;//taking height equal to 3.3/5 of height of screen
 
-    var height=screen.height/5;
-    height=height*2.3;//taking height equal to 3.3/5 of height of screen
+    let height = 2 / 3 * document.getElementById("chart1").getBoundingClientRect().height
+    let width = document.getElementById("chart1").getBoundingClientRect().width
 
-    var margin = { top: 10, right: 30, bottom: 30, left: 20 };
+    var margin = { top: 0, right: 30, bottom: 30, left: 20 };
 
     width = width - margin.left - margin.right;
     height = height - margin.top - margin.bottom;
@@ -59,12 +63,15 @@ function multiLine(data, id) {
             "translate(" + margin.left + "," + margin.top + ")"
         );
 
-    var sumstat1 = d3
-        .nest() // nest function allows to group the calculation per level of a factor
-        .key(function (d) {
-            return d.name;
-        })
-        .entries(data);
+    // var sumstat1 = d3.nest() // nest function allows to group the calculation per level of a factor
+     //    .key(function (d) {
+     //        return d.name;
+    //     })
+     //    .entries(data);
+
+    var sumstat1 = Array.from(d3.group(data, d => d.name), ([key, values]) => ({key, values}));
+    console.log(sumstat1);
+    //update nest
 
     var max=0;
 

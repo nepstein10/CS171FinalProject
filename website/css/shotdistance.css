@@ -1,19 +1,6 @@
-
-#innerDiv {
-    /* width: 100%;
-    margin: 0 auto; */
-    position:relative;
-    left:25%;
-  }
-
-select{
+#innerDiv select{
     text-align:center;
-}
-
-#title{
-    background: rgba(246, 247, 248, 0.3);
-    text-align: center;
-    color: black;
+    width: 75%;
 }
 
 h3{

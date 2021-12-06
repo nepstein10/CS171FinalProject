@@ -12,7 +12,7 @@ class BarChart {
     initVis() {
         let vis = this;
 
-        vis.margin = {top: 100, right: 20, bottom: 60, left: 60};
+        vis.margin = {top: 25, right: 20, bottom: 100, left: 60};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
@@ -84,7 +84,7 @@ class BarChart {
             'Larry Bird']);
         vis.y.domain([0, d3.max(vis.data, d=>d['3PA'])]);
 
-        console.log(vis.x("Luguentz Dort"))
+        //console.log(vis.x("Luguentz Dort"))
 
         //Draw rectangles
         vis.bars = vis.svg.selectAll("rect")
@@ -145,12 +145,20 @@ class BarChart {
 
         //Update axis
         vis.svg.select(".y-axis").call(vis.yAxis);
-        vis.svg.select(".x-axis").call(vis.xAxis);
+        vis.svg.select(".x-axis").call(vis.xAxis)
+            .selectAll("text")
+            .attr("x", 0)
+            .attr("y", 9)
+            .attr("dy", "-.75rem")
+            .attr("dx", ".75rem")
+            .attr("transform", `rotate(90)`)
+            .style("text-anchor", "start");
+
 
         vis.svg.append("text")
             .attr("transform", "translate(" + (vis.width - 165) + "," + (vis.y(6.67) - 10) + ")")
             .attr("id", "leagueavglabel")
-            .text("Current Season Average")
+            .text("2021 League Average")
 
         vis.svg.append("circle")
             .attr("fill", "#e15759")
@@ -173,9 +181,5 @@ class BarChart {
             .attr("transform", "translate(" + (3 * vis.width / 4 + 10) + ", 24)")
             .attr("class", "barchartlabel")
             .text("Modern Day Players")
-
     }
-
-
-
 }

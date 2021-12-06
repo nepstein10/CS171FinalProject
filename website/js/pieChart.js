@@ -21,8 +21,8 @@ class PieChart {
         let vis = this;
 
         // margin conventions
-        vis.margin = {top: 10, right: 0, bottom: 10, left: 0};
-        vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
+        vis.margin = {top: 10, right: 2, bottom: 10, left: 2};
+        vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().height/5 - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
         // init drawing area
@@ -37,21 +37,21 @@ class PieChart {
             .attr('class', 'title pie-title')
             .append('text')
             .text(vis.title)
-            .attr('transform', `translate(${51}, 90)`)
+            .attr('transform', `translate(${vis.width/2}, 90)`)
             .attr('text-anchor', 'middle');
 
         // pie chart setup
         vis.pieChartGroup = vis.svg
             .append('g')
             .attr('class', 'pie-chart')
-            .attr("transform", "translate(" + 51 + "," + ((vis.height / 2) - 15) + ")");
+            .attr("transform", "translate(" + vis.width/2 + "," + ((vis.height / 2) - 15) + ")");
 
         // Define a default pie layout
         vis.pie = d3.pie()
             .value(d => d.value);
 
         // Pie chart settings
-        vis.outerRadius = 50;
+        vis.outerRadius = vis.width/2;
         vis.innerRadius = 0;      // Relevant for donut charts
 
         // Path generator for the pie segments
@@ -160,9 +160,8 @@ class PieChart {
                     .style("left", event.pageX + 20 + "px")
                     .style("top", event.pageY + "px")
                     .html(`
-                     <div style="border: thin solid grey; border-radius: 5px; background: lightgrey; padding: 20px">
-                         <h4>${d.data.label}</h4>
-                         <h4> value: ${Math.round(d.value * 100)}%</h4>           
+                     <div style="border: thin solid grey; border-radius: 5px; background: white; padding: 5px">
+                         <h4>${Math.round(d.value * 100)}%</h4>           
                      </div>`);
 
             })

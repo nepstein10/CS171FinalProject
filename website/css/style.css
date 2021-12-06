@@ -12,17 +12,12 @@
   position: absolute;
   text-align: center;
   font: 12px sans-serif;
-  /*  pointer-events: none;	This line needs to be removed */
 }
 #pieTooltip h3,h4 {
   text-align: left;
 }
 #pieTooltip h4 {
   font: 14px sans-serif;
-}
-
-#rackCharts {
-  background-image: url("/Users/eshikasaxena/Documents/CS171/CS171FinalProject/website/img/shelf.png");
 }
 
 .connection {
@@ -32,14 +27,20 @@
   opacity: 0.7;
 }
 
-/*.row {*/
-/*  height: 15vh;*/
-/*}*/
+.row {
+  height: 100%;
+}
 
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #f7f7f7;
   text-align: center;
+  min-height: 100%;
+  margin: auto;
+  background-image: url('../img/courtbackground.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
 }
 
 h1 {
@@ -80,18 +81,6 @@ h2 {
   stroke: #fff;
   fill-opacity: .125;
   shape-rendering: crispEdges;
-}
-
-
-
-body {
-  min-height: 100%;
-  text-align: center;
-  margin: auto;
-}
-
-* {
-  font-family: 'Poppins', sans-serif;
 }
 
 #root {
@@ -158,13 +147,6 @@ button {
   text-shadow: none;
 }
 
-body {
-  background-image: url('../img/courtbackground.jpg');
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-}
-
 h1.title, h3.title {
   color: white;
   font-weight: bold;
@@ -176,12 +158,30 @@ section {
 }
 
 div.content-box {
-  margin: 5%;
+  margin-left: 5%;
+  margin-right: 5%;
   /*width: 0%;*/
-  /*height: 70%;*/
-  border-radius: 5%;
+  height: 90vh;
+  border-radius: 5vh;
   padding: 5%;
   background-color: rgba(256, 256, 256, .8);
+}
+
+div.content-box.small {
+  height: 40vh;
+}
+
+.content-box.small .sectiontitle {
+  height: 25%;
+}
+
+.ball-chart {
+  height: 100%;
+  width: 12vh;
+  padding-right: 0px;
+  padding-left: 0px;
+  /*margin-left: 1%;*/
+  /*margin-right: 1%;*/
 }
 
 .active-filter {
@@ -189,9 +189,9 @@ div.content-box {
 }
 
 #sircharles {
-  width: 600px;
-  height: 400px;
-  padding: 20px;
+  width: 60vh;
+  height: 40vh;
+  padding: 1vh;
 }
 
 #fp-nav ul li a span,
@@ -223,25 +223,6 @@ div.content-box {
   margin-right: auto;
 }
 
-#playerSelectButtons {
-  position: absolute;
-  right: 700px;
-  padding: 10px;
-  width: 50%
-}
-
-.sectiontitle {
-  font-size: 24px;
-  font-weight: bold;
-}
-
-#positionSelectButtons {
-  position: absolute;
-  right: 825px;
-  padding: 10px;
-  width: 35%
-}
-
 .leagueaverage {
   stroke-dasharray: 5,5;
 }
@@ -251,13 +232,36 @@ div.content-box {
 }
 
 #dort {
-  height: 50%;
-  width: 50%;
+  height: 65%;
   padding: 15px;
 }
 
+
+/* TEXT CSS */
+.sectiontitle {
+  font-size: 1.5rem;
+  font-weight: bold;
+  height: 10%;
+}
+
+.story-text {
+  font-size: 1rem;
+  text-align: justify;
+  /*background-color: rgba(256, 256, 256, .8);*/
+}
+
+.story-text.small {
+  font-size: .75rem;
+}
+
 .caption {
+  font-size: .8rem;
   font-style: italic;
+  text-align: center;
+}
+
+.instructions {
+  font-weight: bold;
 }
 
 #playerChartToolTip {
@@ -265,4 +269,8 @@ div.content-box {
   border-radius: 5px;
   background: white;
   padding: 10px;
+}
+
+.controlButton {
+  font-size: .8rem;
 }

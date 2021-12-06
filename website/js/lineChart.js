@@ -13,7 +13,7 @@ class LineChart {
     initVis() {
         let vis = this;
 
-        vis.margin = {top: 100, right: 20, bottom: 60, left: 60};
+        vis.margin = {top: 25, right: 20, bottom: 25, left: 50};
 
         vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;

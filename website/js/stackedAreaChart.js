@@ -28,11 +28,12 @@ constructor(parentElement, data) {
 	initVis(){
 		let vis = this;
 
-		vis.margin = {top: 100, right: 150, bottom: 60, left: 100};
+		vis.margin = {top: 25, right: 125, bottom: 25, left: 75};
 
 		vis.width = document.getElementById(vis.parentElement).getBoundingClientRect().width - vis.margin.left - vis.margin.right;
 		vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
 
+		console.log(vis.height)
 		// SVG drawing area
 		vis.svg = d3.select("#" + vis.parentElement).append("svg")
 			.attr("width", vis.width + vis.margin.left + vis.margin.right)
