@@ -107,9 +107,6 @@ CS171FinalProject/
 Index.html
 <br /><br />
 
-Data Used:
-<br />
-
 LICENSE:
 <br />
 See License.txt, used for fullpage plugin
