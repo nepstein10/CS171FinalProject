@@ -31,7 +31,7 @@ class ShotChartControls {
                 color: "",
                 subset: 0.1,
                 message: "The new decade shows how far the league has come in the 3-point revolution. " +
-                    "Shots now mostly come from way inside, or way outside! Check out the \"2020\" " +
+                    "Shots now mostly come from way inside, or way outside! Check out the \"2000\" " +
                     "filter (how the page loaded) to see what shooting tendencies looked like 20 years ago!"
             },
             {
@@ -147,15 +147,16 @@ class ShotChartControls {
         this.d.append("br")
         this.d.append("span")
             .attr("class", "instructions")
-            .html("Explore the data by:")
+            .html("Explore the data:")
         this.d.append("br")
-        let tlabel = this.d.append("label")
-            .attr("for", "shotChartTeamSelect")
-            .html("Team: ")
+        // let tlabel = this.d.append("label")
+        //     .attr("for", "shotChartTeamSelect")
+        //     .style("width", "30%")
+        //     .html("Team: ")
         let teamSelect = this.d.append("select")
             .attr("id", "shotChartTeamSelect")
             .attr("class", "active-filter")
-            .style("width", "75%")
+            .style("width", "100%")
             .on("change", function(e) {
                 console.log(e)
                 controller.selectChange()
@@ -165,7 +166,7 @@ class ShotChartControls {
             .property("value", "selectByTeam")
             .property("hidden", true)
         teamSelect.append("option")
-            .html("Subsample of All")
+            .html("Subsample of All Teams")
             .property("value", "subsample")
             .property('selected', true)
         Object.entries(teamArrs).forEach(([key, val]) => {
@@ -173,21 +174,27 @@ class ShotChartControls {
                 .html(key)
         })
 
-        let plabel = this.d.append("label")
-            .attr("for", "playerSearchBox")
-            .html("Player: ")
-        let playerSearchBox = this.d.append("input")
-            .attr("type", "text")
-            .attr("id", "playerSearchBox")
-            .attr("name", "playerSearchBox")
-            .property("placeholder", "Player Search")
-        this.d.append("button")
-            .attr("class", "controlButton")
-            .attr("type", "button")
-            .html("Search")
-            .on("click", function(e) {
-                controller.searchChange()
-            })
+        // let plabel = this.d.append("label")
+        //     .attr("for", "playerSearchBox")
+        //     .html("Player: ")
+        let pSearchRow = this.d.append("div")
+            .attr("class", "row")
+        let playerSearchBox = pSearchRow.append("div")
+            .attr("class", "col-7")
+                .append("input")
+                .attr("type", "text")
+                .attr("id", "playerSearchBox")
+                .attr("name", "playerSearchBox")
+                .property("placeholder", "Player Search")
+        pSearchRow.append("div")
+            .attr("class", "col-5")
+                .append("button")
+                .attr("class", "controlButton")
+                .attr("type", "button")
+                .html("Search")
+                .on("click", function(e) {
+                    controller.searchChange()
+                })
     }
 
     selectChange() {
