@@ -116,7 +116,16 @@ class ShotChart {
         let filterBools = []
 
         if(vis.filters.players.length) {
-            filterBools.push(row => {return vis.filters.players.includes(row.name)})
+            filterBools.push(row => {
+                let retVal = false
+                vis.filters.players.forEach(n => {
+                        if (row.name.toLowerCase().includes(n.toLowerCase())) {
+                            retVal = true
+                        }
+                    }
+                )
+                return retVal
+            })
         }
         if(vis.filters.teams.length) {
             filterBools.push(row => {return vis.filters.teams.includes(row.team)})
@@ -126,7 +135,9 @@ class ShotChart {
         } else if (vis.filters.playoffs === "regular") {
             filterBools.push(row => {return !row.playoffs})
         }
-        console.log(vis.displayData)
+        //console.log(vis.displayData)
+
+        let playerSet = new Set()
         vis.displayData = vis.displayData.filter(row => {
             let retVal = true
             filterBools.forEach(b => {
@@ -137,9 +148,14 @@ class ShotChart {
             if (retVal && vis.filters.subset < 1 && Math.random() > vis.filters.subset) {
                 retVal = false
             }
+            if (retVal && vis.filters.players.length) {
+                playerSet.add(row.name)
+            }
             return retVal
         })
         //console.log("Display data:", vis.displayData)
+        if (vis.filters.players.length && playerSet.size) {vis.listPlayers(playerSet)}
+        console.log("Players shown: ", playerSet)
 
         // Apply keys
         let keyCounters = {"BC": 0, "C": 0, "LC": 0, "RC": 0, "R": 0, "L": 0}
@@ -236,5 +252,18 @@ class ShotChart {
             await loadSeasonShots(year)
         }
         vis.wrangleData()
+    }
+
+    listPlayers(pset) {
+        let vis = this
+        let str = "Players shown: "
+        pset.forEach(val => {
+            str += val + ', '
+        })
+        function getIndex() {
+            let ind = vis.message.lastIndexOf('<br/>')
+            return ind ? ind + 5 : 0
+        }
+        vis.message = str.slice(0, -2) + "<br/> <br/>" + vis.message.slice(getIndex())
     }
 }
