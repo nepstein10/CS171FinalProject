@@ -262,8 +262,9 @@ class ShotChart {
         })
         function getIndex() {
             let ind = vis.message.lastIndexOf('<br/>')
-            return ind ? ind + 5 : 0
+            return ind >= 0 ? ind + 5 : 0
         }
+        console.log(vis.message.lastIndexOf('<br/>'), getIndex())
         vis.message = str.slice(0, -2) + "<br/> <br/>" + vis.message.slice(getIndex())
     }
 }
