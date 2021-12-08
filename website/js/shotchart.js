@@ -32,7 +32,7 @@ class ShotChart {
 
         let H_W_RATIO = 1455.0 / 1365.0 // Ratio of court jpg, want to maintain that
 
-        vis.margin = {top: 10, right: 10, bottom: 60, left: 10}
+        vis.margin = {top: 10, right: 10, bottom: 50, left: 10}
         vis.height = document.getElementById(vis.parentElement).getBoundingClientRect().height - vis.margin.top - vis.margin.bottom;
         console.log(vis.height)
         vis.width = vis.height * H_W_RATIO

@@ -11,6 +11,30 @@ class ShotChartControls {
         this.d = d3.select('#'+this.parentElement)
         let buttonControls = [
             {
+                label: "2000",
+                players: [],
+                teams: [],
+                playoffs: "all",
+                seasons: [2000, 2000],
+                color: "",
+                subset: 0.1,
+                message: "The turn of the 20th century was an era full of great players, many of whom " +
+                    "shot frequently from the low post or long pull-up 2-pointers. Check out the \"2020\" " +
+                    "filter to see how shooting tendencies have changed in the league!"
+            },
+            {
+                label: "2020",
+                players: [],
+                teams: [],
+                playoffs: "all",
+                seasons: [2020, 2020],
+                color: "",
+                subset: 0.1,
+                message: "The new decade shows how far the league has come in the 3-point revolution. " +
+                    "Shots now mostly come from way inside, or way outside! Check out the \"2020\" " +
+                    "filter (how the page loaded) to see what shooting tendencies looked like 20 years ago!"
+            },
+            {
                 label: "Steph Curry",
                 players: ["Stephen Curry"],
                 teams: [],
